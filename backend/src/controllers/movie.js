@@ -8,6 +8,7 @@ exports.getAllMovies = (req, res, next) => {}
 exports.createMovie = (req, res, next) => {
     
     const movie = {...req.body};
+    console.log(movie)
     console.log(query)
     if (req.files['posterFile'] && req.files['posterFile'][0]) {
         const posterUrl = `${req.protocol}://${req.get('host')}/images/${
@@ -21,21 +22,23 @@ exports.createMovie = (req, res, next) => {
         }`;
     }
     query(
-        'INSERT INTO Movie(id, title, poster, posterAlt, releaseDate, length, director, cast, synopsis, pg, trailer, warning, category) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        'INSERT INTO Movie(id, title, poster, posterAlt, coverImgUrl, coverImgAlt, releaseDate, length, director, cast, synopsis, pg, trailer, warning, category) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         [
             v4(),
             movie.movieTitle, 
             movie.posterUrl, 
-            movie.posterAlt, 
-            movie.releaseDate[1], 
-            movie.length,
+            movie.posterAlt,
+            movie.coverImgUrl,
+            movie.coverImgAlt,
+            movie.releaseDate, 
+            movie.movieLength,
             movie.director,
             movie.mainActors,
             movie.synopsis,
             movie.pg,
             movie.trailerUrl,
             movie.warnings,
-            movie.category
+            movie.categories
         ],
         (err, result) => {
             if (err) {

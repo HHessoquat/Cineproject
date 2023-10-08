@@ -33,6 +33,8 @@ function MovieManagerForm() {
         movieTitle: '',
         posterUrl: '',
         posterAlt: '',
+        coverImgUrl: '',
+        coverImgAlt: '',
         releaseDate: '',
         movieLength: null,
         synospis: '',
@@ -86,11 +88,13 @@ function MovieManagerForm() {
         const dataToSend = new FormData();
         
         for (const key in formData) {
+            if (key !== 'releaseDate' && key !=='movieLength') {
             dataToSend.append(key, formData[key]);
+            }
         }
         
         dataToSend.append('movieLength', Number(formData.movieLength));
-        dataToSend.append('releaseDate', new Date(formData.releaseDate).getTime());
+        dataToSend.append('releaseDate', new Date(formData.releaseDate).toISOString().slice(0, 19).replace('T', ' '));
 
         fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
             method: 'POST',
