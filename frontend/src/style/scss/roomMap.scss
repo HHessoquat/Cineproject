@@ -1,0 +1,13 @@
+.roomMapSeat{
+    width: 30px;
+    Height: 30px;
+}
+.roomMap_btn{
+    background-color: #ffffff00;
+    border: none;
+    margin: 0;
+    padding: 0;
+    &:hover {
+        cursor: pointer;
+    }
+}
