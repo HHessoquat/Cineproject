@@ -1,6 +1,37 @@
-import { movie } from '../../assets/Movies';
+import {useState, useEffect} from 'react';
+import  { useParams } from 'react-router-dom'
 
 function Movie() {
+    const {idMovie} = useParams()
+    const [movie, setMovie] = useState({})
+    
+    useEffect(() => {
+
+            async function fetchMovieDatas() {
+                try {
+                    const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`, {
+                        method: 'GET',
+                        headers: {
+                            accept: 'application/json'
+                        }
+                    })
+                    
+                    if (!response.ok) {
+                        throw new Error('erreur lors de la récupération du film');
+                    }
+                    
+                    const movieDatas = await response.json();
+                    setMovie(movieDatas);
+                    
+                } catch (error) {
+                    console.log(error);
+                    }
+                }
+            fetchMovieDatas();
+            }
+            , [])
+    
+    
     return (
         <>
             <h1 id="moviePage_title">{movie.title}</h1>
@@ -12,11 +43,11 @@ function Movie() {
                 />
                 <aside id="movie_info">
                     <ul>
-                        <li>De {movie.director}</li>
-                        <li>Avec {movie.mainActors.map((c) => `${c}, `)}</li>
+                        <li>durée : {movie.length} minutes</li>
+                        <li>De {}</li>
+                        <li>Avec {}</li>
                         <li>
-                            Date de sortie :{' '}
-                            {`${movie.releaseDate.toLocaleDateString('fr-FR')}`}
+                            Date de sortie :
                         </li>
                     </ul>
                 </aside>

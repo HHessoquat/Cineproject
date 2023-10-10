@@ -1,16 +1,20 @@
-import { movie } from '../../assets/Movies';
-function MovieCard() {
+import { Link } from 'react-router-dom';
+function MovieCard({movie}) {
+
     return (
         <>
             <article className="movieCard">
-                <h2 className="movieCardHeader">{movie.title}</h2>
-                <img
-                    className="moviePoster"
-                    src={movie.poster}
-                    alt={movie.posterAlt}
-                />
+                <Link to={`/film/${movie.id}`}>
+                    <h2 className="movieCardHeader">{movie.title}</h2>
+                    
+                    <img
+                        className="moviePoster"
+                        src={movie.poster}
+                        alt={movie.posterAlt}
+                    />
+                </Link>
             </article>
-        </>
+            </>
     );
 }
 

@@ -24,12 +24,12 @@ app.use(bodyParser.json());
 
 app.use('/uploads', express.static(path.join(__dirname, 'src', 'assets')));
 app.use(
-    '/uploads/images',
-    express.static(path.join(__dirname, 'src', 'assets', 'uploads', 'images'))
+    '/images',
+    express.static(path.join(__dirname, 'uploads', 'images'))
 );
 app.use(
-    '/uploads/videos',
-    express.static(path.join(__dirname, 'src', 'assets', 'uploads', 'videos'))
+    '/videos',
+    express.static(path.join(__dirname, 'uploads', 'videos'))
 );
 
 app.use('/api/movie', moviesRoutes);
