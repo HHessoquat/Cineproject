@@ -178,34 +178,40 @@ exports.createMovie = async (req, res, next) => {
 };
 exports.getOneMovie = async (req, res, next) => {
     const { id } = req.params;
-    const movie = {};
-    const moviePromise = new Promise((resolve, reject) => {
+
+    
        query( //inner Join + group_concat
-            `SELECT * FROM Movie Where id = ?`,
+            `SELECT 
+                M.*, 
+                GROUP_CONCAT(DISTINCT D.firstName, ' ', D.name) AS directors,
+                GROUP_CONCAT(DISTINCT A.firstName, ' ', A.name) AS actors
+            FROM 
+                Movie AS M
+            INNER JOIN Movie_Director AS MD ON M.id = MD.movieId
+            INNER JOIN Directors AS D ON MD.directorId = D.id
+            INNER JOIN Movie_Actor AS MA ON M.id = MA.idMovie
+            Inner JOIN Actors as A  ON MA.idActor = A.id
+            Where M.id = ?
+            GROUP BY M.id`,
             [id],
             (err, result) => {
                 if (err) {
                     console.error(err)
-                    reject(err);
+                    
                     res.status(500).json({message: 'server error'});
                     return;
                 }
                 if (result.length === 0) {
-                    reject('no movie found');
+                    
                     res.status(404).json({message : 'no movie found'});
                     return;
                 } 
                 console.log(result);
-                    resolve(result);
+                res.status(200).json(result[0]);
                 }
+                
             );
-        });
         
-        try {
-            res.status(200).json(movie);
-        } catch (error) {
-            console.log(error);
-        }
 };
 exports.updateMovie = (req, res, next) => {
     const { id } = req.params;

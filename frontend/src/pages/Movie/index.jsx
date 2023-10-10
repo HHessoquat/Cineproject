@@ -30,7 +30,7 @@ function Movie() {
             fetchMovieDatas();
             }
             , [])
-    
+        console.log(movie)
     
     return (
         <>
