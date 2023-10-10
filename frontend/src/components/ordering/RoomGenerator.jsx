@@ -1,7 +1,7 @@
 function RoomGenerator() {
     const room = createRoom([
-        [4, 6, 4],
-        [2, 2, 8],
+        [6, 10, 6],
+        [4, 6, 8],
         [0, 0, 0, 0],
     ]);
     
@@ -17,21 +17,21 @@ function RoomGenerator() {
         'i ',
         'j ',
         'k ',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'q',
-        'r',
-        's',
-        't',
-        'u',
-        'v',
-        'w',
-        'x',
-        'y',
-        'z',
+        'l ',
+        'm ',
+        'n ',
+        'o ',
+        'p ',
+        'q ',
+        'r ',
+        's ',
+        't ',
+        'u ',
+        'v ',
+        'w ',
+        'x ',
+        'y ',
+        'z ',
     ];
     
     function createRoom(setting) {

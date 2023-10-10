@@ -13,6 +13,6 @@ function Home() {
     // }, []);
 
     return <MovieManagerForm />;
-    // return <RoomGenerator />
+    // return <RoomGenerator />;
 }
 export default Home;

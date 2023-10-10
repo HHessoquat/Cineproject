@@ -31,14 +31,12 @@ function validateForm(formData) {
 function MovieManagerForm() {
     const [formData, setFormData] = useState({
         movieTitle: '',
-        posterUrl: '',
         posterAlt: '',
-        coverImgUrl: '',
         coverImgAlt: '',
         releaseDate: '',
         movieLength: null,
         synospis: '',
-        director: '',
+        director: [''],
         mainActors: [''],
         categories: [''],
         trailerUrl: '',
@@ -92,10 +90,10 @@ function MovieManagerForm() {
             dataToSend.append(key, formData[key]);
             }
         }
+        console.log(formData)
         
         dataToSend.append('movieLength', Number(formData.movieLength));
         dataToSend.append('releaseDate', new Date(formData.releaseDate).toISOString().slice(0, 19).replace('T', ' '));
-
         fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
             method: 'POST',
             body: dataToSend,
@@ -131,6 +129,7 @@ function MovieManagerForm() {
                         onChange={handleChange}
                     />
                 </div>
+
                 <div className="inputContainer">
                     <label htmlFor="posterFile">Télécharger une affiche</label>
                     <input
@@ -149,6 +148,28 @@ function MovieManagerForm() {
                         name="posterAlt"
                         required
                         value={formData.posterAlt}
+                        onChange={handleChange}
+                    />
+                </div>
+                
+                <div className="inputContainer">
+                    <label htmlFor="coverImg">Télécharger une image de couverture</label>
+                    <input
+                        type="file"
+                        name="coverImgFile"
+                        onChange={handleFileChange}
+                    />
+                </div>
+                
+                <div className="inputContainer">
+                    <label htmlFor="coverImgAlt">
+                        Texte alternatif de l'image de couverture
+                    </label>
+                    <input
+                        type="text"
+                        name="coverImgAlt"
+                        required
+                        value={formData.coverAlt}
                         onChange={handleChange}
                     />
                 </div>
@@ -173,12 +194,13 @@ function MovieManagerForm() {
                     />
                 </div>
                 <div className="inputContainer">
-                    <label htmlFor="director">Réalisateur</label>
-                    <input
-                        type="text"
-                        name="director"
-                        value={formData.director}
+                    <DynamicInputList
+                        arrayOfDatas={formData.director}
+                        inputLabel="Réalisateur"
+                        inputName="director"
+                        handleChangeArray={handleChangeArray}
                         onChange={handleChange}
+                        addInputBtn={addInputBtn}
                     />
                 </div>
                 <div className="inputContainer">

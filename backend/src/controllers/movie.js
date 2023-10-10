@@ -5,26 +5,130 @@ const xss = require('xss');
 exports.getAllMovies = (req, res, next) => {}
 
 
-exports.createMovie = (req, res, next) => {
+exports.createMovie = async (req, res, next) => {
+    const movie = {
+        ...req.body,
+        posterUrl: `${req.protocol}://${req.get('host')}/images/${req.files.posterFile[0].filename}`,
+        coverImgUrl: `${req.protocol}://${req.get('host')}/images/${req.files.coverImgFile[0].filename}`
+    };
+    const movieId = v4();
+    const actorsId = [];
+    const directorsId = [];
     
-    const movie = {...req.body};
-    console.log(movie)
-    console.log(query)
-    if (req.files['posterFile'] && req.files['posterFile'][0]) {
-        const posterUrl = `${req.protocol}://${req.get('host')}/images/${
-            req.files['posterFile'][0].filename
-        }`;
-    }
-
-    if (req.files['trailerFile'] && req.files['trailerFile'][0]) {
-        const trailerUrl = `${req.protocol}://${req.get('host')}/videos/${
-            req.files['trailerFile'][0].filename
-        }`;
-    }
-    query(
-        'INSERT INTO Movie(id, title, poster, posterAlt, coverImgUrl, coverImgAlt, releaseDate, length, director, cast, synopsis, pg, trailer, warning, category) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    
+    //get all actors in an array --> [[firstName, lastName], [firstName, lastName]...]
+    const cast = movie.mainActors.split(',').map((c, i) => c.split(' '));
+    
+    const actorsPromise = await cast.map( async (c) => {
+        return new Promise((resolve, reject) => {
+            query(
+        'SELECT id FROM Actors WHERE name = ? AND firstName = ?',
+        [c[1], c[0]],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+                res.status(500).json({message: `erreur lors de l'enregistrement des acteurs`});
+                return
+            }
+             if (result.length === 0) {
+                 const newActorId = v4()
+                 query(
+                     'INSERT INTO Actors (id, firstName, name) VALUES (?, ?, ?)',
+                     [newActorId, c[0], c[1]],
+                     (error, result) => {
+                         if (error) {
+                             console.log(error);
+                             res.status(500).json({message: `erreur lors de l'enregistrement des acteurs`});
+                         }
+                         actorsId.push(newActorId);
+                         resolve(newActorId)
+                     }
+                     )
+             }
+             else {
+                 result.forEach((c) => actorsId.push(c.id))
+                 resolve(c.id)
+             }
+        }
+        )
+        })
+        
+    })
+    
+    const directors = movie.director.split(',').map((c, i) => c.split(' '));
+    console.log(directors)
+    
+    const directorsPromise = await directors.map( async (c) => {
+        return new Promise((resolve, reject) => {
+            query(
+        'SELECT id FROM Actors WHERE name = ? AND firstName = ?',
+        [c[1], c[0]],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+                reject(err);
+                res.status(500).json({message: `erreur lors de l'enregistrement des réalisateurs`});
+                return
+            }
+             if (result.length === 0) {
+                 const newDirectorId = v4()
+                 query(
+                     'INSERT INTO Directors (id, firstName, name) VALUES (?, ?, ?)',
+                     [newDirectorId, c[0], c[1]],
+                     (error, result) => {
+                         if (error) {
+                             console.log(error);
+                             res.status(500).json({message: `erreur lors de l'enregistrement des réalisateurs`});
+                         }
+                         directorsId.push(newDirectorId);
+                         resolve(newDirectorId)
+                     }
+                     )
+             }
+             else {
+                 result.forEach((c) => directorsId.push(c.id))
+                 resolve(c.id)
+             }
+        }
+        )
+        })
+        
+    })
+    
+    try{
+        await Promise.all(actorsPromise);
+        await Promise.all(directorsPromise);
+        
+        actorsId.forEach((c) => query(
+            'INSERT INTO Movie_Actor (idMovie, IdActor) VALUES (?,?)',
+            [movieId, c],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({message: `erreur lors de l'enregistrement de l'acteur pour le film`});
+                    return
+                }
+                console.log('actors association: ok');
+            })
+            )
+            
+        directorsId.forEach((c) => query(
+            'INSERT INTO Movie_Director (movieId, directorId) VALUES (?,?)',
+            [movieId, c],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).json({message: `erreur lors de l'enregistrement du réalisateurs pour le film`});
+                    return
+                }
+                console.log('director association: ok');
+            })
+            )
+        query(
+        'INSERT INTO Movie(id, title, poster, posterAlt, coverImgUrl, coverImgAlt, releaseDate, length, synopsis, pg, trailer, warning, category) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
         [
-            v4(),
+            movieId,
             movie.movieTitle, 
             movie.posterUrl, 
             movie.posterAlt,
@@ -32,8 +136,6 @@ exports.createMovie = (req, res, next) => {
             movie.coverImgAlt,
             movie.releaseDate, 
             movie.movieLength,
-            movie.director,
-            movie.mainActors,
             movie.synopsis,
             movie.pg,
             movie.trailerUrl,
@@ -46,9 +148,18 @@ exports.createMovie = (req, res, next) => {
                 res.status(500).send('server Error');
                 return
             }
-            res.status(201).redirect('/');
+            
         }
         );
+        res.status(201).json({
+            message: 'ok'
+        });
+        
+    }
+    catch (err) {
+        console.log(err)
+    }
+    
 };
 exports.getOneMovie = (req, res, next) => {
     const { id } = req.params;

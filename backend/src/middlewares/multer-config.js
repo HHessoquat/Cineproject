@@ -1,4 +1,5 @@
 const multer = require('multer');
+const { v4 } = require('uuid');
 
 const MYME_TYPES = {
     'image/jpg': 'jpg',
@@ -22,7 +23,7 @@ const storage = multer.diskStorage({
         callback(null, destinationFolder);
     },
     filename: (req, file, callback) => {
-        const name = file.originalname.split(' ').join('_').split('.')[0];
+        const name = v4();
         const extension = MYME_TYPES[file.mimetype];
         callback(null, name + Date.now() + '.' + extension);
     },
@@ -31,4 +32,5 @@ const storage = multer.diskStorage({
 module.exports = multer({ storage }).fields([
     { name: 'posterFile', maxCount: 1 },
     { name: 'trailerFile', maxCount: 1 },
+    {name: 'coverImgFile', maxCount: 1}
 ]);
