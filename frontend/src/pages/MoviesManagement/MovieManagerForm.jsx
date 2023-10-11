@@ -17,6 +17,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
         trailerUrl: '',
         pg: '',
         warnings: [''],
+        isOnline: 0,
     });
     const [errorMsg, setErrorMsg] = useState([]);
     
@@ -30,6 +31,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                 synopsis: previousMovieData.synopsis,
                 trailerUrl: previousMovieData.trailer,
                 pg: previousMovieData.pg,
+                isOnline: previousMovieData.online,
             };
             formattedData.mainActors = previousMovieData.actors.split(',');
             formattedData.director = previousMovieData.directors.split(',');
@@ -40,7 +42,6 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
             const formatDate = `${dateObj.getFullYear()}-${(dateObj.getMonth()+1).toString().padStart(2, "0")}-${dateObj.getDate().toString().padStart(2, "0")}`
             formattedData.releaseDate = formatDate;
             
-           console.log(formattedData);
             setFormData(formattedData);
         }
     }, [previousMovieData])
@@ -104,8 +105,6 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
         }
     }
 
-    
-    console.log(formData);
     return (
         <>
             <form className="backOfficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -267,6 +266,28 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         addInputBtn={addInputBtn}
                     />
                 </div>
+                <p className="inputContainer">
+                    Mettre le site en ligne ?
+                   
+                    <input
+                        type="radio"
+                        id="isOnline"
+                        name="isOnline"
+                        value={1}
+                        checked={formData.isOnline === 1}
+                        onChange={handleChange}
+                    />
+                     <label htmlFor="isOnline">oui</label>
+                      <input
+                        type="radio"
+                        id="isNotOnline"
+                        name="isOnline"
+                        value={0}
+                        checked={formData.isOnline === 0}
+                        onChange={handleChange}
+                    />
+                     <label htmlFor="isNotOnline">Non</label>
+                </p>
                 <input type="submit" value="valider" />
             </form>
         </>

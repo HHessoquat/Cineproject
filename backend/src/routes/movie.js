@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const movieCtrl = require('../controllers/movie');
+const { addMovie } = require('../controllers/movie/addMovie.js');
+const { getAllMovies, getOneMovie } = require('../controllers/movie/getMovies.js');
+const { updateMovie } = require('../controllers/movie/updateMovie.js');
+const { deleteOneMovie } = require('../controllers/movie/deleteMovie.js');
 const multer = require('../middlewares/multer-config');
 
-router.get('/', movieCtrl.getAllMovies);
-router.post('/',  multer, movieCtrl.createMovie);
-router.get('/:id', movieCtrl.getOneMovie);
-router.put('/update/:id', multer, movieCtrl.updateMovie);
-router.delete('/:id', multer, movieCtrl.deleteOneMovie);
+router.get('/', getAllMovies);
+router.post('/',  multer, addMovie);
+router.get('/:id', getOneMovie);
+router.put('/update/:id', multer, updateMovie);
+router.delete('/:id', multer, deleteOneMovie);
 
 module.exports = router;
