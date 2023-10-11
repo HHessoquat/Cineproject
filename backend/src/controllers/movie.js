@@ -214,7 +214,9 @@ exports.getOneMovie = async (req, res, next) => {
         
 };
 exports.updateMovie = (req, res, next) => {
+    console.log('passe update');
     const { id } = req.params;
+    console.log(req.body)
     const movie = {
         _id: req.params.id,
         title: req.body.title,
@@ -230,52 +232,53 @@ exports.updateMovie = (req, res, next) => {
         warning: req.body.warning,
         categories: req.body.categories,
     };
+    res.status(200).json({message: 'ok'})
     
-    query(
-        'SELECT id FROM users WHERE id = ?',
-        [id],
-        (error, results) => {
-            if (error) {
-                console.error(error);
-                res.status(500).json({
-                  error: 'Erreur serveur'
-                });
-                return;
-            }
+    // query(
+    //     'SELECT id FROM users WHERE id = ?',
+    //     [id],
+    //     (error, results) => {
+    //         if (error) {
+    //             console.error(error);
+    //             res.status(500).json({
+    //               error: 'Erreur serveur'
+    //             });
+    //             return;
+    //         }
             
-            if (results.length === 0) {
-                return res.status(404).send({
-                  error: `L'utilisateur avec l'id ${id} n' pas été trouvé`
-                });
-            }
+    //         if (results.length === 0) {
+    //             return res.status(404).send({
+    //               error: `L'utilisateur avec l'id ${id} n' pas été trouvé`
+    //             });
+    //         }
 
-            const userToUpdate = {
-                id,
-                pseudo: xss(req.body.pseudo),// !!! Important
-                role: results[0].role
-            }
+    //         const userToUpdate = {
+    //             id,
+    //             pseudo: xss(req.body.pseudo),// !!! Important
+    //             role: results[0].role
+    //         }
 
 
-            query(
-                'UPDATE users SET pseudo = ? WHERE id = ?',
-                [userToUpdate.pseudo, userToUpdate.id],
-                (error) => {
+    //         query(
+    //             'UPDATE users SET pseudo = ? WHERE id = ?',
+    //             [userToUpdate.pseudo, userToUpdate.id],
+    //             (error) => {
 
-                    if (error) {
-                        console.error(error);
-                        res.status(500).json({
-                          error: 'Erreur serveur'
-                        });
-                        return;
-                    }
+    //                 if (error) {
+    //                     console.error(error);
+    //                     res.status(500).json({
+    //                       error: 'Erreur serveur'
+    //                     });
+    //                     return;
+    //                 }
                     
-                    res.json({
-                        data: userToUpdate
-                    });
-                }
-            )
-        }
-    )
+    //                 res.json({
+    //                     data: userToUpdate
+    //                 });
+    //             }
+    //         )
+    //     }
+    // )
 };
 
 

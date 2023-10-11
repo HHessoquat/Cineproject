@@ -5,7 +5,8 @@ import NavBar from './components/NavBar/NavBar.jsx';
 import Movies from './pages/Movies';
 import Events from './pages/Events';
 import Practical from './pages/Practical';
-import MoviesManagement from './pages/MoviesManagement'
+import MoviesManagement from './pages/MoviesManagement';
+import UpdateMovie from './pages/MoviesManagement/UpdateMovie.jsx';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/evenements" element={<Events />} />
                     <Route path="/pratique" element={<Practical />} />
                     <Route path="/moviesManagement" element={<MoviesManagement />} />
+                    <Route path="/updateMovie/:idMovie" element={<UpdateMovie />} />
                 </Routes>
             </Router>
         </>

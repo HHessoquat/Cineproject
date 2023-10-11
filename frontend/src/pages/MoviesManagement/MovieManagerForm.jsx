@@ -1,34 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DynamicInputList from '../../components/Forms/DynamicInputList';
+import validateForm from '../../utils/moviesManagement/validateMovieForm.js';
+import createMovie from '../../utils/moviesManagement/createMovie.js';
 
-function validateForm(formData) {
-    let updateErrorMsg = [];
-    if (!formData.movieTitle) {
-        updateErrorMsg.push(`Le titre du film est obligatoire`);
-    }
-    if (!formData.posterFile) {
-        updateErrorMsg.push(`Vous devez ajouter une affiche pour le film`);
-    }
-    if (!formData.posterAlt) {
-        updateErrorMsg.push(
-            `l'affiche du film doit avoir un texte alternatif qui s'affichera en cas de problème avec le chargement de l'image`
-        );
-    }
-    if (!formData.trailerFile && !formData.trailerUrl) {
-        updateErrorMsg.push(`Le film doit avoir une bande-annonce`);
-    }
-    if (formData.categories.length === 0) {
-        updateErrorMsg.push(`Le film doit avoir au moins une catégorie`);
-    }
-
-    if (isNaN(Number(formData.movieLength))) {
-        updateErrorMsg.push('La durée du film doit être un nombre');
-    }
-
-    return updateErrorMsg;
-}
-
-function MovieManagerForm() {
+function MovieManagerForm({update, previousMovieData, idMovie}) {
     const [formData, setFormData] = useState({
         movieTitle: '',
         posterAlt: '',
@@ -44,7 +19,31 @@ function MovieManagerForm() {
         warnings: [''],
     });
     const [errorMsg, setErrorMsg] = useState([]);
-
+    
+    useEffect(()=> {
+        if (previousMovieData) {
+            const formattedData = {
+                movieTitle: previousMovieData.title,
+                posterAlt: previousMovieData.posterAlt,
+                coverImgAlt: previousMovieData.coverImgAlt,
+                movieLength: previousMovieData.length,
+                synopsis: previousMovieData.synopsis,
+                trailerUrl: previousMovieData.trailer,
+                pg: previousMovieData.pg,
+            };
+            formattedData.mainActors = previousMovieData.actors.split(',');
+            formattedData.director = previousMovieData.directors.split(',');
+            formattedData.categories = previousMovieData.category.split(',');
+            formattedData.warnings = previousMovieData.warning.split(',');
+            
+            const dateObj = new Date(previousMovieData.releaseDate);
+            const formatDate = `${dateObj.getFullYear()}-${(dateObj.getMonth()+1).toString().padStart(2, "0")}-${dateObj.getDate().toString().padStart(2, "0")}`
+            formattedData.releaseDate = formatDate;
+            
+           console.log(formattedData);
+            setFormData(formattedData);
+        }
+    }, [previousMovieData])
     function addInputBtn(e) {
         const { name } = e.target;
         setFormData((prevFormData) => ({
@@ -74,38 +73,39 @@ function MovieManagerForm() {
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
         setErrorMsg([]);
     }
-
-    function handleSubmit(e) {
+    
+    function updateMovie(e) {
         e.preventDefault();
-        const errorsArray = validateForm(formData);
-        setErrorMsg(errorsArray);
-        if (errorsArray.length > 0) {
-            return;
-        }
-
         const dataToSend = new FormData();
-        
         for (const key in formData) {
             if (key !== 'releaseDate' && key !=='movieLength') {
             dataToSend.append(key, formData[key]);
             }
         }
-        console.log(formData)
         
         dataToSend.append('movieLength', Number(formData.movieLength));
         dataToSend.append('releaseDate', new Date(formData.releaseDate).toISOString().slice(0, 19).replace('T', ' '));
-        fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
-            method: 'POST',
-            body: dataToSend,
+        dataToSend.append('posterUrl', previousMovieData.poster);
+        
+        fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/update/${idMovie}`,{
+            method: 'PUT',
+            headers: {
+                accept: 'application/json'
+            },
+            body: dataToSend
         })
-            .then((response) => response.json())
-            .then((data) =>
-                console.log("reponse de l'API : " + JSON.stringify(data))
-            )
-            .catch((error) =>
-                console.error(`erreur lors de l'envoi du formulaire : `, error)
-            );
     }
+    function handleSubmit(e) {
+        if (update) {
+            updateMovie(e)
+        }
+        else {
+            createMovie(e, formData, setErrorMsg);
+        }
+    }
+
+    
+    console.log(formData);
     return (
         <>
             <form className="backOfficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -169,7 +169,7 @@ function MovieManagerForm() {
                         type="text"
                         name="coverImgAlt"
                         required
-                        value={formData.coverAlt}
+                        value={formData.coverImgAlt}
                         onChange={handleChange}
                     />
                 </div>
@@ -189,7 +189,7 @@ function MovieManagerForm() {
                     <input
                         type="number"
                         name="movieLength"
-                        value={formData.length}
+                        value={formData.movieLength}
                         onChange={handleChange}
                     />
                 </div>
