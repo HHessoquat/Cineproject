@@ -32,6 +32,9 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                 trailerUrl: previousMovieData.trailer,
                 pg: previousMovieData.pg,
                 isOnline: previousMovieData.online,
+                posterUrl: previousMovieData.poster,
+                coverImgUrl: previousMovieData.coverImgUrl,
+                trailerUrl: previousMovieData.trailer,
             };
             formattedData.mainActors = previousMovieData.actors.split(',');
             formattedData.director = previousMovieData.directors.split(',');
@@ -70,6 +73,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
     };
 
     function handleChange(e) {
+        console.log(formData);
         const { name, value } = e.target;
         setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
         setErrorMsg([]);
@@ -86,7 +90,6 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
         
         dataToSend.append('movieLength', Number(formData.movieLength));
         dataToSend.append('releaseDate', new Date(formData.releaseDate).toISOString().slice(0, 19).replace('T', ' '));
-        dataToSend.append('posterUrl', previousMovieData.poster);
         
         fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/update/${idMovie}`,{
             method: 'PUT',
@@ -95,6 +98,13 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
             },
             body: dataToSend
         })
+            .then((response) => response.json())
+            .then((data) =>
+                console.log("reponse de l'API : " + JSON.stringify(data))
+            )
+            .catch((error) =>
+                console.error(`erreur lors de l'envoi du formulaire : `, error)
+            );
     }
     function handleSubmit(e) {
         if (update) {

@@ -2,7 +2,10 @@ const query =  require('../../../database.js').database;
 const { v4 } = require('uuid');
 
 exports.addDirector = (directors, res) => {
-    directors.map( async (c) => {
+    
+    const directorsArray = directors.split(',').map((c, i) => c.split(' '));
+    
+    return directorsArray.map( async (c) => {
         c[1] = !c[1] ? ' ': c[1];
         return new Promise((resolve, reject) => {
             query(

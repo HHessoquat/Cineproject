@@ -5,6 +5,7 @@ const MYME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
     'image/png': 'png',
+    'image/webp': 'webp',
     'video/mp4': 'mp4',
     'video/quicktyme': 'mov',
     'video/x-matroska': 'mkv',

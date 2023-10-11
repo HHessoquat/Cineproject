@@ -1,7 +1,10 @@
 const query =  require('../../../database.js').database;
 const { v4 } = require('uuid');
 
-exports.addActor = (cast, res) => {
+exports.addActor = (actors, res) => {
+    
+    //get all actors in an array --> [[firstName, lastName], [firstName, lastName]...]
+    const cast = actors.split(',').map((c, i) => c.split(' '));
     
     return cast.map( async (c) => {
         c[1] = !c[1] ? ' ': c[1];
