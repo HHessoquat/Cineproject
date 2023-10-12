@@ -1,11 +1,12 @@
 const xss = require('xss');
 const query =  require('../../../database.js').database;
-const { addActor } = require('../actors/addActor.js');
-const { addDirector } =  require('../directors/addDirector.js');
-const { deleteOneMA } = require('../movie_actor/deleteAllFromOneMovie.js');
-const { deleteOneMD } = require('../movie_director/deleteOneMovie.js');
-const { addOneMA } = require('../movie_actor/addOneMA.js');
-const { addOneMD } = require('../movie_director/addOneMD.js');
+const { addActor } = require('../../models/actors/addActor.js');
+const { addDirector } =  require('../../models/directors/addDirector.js');
+const { deleteOneMA } = require('../../models/movie_actor/deleteAllFromOneMovie.js');
+const { deleteOneMD } = require('../../models/movie_director/deleteOneMovie.js');
+const { addOneMA } = require('../../models/movie_actor/addOneMA.js');
+const { addOneMD } = require('../../models//movie_director/addOneMD.js');
+const putMovieToDatabase = require('../../models//movie/updateMovie.js').updateMovie;
 
 exports.updateMovie = async (req, res, next) => {
     const { id } = req.params;
@@ -47,45 +48,11 @@ exports.updateMovie = async (req, res, next) => {
     
     
     try {
-        query(
-                    `UPDATE Movie SET 
-                        title = ?, 
-                        poster = ?, 
-                        posterAlt = ?,
-                        coverImgUrl = ?, 
-                        coverImgAlt = ?, 
-                        releaseDate = ?, 
-                        length = ?,
-                        synopsis = ?,
-                        pg = ?,
-                        trailer = ?,
-                        warning = ?,
-                        category= ?
+        const updateError = await putMovieToDatabase(movie, id);
+        if (updateError) {
+            throw new Error(updateError);
+        }
         
-                     WHERE id = ?`,
-                    [
-                        movie.title,
-                        movie.poster,
-                        movie.posterAlt,
-                        movie.coverImgUrl,
-                        movie.coverImgAlt,
-                        movie.releaseDate,
-                        movie.movieLength,
-                        movie.synopsis,
-                        movie.pg,
-                        movie.trailerUrl,
-                        movie.warning,
-                        movie.categories,
-                        id,
-                    ],
-                    (error) => {
-    
-                        if (error) {
-                            throw new Error(error)
-
-                        }
-                    }
-                )
         const actorsPromise = await addActor(movie.mainActors, res);
         const directorsPromise = await addDirector(movie.director, res);
         

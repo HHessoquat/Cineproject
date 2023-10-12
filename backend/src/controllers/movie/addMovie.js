@@ -1,8 +1,10 @@
-const query =  require('../../../database.js').database;
 const { v4 } = require('uuid');
 const xss = require('xss');
-const { addActor } = require('../actors/addActor.js');
-const { addDirector } =  require('../directors/addDirector.js');
+const { insertMovie } = require('../../models/movie/insertMovie.js');
+const { addActor } = require('../../models/actors/addActor.js');
+const { addDirector } =  require('../../models/directors/addDirector.js');
+const { addOneMA } = require('../../models/movie_actor/addOneMA.js');
+const { addOneMD } = require('../../models//movie_director/addOneMD.js');
 
 exports.addMovie = async (req, res, next) => {
     for (let element in req.body) {
@@ -22,63 +24,27 @@ exports.addMovie = async (req, res, next) => {
     
     try{
         
-        await query(
-            'INSERT INTO Movie(id, title, poster, posterAlt, coverImgUrl, coverImgAlt, releaseDate, length, synopsis, pg, trailer, warning, category, online) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [
-                movieId,
-                movie.movieTitle, 
-                movie.posterUrl, 
-                movie.posterAlt,
-                movie.coverImgUrl,
-                movie.coverImgAlt,
-                movie.releaseDate, 
-                movie.movieLength,
-                movie.synopsis,
-                movie.pg,
-                movie.trailerUrl,
-                movie.warnings,
-                movie.categories,
-                movie.isOnline,
-            ],
-            (err, result) => {
-                if (err) {
-                    console.log(err);
-                    res.status(500).send('server Error');
-                    return
-                }
-                
-            }
-        );
+        const errorAdd = await insertMovie(movieId, movie);
         const actorsPromise = await addActor(movie.mainActors, res);
         const directorsPromise = await addDirector(movie.director, res);
         const actorsId = await Promise.all(actorsPromise);
         const directorsId = await Promise.all(directorsPromise);
         
-        actorsId.forEach((c) => query(
-            'INSERT INTO Movie_Actor (idMovie, IdActor) VALUES (?,?)',
-            [movieId, c],
-            (err, result) => {
-                if (err) {
-                    console.log(err);
-                    res.status(500).json({message: `erreur lors de l'enregistrement de l'acteur pour le film`});
-                    return
-                }
-                console.log('actors association: ok');
-            })
-        );
+        actorsId.forEach((c) => {
+            //MA refers to the table Movie_Actor
+            const errorMA = addOneMA(movieId, c);
+            if (errorMA) {
+                throw new Error(errorMA);
+            }
+        });
             
-        directorsId.forEach((c) => query(
-            'INSERT INTO Movie_Director (movieId, directorId) VALUES (?,?)',
-            [movieId, c],
-            (err, result) => {
-                if (err) {
-                    console.log(err);
-                    res.status(500).json({message: `erreur lors de l'enregistrement du réalisateurs pour le film`});
-                    return
-                }
-                console.log('director association: ok');
-            })
-            )
+        directorsId.forEach((c) => {
+            //MD refers to the table Movie_Director
+            const errorMD = addOneMD(movieId, c);
+            if (errorMD) {
+                throw new Error(errorMD);
+            }
+        });
         
         res.status(201).json({
             message: 'ok'
