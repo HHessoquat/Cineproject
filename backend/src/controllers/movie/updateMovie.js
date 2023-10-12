@@ -2,14 +2,19 @@ const xss = require('xss');
 const query =  require('../../../database.js').database;
 const { addActor } = require('../actors/addActor.js');
 const { addDirector } =  require('../directors/addDirector.js');
+const { deleteOneMA } = require('../movie_actor/deleteAllFromOneMovie.js');
+const { deleteOneMD } = require('../movie_director/deleteOneMovie.js');
+const { addOneMA } = require('../movie_actor/addOneMA.js');
+const { addOneMD } = require('../movie_director/addOneMD.js');
 
 exports.updateMovie = async (req, res, next) => {
     const { id } = req.params;
             //prevent xss attacks
+            //Object.keys(req.body).forEach((key) )
     for (let element in req.body) {
-        element = xss(element);
+        req.body[element] = xss(element);
     }
-    console.log(req.body);
+    
     const movie = {
         title: req.body.movieTitle,
         poster: req.body.posterUrl,
@@ -40,9 +45,6 @@ exports.updateMovie = async (req, res, next) => {
         movie.trailerUrl = `${req.protocol}://${req.get('host')}/images/${req.files.trailerFile[0].filename}`;
     }
     
-    const actorsPromise = await addActor(movie.mainActors, res);
-    
-    const directorsPromise = await addDirector(movie.director, res);
     
     try {
         query(
@@ -79,75 +81,32 @@ exports.updateMovie = async (req, res, next) => {
                     (error) => {
     
                         if (error) {
-                            console.error(error);
-                            res.status(500).json({
-                              error: 'Erreur serveur'
-                            });
-                            return;
+                            throw new Error(error)
+
                         }
                     }
                 )
+        const actorsPromise = await addActor(movie.mainActors, res);
+        const directorsPromise = await addDirector(movie.director, res);
+        
         const actorsId = await Promise.all(actorsPromise);
         const directorsId = await Promise.all(directorsPromise);
         
+        await deleteOneMA(id);
+        await deleteOneMD(id)
+        
         actorsId.forEach((c) => {
-            query(
-                'SELECT * FROM Movie_Actor WHERE idMovie = ? AND idActor = ?',
-                [id, c],
-                (err, result) => {
-                    if (err) {
-                        console.error(err);
-                        res.status(500).json({
-                          error: 'Erreur serveur'
-                        });
-                        return;
-                    }
-                      // if association doesn't exist, add it
-                    if (result.length === 0) {
-                        query(
-                            'INSERT INTO Movie_Actor (idMovie, IdActor) VALUES (?,?)',
-                            [id, c],
-                            (err, result) => {
-                                if (err) {
-                                    console.log(err);
-                                    res.status(500).json({message: `erreur lors de l'enregistrement de l'acteur pour le film`});
-                                    return
-                                }
-                                console.log('actors association: ok');
-                            });
-                    }
-                }
-            );
+            const checkAssociation = addOneMA(id, c);
+            if (checkAssociation) {
+                throw new Error(checkAssociation)
+            }
         });
         
         directorsId.forEach((c) => {
-            query(
-                'SELECT * FROM Movie_Director WHERE movieId = ? AND directorId = ?',
-                [id, c],
-                (err, result) => {
-                    if (err) {
-                        console.error(err);
-                        res.status(500).json({
-                          error: 'Erreur serveur'
-                        });
-                        return;
-                    }
-                     // if association doesn't exist, add it
-                    if (result.length === 0) {
-                        query(
-                            'INSERT INTO Movie_Director (movieId, directorId) VALUES (?,?)',
-                            [id, c],
-                            (err, result) => {
-                                if (err) {
-                                    console.log(err);
-                                    res.status(500).json({message: `erreur lors de l'enregistrement des réalisateurs pour le film`});
-                                    return
-                                }
-                                console.log('directors association: ok');
-                            });
-                    }
-                }
-            );
+            const checkAssociation = addOneMD(id, c);
+            if (checkAssociation) {
+                throw new Error(checkAssociation);
+            }
         });
         
          query(

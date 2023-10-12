@@ -18,7 +18,6 @@ exports.getAllMovies = (req, res, next) => {
 
 exports.getOneMovie = async (req, res, next) => {
     const { id } = req.params;
-    console.log(id)
     
        query( //inner Join + group_concat
             `SELECT 
@@ -45,7 +44,6 @@ exports.getOneMovie = async (req, res, next) => {
                     res.status(404).json({message : 'no movie found'});
                     return;
                 } 
-                console.log(result);
                 res.status(200).json(result[0]);
                 }
                 
