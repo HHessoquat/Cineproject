@@ -39,13 +39,54 @@ exports.updateMovie = async (req, res, next) => {
     if (req. file && req.file.trailerFile) {
         movie.trailerUrl = `${req.protocol}://${req.get('host')}/images/${req.files.trailerFile[0].filename}`;
     }
-    res.status(200).json({message: 'ok'})
     
     const actorsPromise = await addActor(movie.mainActors, res);
     
     const directorsPromise = await addDirector(movie.director, res);
     
     try {
+        query(
+                    `UPDATE Movie SET 
+                        title = ?, 
+                        poster = ?, 
+                        posterAlt = ?,
+                        coverImgUrl = ?, 
+                        coverImgAlt = ?, 
+                        releaseDate = ?, 
+                        length = ?,
+                        synopsis = ?,
+                        pg = ?,
+                        trailer = ?,
+                        warning = ?,
+                        category= ?
+        
+                     WHERE id = ?`,
+                    [
+                        movie.title,
+                        movie.poster,
+                        movie.posterAlt,
+                        movie.coverImgUrl,
+                        movie.coverImgAlt,
+                        movie.releaseDate,
+                        movie.movieLength,
+                        movie.synopsis,
+                        movie.pg,
+                        movie.trailerUrl,
+                        movie.warning,
+                        movie.categories,
+                        id,
+                    ],
+                    (error) => {
+    
+                        if (error) {
+                            console.error(error);
+                            res.status(500).json({
+                              error: 'Erreur serveur'
+                            });
+                            return;
+                        }
+                    }
+                )
         const actorsId = await Promise.all(actorsPromise);
         const directorsId = await Promise.all(directorsPromise);
         
@@ -122,61 +163,14 @@ exports.updateMovie = async (req, res, next) => {
                 }
                 
                 if (results.length === 0) {
-                    return res.status(404).json({
+                    res.status(404).json({
                       error: `aucun film avec l'id ${id} n'a été trouvé`
                     });
+                    return
                 }
-    
-    
-                query(
-                    `UPDATE Movie SET 
-                        title = ?, 
-                        poster = ?, 
-                        posterAlt = ?,
-                        coverImgUrl = ?, 
-                        coverImgAlt = ?, 
-                        releaseDate = ?, 
-                        length = ?,
-                        synopsis = ?,
-                        pg = ?,
-                        trailer = ?,
-                        warning = ?,
-                        category= ?
-        
-                     WHERE id = ?`,
-                    [
-                        movie.title,
-                        movie.poster,
-                        movie.posterAlt,
-                        movie.coverImgUrl,
-                        movie.coverImgAlt,
-                        movie.releaseDate,
-                        movie.movieLength,
-                        movie.synopsis,
-                        movie.pg,
-                        movie.trailerUrl,
-                        movie.warning,
-                        movie.categories,
-                        id,
-                    ],
-                    (error) => {
-    
-                        if (error) {
-                            console.error(error);
-                            res.status(500).json({
-                              error: 'Erreur serveur'
-                            });
-                            return;
-                        }
-                        
-                        res.status(200).json({
-                            message: 'Movie up to date'
-                        });
-                    }
-                )
             }
         );
-        
+        res.status(200).json({message: 'Movie up to date'});
     } catch (error) {
         console.log(error);
         res.status(500).json({message : 'Server Error'});

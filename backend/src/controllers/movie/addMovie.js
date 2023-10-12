@@ -20,11 +20,37 @@ exports.addMovie = async (req, res, next) => {
     
     const movieId = v4();
     
-    const actorsPromise = await addActor(movie.mainActors, res);
-    
-    const directorsPromise = await addDirector(movie.director, res);
-    
     try{
+        
+        await query(
+            'INSERT INTO Movie(id, title, poster, posterAlt, coverImgUrl, coverImgAlt, releaseDate, length, synopsis, pg, trailer, warning, category, online) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [
+                movieId,
+                movie.movieTitle, 
+                movie.posterUrl, 
+                movie.posterAlt,
+                movie.coverImgUrl,
+                movie.coverImgAlt,
+                movie.releaseDate, 
+                movie.movieLength,
+                movie.synopsis,
+                movie.pg,
+                movie.trailerUrl,
+                movie.warnings,
+                movie.categories,
+                movie.isOnline,
+            ],
+            (err, result) => {
+                if (err) {
+                    console.log(err);
+                    res.status(500).send('server Error');
+                    return
+                }
+                
+            }
+        );
+        const actorsPromise = await addActor(movie.mainActors, res);
+        const directorsPromise = await addDirector(movie.director, res);
         const actorsId = await Promise.all(actorsPromise);
         const directorsId = await Promise.all(directorsPromise);
         
@@ -53,33 +79,7 @@ exports.addMovie = async (req, res, next) => {
                 console.log('director association: ok');
             })
             )
-        query(
-            'INSERT INTO Movie(id, title, poster, posterAlt, coverImgUrl, coverImgAlt, releaseDate, length, synopsis, pg, trailer, warning, category, online) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [
-                movieId,
-                movie.movieTitle, 
-                movie.posterUrl, 
-                movie.posterAlt,
-                movie.coverImgUrl,
-                movie.coverImgAlt,
-                movie.releaseDate, 
-                movie.movieLength,
-                movie.synopsis,
-                movie.pg,
-                movie.trailerUrl,
-                movie.warnings,
-                movie.categories,
-                movie.isOnline,
-            ],
-            (err, result) => {
-                if (err) {
-                    console.log(err);
-                    res.status(500).send('server Error');
-                    return
-                }
-                
-            }
-        );
+        
         res.status(201).json({
             message: 'ok'
         });

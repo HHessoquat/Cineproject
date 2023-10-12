@@ -18,13 +18,13 @@ exports.getAllMovies = (req, res, next) => {
 
 exports.getOneMovie = async (req, res, next) => {
     const { id } = req.params;
-
+    console.log(id)
     
        query( //inner Join + group_concat
             `SELECT 
                 M.*, 
-                GROUP_CONCAT(DISTINCT D.firstName, ' ', D.name) AS directors,
-                GROUP_CONCAT(DISTINCT A.firstName, ' ', A.name) AS actors
+                GROUP_CONCAT(DISTINCT D.name) AS directors,
+                GROUP_CONCAT(DISTINCT A.name) AS actors
             FROM 
                 Movie AS M
             INNER JOIN Movie_Director AS MD ON M.id = MD.movieId
@@ -37,12 +37,11 @@ exports.getOneMovie = async (req, res, next) => {
             (err, result) => {
                 if (err) {
                     console.error(err)
-                    
                     res.status(500).json({message: 'server error'});
                     return;
                 }
                 if (result.length === 0) {
-                    
+                    console.log('no movie Found');
                     res.status(404).json({message : 'no movie found'});
                     return;
                 } 

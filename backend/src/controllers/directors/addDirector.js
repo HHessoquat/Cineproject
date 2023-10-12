@@ -3,14 +3,13 @@ const { v4 } = require('uuid');
 
 exports.addDirector = (directors, res) => {
     
-    const directorsArray = directors.split(',').map((c, i) => c.split(' '));
+    const directorsArray = directors.split(',');
     
     return directorsArray.map( async (c) => {
-        c[1] = !c[1] ? ' ': c[1];
         return new Promise((resolve, reject) => {
             query(
-                'SELECT id FROM Directors WHERE name = ? AND firstName = ?',
-                [c[1], c[0]],
+                'SELECT id FROM Directors WHERE name = ?',
+                [c],
                 (err, result) => {
                     if (err) {
                         console.log(err);
@@ -21,8 +20,8 @@ exports.addDirector = (directors, res) => {
                      if (result.length === 0) {
                          const newDirectorId = v4()
                          query(
-                             'INSERT INTO Directors (id, firstName, name) VALUES (?, ?, ?)',
-                             [newDirectorId, c[0], c[1]],
+                             'INSERT INTO Directors (id, name) VALUES (?, ?)',
+                             [newDirectorId, c],
                              (error, result) => {
                                  if (error) {
                                      console.log(error);

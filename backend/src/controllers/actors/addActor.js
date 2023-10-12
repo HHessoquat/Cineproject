@@ -4,40 +4,44 @@ const { v4 } = require('uuid');
 exports.addActor = (actors, res) => {
     
     //get all actors in an array --> [[firstName, lastName], [firstName, lastName]...]
-    const cast = actors.split(',').map((c, i) => c.split(' '));
+    const cast = actors.split(',');
+    console.log(cast);
     
     return cast.map( async (c) => {
-        c[1] = !c[1] ? ' ': c[1];
         return new Promise((resolve, reject) => {
-            query(
-        'SELECT id FROM Actors WHERE name = ? AND firstName = ?',
-        [c[1], c[0]],
-        (err, result) => {
-            if (err) {
-                console.log(err);
-                reject(err);
-                res.status(500).json({message: `erreur lors de l'enregistrement des acteurs`});
-                return
-            }
-             if (result.length === 0) {
-                 const newActorId = v4()
-                 query(
-                     'INSERT INTO Actors (id, firstName, name) VALUES (?, ?, ?)',
-                     [newActorId, c[0], c[1]],
-                     (error, result) => {
-                         if (error) {
-                             console.log(error);
-                             res.status(500).json({message: `erreur lors de l'enregistrement des acteurs`});
+            try {
+                query(
+                    'SELECT id FROM Actors WHERE name = ?',
+                    [c],
+                    (err, result) => {
+                        if (err) {
+                            
+                            reject(err);
+                            throw new Error(err);
+                        }
+                         if (result.length === 0) {
+                             const newActorId = v4()
+                             query(
+                                 'INSERT INTO Actors (id, name) VALUES (?, ?)',
+                                 [newActorId, c],
+                                 (error, result) => {
+                                     if (error) {
+                                         throw new Error(error)
+                                     }
+                                     console.log('actor added');
+                                     resolve(newActorId)
+                                 }
+                                 )
                          }
-                         resolve(newActorId)
-                     }
-                     )
-             }
-             else {
-                 result.forEach((current) => resolve(current.id))
-             }
+                         else {
+                             result.forEach((current) => resolve(current.id))
+                         }
+                    }
+            )
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({message: `erreur lors de l'enregistrement des acteurs`});
         }
-        )
         })
         
     });

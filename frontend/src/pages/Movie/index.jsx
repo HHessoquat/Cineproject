@@ -2,8 +2,8 @@ import {useState, useEffect} from 'react';
 import  { useParams } from 'react-router-dom'
 
 function Movie() {
-    const {idMovie} = useParams()
-    const [movie, setMovie] = useState({})
+    const {idMovie} = useParams();
+    const [movie, setMovie] = useState({});
     
     useEffect(() => {
 
@@ -17,6 +17,7 @@ function Movie() {
                     })
                     
                     if (!response.ok) {
+                        console.log(response);
                         throw new Error('erreur lors de la récupération du film');
                     }
                     
@@ -29,8 +30,19 @@ function Movie() {
                 }
             fetchMovieDatas();
             }
-            , [])
-        console.log(movie)
+        , []);
+    function deleteMovie() {
+        fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`,{
+            method: 'DELETE',
+            headers: {
+                accept: 'application/json',
+            }
+            
+        }).then((response) => {
+            response.json()
+        }).then((data) => console.log(data.message));
+    }
+        
     
     return (
         <>
@@ -51,6 +63,7 @@ function Movie() {
                         </li>
                     </ul>
                 </aside>
+                <button type='button' onClick={deleteMovie}>Supprimer</button>
             </article>
         </>
     );
