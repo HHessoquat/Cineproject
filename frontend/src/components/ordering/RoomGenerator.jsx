@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import validateDatas from './validateDatas.js';
 
 function RoomGenerator() {
     // const room = createRoom([
@@ -12,7 +13,13 @@ function RoomGenerator() {
                                     [2, 2, 2],
                                     [0,0,0,0]
                                 ]));
+    const [roomName, setRoomName] = useState('');
+    const [errorMsg, setErrorMsg] = useState([]);
     
+    function handleChange(e) {
+        setRoomName(e.target.value);
+        setErrorMsg([]);
+    }
     const alphabet = [
         'a ',
         'b ',
@@ -47,6 +54,7 @@ function RoomGenerator() {
         previousDisplay.push(1);
         room.seatsSetting[0] = previousDisplay;
         setRoom(createRoom(room.seatsSetting));
+        setErrorMsg([]);
     }
     
     function addBlockV() {
@@ -54,32 +62,48 @@ function RoomGenerator() {
         previousDisplay.push(1);
         room.seatsSetting[1] = previousDisplay;
         setRoom(createRoom(room.seatsSetting));
+        setErrorMsg([]);
     }
     function deleteBlockH() {
         const previousDisplay = [...room.seatsSetting[0]];
         previousDisplay.pop();
         room.seatsSetting[0] = previousDisplay;
         setRoom(createRoom(room.seatsSetting));
+        setErrorMsg([]);
     }
     function deleteBlockV() {
         const previousDisplay = [...room.seatsSetting[1]];
         previousDisplay.pop();
         room.seatsSetting[1] = previousDisplay;
         setRoom(createRoom(room.seatsSetting));
+        setErrorMsg([]);
     }
     
-    function addSeatInColumn(i) {
-        const newNumberofRowInBlock = room.seatsSetting[0][i] + 1;
-        room.seatsSetting[0][i] = newNumberofRowInBlock;
+    function addSeatInColumn(blockIndex) {
+        const newNumberofRowInBlock = room.seatsSetting[0][blockIndex] + 1;
+        room.seatsSetting[0][blockIndex] = newNumberofRowInBlock;
         setRoom(createRoom(room.seatsSetting));
-        console.log(i);
-        console.log(room.seatsSetting);
+        setErrorMsg([]);
     }
     
-    function addRowInBlock(i) {
-        const newNumberofRowInBlock = room.seatsSetting[1][i] + 1;
-        room.seatsSetting[1][i] = newNumberofRowInBlock;
+    function removeSeatInColumn(blockIndex) {
+        const newNumberofRowInBlock = room.seatsSetting[0][blockIndex] - 1;
+        room.seatsSetting[0][blockIndex] = newNumberofRowInBlock;
         setRoom(createRoom(room.seatsSetting));
+        setErrorMsg([]);
+    }
+    
+    function addRowInBlock(blockIndex) {
+        const newNumberofRowInBlock = room.seatsSetting[1][blockIndex] + 1;
+        room.seatsSetting[1][blockIndex] = newNumberofRowInBlock;
+        setRoom(createRoom(room.seatsSetting));
+        setErrorMsg([]);
+    }
+    function removeRowInBlock(blockIndex) {
+        const newNumberofRowInBlock = room.seatsSetting[1][blockIndex] - 1;
+        room.seatsSetting[1][blockIndex] = newNumberofRowInBlock;
+        setRoom(createRoom(room.seatsSetting));
+        setErrorMsg([]);
     }
     
     function createRoom(setting) {
@@ -156,10 +180,38 @@ function RoomGenerator() {
     function handleClick(row, column) {
         room.seats[row][column] = true;
     }
-    console.log(room)
+    function postRoom() {
+        console.log('passe');
+        const dataToSend= {
+            name: roomName,
+            nbSeats: room.capacity,
+            seatsDisplay: room.seatsSetting,
+        }
+        const errors = validateDatas(dataToSend);
+        if (errors.length !== 0) {
+            setErrorMsg(errors);
+            return;
+        }
+        console.log(dataToSend);
+        fetch(`http://jeremydequeant.ide.3wa.io:9000/api/room/`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(dataToSend)
+        }).then((response) => response.json().then((data) => console.log(`réponse de l'api : ${data.message}`)));
+    }
     let verticalBlockIterator = 0;
     return (
         <>
+            <form onSubmit={(e) => e.preventDefault()}>
+                <label>
+                    Nom de la salle : 
+                    <input type="text" onChange={handleChange} value={roomName} />
+                </label>
+            </form>
+            {errorMsg && errorMsg.map((c,i)=> {return <p key={i-123*(-12)}>{c}</p>})}
             <button type="button" onClick={addBlockH}>ajouter un block horizontal</button>
             <button type="button" onClick={addBlockV}>ajouter un block vertical</button>
             <button type="button" onClick={deleteBlockH}>supprimer un block horizontal</button>
@@ -220,6 +272,7 @@ function RoomGenerator() {
                                 <span key={i + ' ' + index * 2}>
                                     {seatElement}
                                     <button type="button" onClick={() => addSeatInColumn(currentHBlock)}>+</button>
+                                    <button type="button" onClick={() => removeSeatInColumn(currentHBlock)}>-</button>
                                     <img
                                         src='img/ordering/emptySeat.png'
                                         alt="corridor"
@@ -273,6 +326,7 @@ function RoomGenerator() {
                             <div key={i} >
                                 {seatRow}
                                 <button type="button" onClick={() => addRowInBlock(currentvBlockIndex)}>Ajouter une rangée</button>
+                                <button type="button" onClick={() => removeRowInBlock(currentvBlockIndex)}>enlever une rangée</button>
                             </div>
                         );
                         
@@ -284,6 +338,7 @@ function RoomGenerator() {
                     }
                 })}
             </div>
+            <button type="button" onClick={postRoom}>Créer la salle</button>
         </>
     );
 }

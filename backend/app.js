@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const moviesRoutes = require('./src/routes/movie');
+const roomsRoutes = require('./src/routes/room');
 
 
 app.use((req, res, next) => {
@@ -33,5 +34,6 @@ app.use(
 );
 
 app.use('/api/movie', moviesRoutes);
+app.use('/api/room', roomsRoutes);
 
 module.exports = app;
