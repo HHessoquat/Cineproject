@@ -1,9 +1,17 @@
+import { useState } from 'react';
+
 function RoomGenerator() {
-    const room = createRoom([
-        [6, 10, 6],
-        [4, 6, 8],
-        [0, 0, 0, 0],
-    ]);
+    // const room = createRoom([
+    //     [6, 10, 6],
+    //     [4, 6, 8],
+    //     [0, 0, 0, 0],
+    // ]);
+    const [room, setRoom] = useState(
+                                createRoom([
+                                    [2, 2, 2],
+                                    [2, 2, 2],
+                                    [0,0,0,0]
+                                ]));
     
     const alphabet = [
         'a ',
@@ -33,6 +41,46 @@ function RoomGenerator() {
         'y ',
         'z ',
     ];
+    
+    function addBlockH() {
+        const previousDisplay = [...room.seatsSetting[0]];
+        previousDisplay.push(1);
+        room.seatsSetting[0] = previousDisplay;
+        setRoom(createRoom(room.seatsSetting));
+    }
+    
+    function addBlockV() {
+        const previousDisplay = [...room.seatsSetting[1]];
+        previousDisplay.push(1);
+        room.seatsSetting[1] = previousDisplay;
+        setRoom(createRoom(room.seatsSetting));
+    }
+    function deleteBlockH() {
+        const previousDisplay = [...room.seatsSetting[0]];
+        previousDisplay.pop();
+        room.seatsSetting[0] = previousDisplay;
+        setRoom(createRoom(room.seatsSetting));
+    }
+    function deleteBlockV() {
+        const previousDisplay = [...room.seatsSetting[1]];
+        previousDisplay.pop();
+        room.seatsSetting[1] = previousDisplay;
+        setRoom(createRoom(room.seatsSetting));
+    }
+    
+    function addSeatInColumn(i) {
+        const newNumberofRowInBlock = room.seatsSetting[0][i] + 1;
+        room.seatsSetting[0][i] = newNumberofRowInBlock;
+        setRoom(createRoom(room.seatsSetting));
+        console.log(i);
+        console.log(room.seatsSetting);
+    }
+    
+    function addRowInBlock(i) {
+        const newNumberofRowInBlock = room.seatsSetting[1][i] + 1;
+        room.seatsSetting[1][i] = newNumberofRowInBlock;
+        setRoom(createRoom(room.seatsSetting));
+    }
     
     function createRoom(setting) {
         
@@ -107,96 +155,136 @@ function RoomGenerator() {
 
     function handleClick(row, column) {
         room.seats[row][column] = true;
-        console.log(room);
     }
-
+    console.log(room)
     let verticalBlockIterator = 0;
-
     return (
-        <div className="App">
-            {room.seats.map((c, i) => {
-                let blockSeatIterator = 0;
-                const seatImage = c.map((current, index) => {
-                    let seatElement;
-
-                    if (current === null) {
-                        seatElement = (
-                            <img
-                                key={i + ' ' + -index}
-                                src='img/ordering/emptySeat.png'
-                                alt="blank space"
-                                className="roomMapSeat"
-                            />
-                        );
-                    } else if (current === false) {
-                        seatElement = (
-                            <button
-                                key={i + ' ' + index * 1000}
-                                onClick={() => handleClick(i, index)}
-                                className="roomMap_btn"
-                            >
+        <>
+            <button type="button" onClick={addBlockH}>ajouter un block horizontal</button>
+            <button type="button" onClick={addBlockV}>ajouter un block vertical</button>
+            <button type="button" onClick={deleteBlockH}>supprimer un block horizontal</button>
+            <button type="button" onClick={deleteBlockV}>supprimer un block vertical</button>
+            
+            <div>
+                {room.seats.map((c, i) => {
+                    let blockSeatIterator = 0;
+                    
+                            //the map below will create one row of seats with the right number of columns
+                    const seatImage = c.map((current, index) => {
+                    
+                        let seatElement;
+                                    //create the html element with the relevent seat image
+                        if (current === null) {
+                            seatElement = (
                                 <img
-                                    src='img/ordering/freeSeat.png'
-                                    alt="place libre"
+                                    key={i + ' ' + -index}
+                                    src='img/ordering/emptySeat.png'
+                                    alt="blank space"
                                     className="roomMapSeat"
                                 />
-                            </button>
-                        );
-                    } else {
-                        seatElement = (
-                            <img
-                                key={i + ' ' + index * 100}
-                                src='/img/ordering/freeSeat.png'
-                                alt="place réservée"
-                                className="roomMapSeat"
-                            />
-                        );
-                    }
-                    let seatAndCorridor;
-                    if (room.hCorridorIndex[blockSeatIterator] === index) {
-                        blockSeatIterator++;
-                        seatAndCorridor = (
-                            <span key={i + ' ' + index * 2}>
+                            );
+                        } else if (current === false) {
+                            seatElement = (
+                                <button
+                                    key={i + ' ' + index * 1000}
+                                    onClick={() => handleClick(i, index)}
+                                    className="roomMap_btn"
+                                >
+                                    <img
+                                        src='img/ordering/freeSeat.png'
+                                        alt="place libre"
+                                        className="roomMapSeat"
+                                    />
+                                </button>
+                            );
+                        } else {
+                            seatElement = (
                                 <img
-                                    src='img/ordering/emptySeat.png'
+                                    key={i + ' ' + index * 100}
+                                    src='/img/ordering/takenSeat.png'
+                                    alt="place réservée"
+                                    className="roomMapSeat"
+                                />
+                            );
+                        }
+                        
+                        let seatAndCorridor;
+   
+                        
+                                //if the seat is the last, horizontally of the block, we add a button to add a seat
+                        if (index === room.hCorridorIndex[blockSeatIterator] - 1){
+                            
+                            const currentHBlock = blockSeatIterator;
+                            
+                            const seatAndButton = (
+                                <span key={i + ' ' + index * 2}>
+                                    {seatElement}
+                                    <button type="button" onClick={() => addSeatInColumn(currentHBlock)}>+</button>
+                                    <img
+                                        src='img/ordering/emptySeat.png'
+                                        alt="corridor"
+                                        className="roomMapSeat"
+                                    />
+                                </span>
+                            )
+                            blockSeatIterator++;
+                            return seatAndButton
+                        }else {
+                             return seatElement;
+                        }
+    
+                    });
+                    
+                    const seatRow = (
+                        <div>
+                            <p>
+                                {alphabet[i]} {seatImage}
+                            </p>
+                        </div>
+                    );
+
+                            //if this is first row of a block, we add an empty image Before
+                    if (i === room.vCorridorIndex[verticalBlockIterator]) {
+                    
+                        
+                        const rowAndCorridor = (
+                            
+                            <div key={i}>
+                                <img
+                                    src='img/ordering/emptySeat.png' 
                                     alt="corridor"
                                     className="roomMapSeat"
                                 />
-                                {seatElement}
-                            </span>
+                                
+                                {seatRow}
+                                
+                                
+                            </div>
                         );
-                    } else {
-                        seatAndCorridor = seatElement;
+                        
+                        return rowAndCorridor;
                     }
+                            //if this is the last row of a block, we add un button to add a row
+                    else if (i === room.vCorridorIndex[verticalBlockIterator] -1 ) {
 
-                    return seatAndCorridor;
-                });
-                const seatRow = (
-                    <div>
-                        <p>
-                            {alphabet[i]} {seatImage}
-                        </p>
-                    </div>
-                );
-                let rowAndCorridor;
-                if (i === room.vCorridorIndex[verticalBlockIterator]) {
-                    rowAndCorridor = (
-                        <div key={i}>
-                            <img
-                                src='img/ordering/emptySeat.png' 
-                                alt="corridor"
-                                className="roomMapSeat"
-                            />
-                            {seatRow}
-                        </div>
-                    );
-                    verticalBlockIterator++;
-                } else {
-                    rowAndCorridor = <div key={i}>{seatRow}</div>;
-                }
-                return rowAndCorridor;
-            })}
-        </div>
+                    const currentvBlockIndex = verticalBlockIterator;
+                        const rowAndButton = (
+                        
+                            <div key={i} >
+                                {seatRow}
+                                <button type="button" onClick={() => addRowInBlock(currentvBlockIndex)}>Ajouter une rangée</button>
+                            </div>
+                        );
+                        
+                        verticalBlockIterator++;
+                        
+                        return rowAndButton;
+                    }else {
+                        return <div key={i}>{seatRow}</div>;
+                    }
+                })}
+            </div>
+        </>
     );
 }
 export default RoomGenerator;
