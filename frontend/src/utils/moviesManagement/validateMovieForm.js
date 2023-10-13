@@ -26,7 +26,7 @@ function validateForm(formData) {
         updateErrorMsg.push('La durée du film doit être un nombre');
     }
     
-    if (formData.isOnline != 0 && formData.isOnline != 1) {
+    if (formData.isOnline !== 0 && formData.isOnline !== 1) {
         updateErrorMsg.push('Vous devez indiquez si le film doit être mis en ligne ou non');
     }
 

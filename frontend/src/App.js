@@ -22,7 +22,6 @@ function App() {
                     <Route path="/pratique" element={<Practical />} />
                     <Route path="/moviesManagement" element={<MoviesManagement />} />
                     <Route path="/updateMovie/:idMovie" element={<UpdateMovie />} />
-                    <Route path="/createSession" element={<CreateSession />} />
                 </Routes>
             </Router>
         </>

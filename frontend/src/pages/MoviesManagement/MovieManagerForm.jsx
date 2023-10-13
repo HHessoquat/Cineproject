@@ -3,7 +3,7 @@ import DynamicInputList from '../../components/Forms/DynamicInputList';
 import validateForm from '../../utils/moviesManagement/validateMovieForm.js';
 import createMovie from '../../utils/moviesManagement/createMovie.js';
 import handleChange from '../../utils/formsManagement/handleChange.js';
-
+import CreateSession from '../../components/Forms/addSessionForm.jsx';
 
 function MovieManagerForm({update, previousMovieData, idMovie}) {
     const [formData, setFormData] = useState({
@@ -21,6 +21,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
         warnings: [''],
         isOnline: 0,
     });
+    const [movieSessions, setMovieSessions] = useState([]);
     const [errorMsg, setErrorMsg] = useState([]);
     
     useEffect(()=> {
@@ -50,6 +51,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
             setFormData(formattedData);
         }
     }, [previousMovieData])
+    
     function addInputBtn(e) {
         const { name } = e.target;
         setFormData((prevFormData) => ({
@@ -57,6 +59,14 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
             [name]: [...prevFormData[name], ''],
         }));
     }
+    
+    function addSession() {
+        const newSession = [...movieSessions];
+        newSession.push({});
+        console.log(newSession);
+        setMovieSessions(newSession);
+    }
+    
     function handleChangeArray(e, i) {
         const { name, value } = e.target;
         setFormData((prevFormData) => {
@@ -111,7 +121,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
             createMovie(e, formData, setErrorMsg);
         }
     }
-
+    console.log(movieSessions);
     return (
         <>
             <form className="backOfficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -125,175 +135,179 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         </ul>
                     </div>
                 )}
-                <div className="inputContainer">
-                    <label htmlFor="movieTitle">Titre</label>
-                    <input
-                        type="text"
-                        name="movieTitle"
+                <fieldset>
+                    <div className="inputContainer">
+                        <label htmlFor="movieTitle">Titre</label>
+                        <input
+                            type="text"
+                            name="movieTitle"
+                            required
+                            value={formData.movieTitle}
+                            onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
+                        />
+                    </div>
+    
+                    <div className="inputContainer">
+                        <label htmlFor="posterFile">Télécharger une affiche</label>
+                        <input
+                            type="file"
+                            name="posterFile"
+                            onChange={handleFileChange}
+                        />
+                    </div>
+                    
+                    <div className="inputContainer">
+                        <label htmlFor="posterAlt">
+                            Texte alternatif de l'affiche
+                        </label>
+                        <input
+                            type="text"
+                            name="posterAlt"
+                            required
+                            value={formData.posterAlt}
+                            onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
+                        />
+                    </div>
+                    
+                    <div className="inputContainer">
+                        <label htmlFor="coverImg">Télécharger une image de couverture</label>
+                        <input
+                            type="file"
+                            name="coverImgFile"
+                            onChange={handleFileChange}
+                        />
+                    </div>
+                    
+                    <div className="inputContainer">
+                        <label htmlFor="coverImgAlt">
+                            Texte alternatif de l'image de couverture
+                        </label>
+                        <input
+                            type="text"
+                            name="coverImgAlt"
+                            required={true}
+                            value={formData.coverImgAlt}
+                            onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
+                        />
+                    </div>
+                    <div className="inputContainer">
+                        <label htmlFor="releaseDate">Date de sortie</label>
+                        <input
+                            type="date"
+                            name="releaseDate"
+                            value={formData.releaseDate}
+                            onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
+                        />
+                    </div>
+                    <div className="inputContainer">
+                        <label htmlFor="movieLength">
+                            Durée du film en minutes
+                        </label>
+                        <input
+                            type="number"
+                            name="movieLength"
+                            value={formData.movieLength}
+                            onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
+                        />
+                    </div>
+                    <div className="inputContainer">
+                        <DynamicInputList
+                            arrayOfDatas={formData.director}
+                            inputLabel="Réalisateur"
+                            inputName="director"
+                            handleChangeArray={handleChangeArray}
+                            addInputBtn={addInputBtn}
+                        />
+                    </div>
+                    <div className="inputContainer">
+                        <DynamicInputList
+                            arrayOfDatas={formData.mainActors}
+                            inputLabel="Acteurs Principaux"
+                            inputName="mainActors"
+                            handleChangeArray={handleChangeArray}
+                            addInputBtn={addInputBtn}
+                        />
+                    </div>
+                    <div className="inputContainer">
+                        <DynamicInputList
+                            arrayOfDatas={formData.categories}
+                            inputLabel="Catégories"
+                            inputName="categories"
+                            handleChangeArray={handleChangeArray}
+                            addInputBtn={addInputBtn}
+                        />
+                    </div>
+                    <div className="inputContainer">
+                        <label htmlFor="trailerUrl">
+                            lien vers la bande-annonce
+                        </label>
+                        <input
+                            type="text"
+                            name="trailerUrl"
+                            value={formData.trailerUrl}
+                            onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
+                        />
+                    </div>
+                    <div className="inputContainer">
+                        <label htmlFor="trailerFile">
+                            Télécharger la bande-annonce
+                        </label>
+                        <input
+                            type="file"
+                            name="trailerFile"
+                            onChange={handleFileChange}
+                        />
+                    </div>
+                    <label htmlFor="synopsis">synopsis</label>
+                    <textarea
+                        name="synopsis"
                         required
-                        value={formData.movieTitle}
+                        value={formData.synopsis}
                         onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                     />
-                </div>
-
-                <div className="inputContainer">
-                    <label htmlFor="posterFile">Télécharger une affiche</label>
-                    <input
-                        type="file"
-                        name="posterFile"
-                        onChange={handleFileChange}
-                    />
-                </div>
-                
-                <div className="inputContainer">
-                    <label htmlFor="posterAlt">
-                        Texte alternatif de l'affiche
-                    </label>
-                    <input
-                        type="text"
-                        name="posterAlt"
-                        required
-                        value={formData.posterAlt}
-                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
-                    />
-                </div>
-                
-                <div className="inputContainer">
-                    <label htmlFor="coverImg">Télécharger une image de couverture</label>
-                    <input
-                        type="file"
-                        name="coverImgFile"
-                        onChange={handleFileChange}
-                    />
-                </div>
-                
-                <div className="inputContainer">
-                    <label htmlFor="coverImgAlt">
-                        Texte alternatif de l'image de couverture
-                    </label>
-                    <input
-                        type="text"
-                        name="coverImgAlt"
-                        required={true}
-                        value={formData.coverImgAlt}
-                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
-                    />
-                </div>
-                <div className="inputContainer">
-                    <label htmlFor="releaseDate">Date de sortie</label>
-                    <input
-                        type="date"
-                        name="releaseDate"
-                        value={formData.releaseDate}
-                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
-                    />
-                </div>
-                <div className="inputContainer">
-                    <label htmlFor="movieLength">
-                        Durée du film en minutes
-                    </label>
-                    <input
-                        type="number"
-                        name="movieLength"
-                        value={formData.movieLength}
-                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
-                    />
-                </div>
-                <div className="inputContainer">
-                    <DynamicInputList
-                        arrayOfDatas={formData.director}
-                        inputLabel="Réalisateur"
-                        inputName="director"
-                        handleChangeArray={handleChangeArray}
-                        addInputBtn={addInputBtn}
-                    />
-                </div>
-                <div className="inputContainer">
-                    <DynamicInputList
-                        arrayOfDatas={formData.mainActors}
-                        inputLabel="Acteurs Principaux"
-                        inputName="mainActors"
-                        handleChangeArray={handleChangeArray}
-                        addInputBtn={addInputBtn}
-                    />
-                </div>
-                <div className="inputContainer">
-                    <DynamicInputList
-                        arrayOfDatas={formData.categories}
-                        inputLabel="Catégories"
-                        inputName="categories"
-                        handleChangeArray={handleChangeArray}
-                        addInputBtn={addInputBtn}
-                    />
-                </div>
-                <div className="inputContainer">
-                    <label htmlFor="trailerUrl">
-                        lien vers la bande-annonce
-                    </label>
-                    <input
-                        type="text"
-                        name="trailerUrl"
-                        value={formData.trailerUrl}
-                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
-                    />
-                </div>
-                <div className="inputContainer">
-                    <label htmlFor="trailerFile">
-                        Télécharger la bande-annonce
-                    </label>
-                    <input
-                        type="file"
-                        name="trailerFile"
-                        onChange={handleFileChange}
-                    />
-                </div>
-                <label htmlFor="synopsis">synopsis</label>
-                <textarea
-                    name="synopsis"
-                    required
-                    value={formData.synopsis}
-                    onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
-                />
-                <div className="inputContainer">
-                    <label htmlFor="pg">public authorisé</label>
-                    <input
-                        type="text"
-                        name="pg"
-                        value={formData.pg}
-                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
-                    />
-                </div>
-                <div className="inputContainer">
-                    <DynamicInputList
-                        arrayOfDatas={formData.warnings}
-                        inputLabel="Avertissements"
-                        inputName="warnings"
-                        handleChangeArray={handleChangeArray}
-                        addInputBtn={addInputBtn}
-                    />
-                </div>
-                <p className="inputContainer">
-                    Mettre le site en ligne ?
-                   
-                    <input
-                        type="radio"
-                        id="isOnline"
-                        name="isOnline"
-                        value={1}
-                        checked={formData.isOnline === 1}
-                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
-                    />
-                     <label htmlFor="isOnline">oui</label>
-                      <input
-                        type="radio"
-                        id="isNotOnline"
-                        name="isOnline"
-                        value={0}
-                        checked={formData.isOnline === 0}
-                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
-                    />
-                     <label htmlFor="isNotOnline">Non</label>
-                </p>
+                    <div className="inputContainer">
+                        <label htmlFor="pg">public authorisé</label>
+                        <input
+                            type="text"
+                            name="pg"
+                            value={formData.pg}
+                            onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
+                        />
+                    </div>
+                    <div className="inputContainer">
+                        <DynamicInputList
+                            arrayOfDatas={formData.warnings}
+                            inputLabel="Avertissements"
+                            inputName="warnings"
+                            handleChangeArray={handleChangeArray}
+                            addInputBtn={addInputBtn}
+                        />
+                    </div>
+                    <p className="inputContainer">
+                        Mettre le site en ligne ?
+                       
+                        <input
+                            type="radio"
+                            id="isOnline"
+                            name="isOnline"
+                            value={1}
+                            checked={formData.isOnline === 1}
+                            onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
+                        />
+                         <label htmlFor="isOnline">oui</label>
+                          <input
+                            type="radio"
+                            id="isNotOnline"
+                            name="isOnline"
+                            value={0}
+                            checked={formData.isOnline === 0}
+                            onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
+                        />
+                         <label htmlFor="isNotOnline">Non</label>
+                    </p>
+                </fieldset>
+                <button type="Button" onClick={addSession}>Ajouter une séance</button>
+                {movieSessions.map((c, i) => <CreateSession key={i+99*222} movieSessions={movieSessions} setErrorMsg={setErrorMsg} setMovieSessions={setMovieSessions} index={i} />)}
                 <input type="submit" value="valider" />
             </form>
         </>

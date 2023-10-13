@@ -2,7 +2,6 @@ import MovieForm from './MovieManagerForm.jsx';
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 
-
 function UpdateMovie() {
     const [movieData, setMovieData] = useState();
     const {idMovie} = useParams();
@@ -33,7 +32,7 @@ function UpdateMovie() {
     
     console.log(movieData);
     return(
-        <MovieForm update={true} previousMovieData={movieData} idMovie={idMovie} />
+            <MovieForm update={true} previousMovieData={movieData} idMovie={idMovie} />
         )
 }
 export default UpdateMovie;
