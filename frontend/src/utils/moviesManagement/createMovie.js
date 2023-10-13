@@ -10,13 +10,13 @@
         const dataToSend = new FormData();
         
         for (const key in formData) {
-            if (key !== 'releaseDate' && key !=='movieLength') {
+            if (key !=='movieLength') {
             dataToSend.append(key, formData[key]);
             }
         }
         
         dataToSend.append('movieLength', Number(formData.movieLength));
-        dataToSend.append('releaseDate', new Date(formData.releaseDate).toISOString().slice(0, 19).replace('T', ' '));
+        console.log("passe");
         fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
             method: 'POST',
             body: dataToSend,

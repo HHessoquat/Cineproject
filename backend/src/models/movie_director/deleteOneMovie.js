@@ -3,7 +3,7 @@ const query = require('../../../database.js').database;
 exports.deleteOneMD = (idMovie) => {
     try {
         query(
-            'DELETE FROM Movie_director WHERE movieId = ?',
+            'DELETE FROM Movie_Director WHERE movieId = ?',
             [idMovie],
             (err, result) => {
                 if (err) {

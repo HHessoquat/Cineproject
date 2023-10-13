@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import DynamicInputList from '../../components/Forms/DynamicInputList';
 import validateForm from '../../utils/moviesManagement/validateMovieForm.js';
 import createMovie from '../../utils/moviesManagement/createMovie.js';
+import handleChange from '../../utils/formsManagement/handleChange.js';
+
 
 function MovieManagerForm({update, previousMovieData, idMovie}) {
     const [formData, setFormData] = useState({
@@ -72,12 +74,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
         }));
     };
 
-    function handleChange(e) {
-        console.log(formData);
-        const { name, value } = e.target;
-        setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-        setErrorMsg([]);
-    }
+    
     
     function updateMovie(e) {
         e.preventDefault();
@@ -135,7 +132,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         name="movieTitle"
                         required
                         value={formData.movieTitle}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                     />
                 </div>
 
@@ -157,7 +154,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         name="posterAlt"
                         required
                         value={formData.posterAlt}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                     />
                 </div>
                 
@@ -177,9 +174,9 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                     <input
                         type="text"
                         name="coverImgAlt"
-                        required
+                        required={true}
                         value={formData.coverImgAlt}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                     />
                 </div>
                 <div className="inputContainer">
@@ -188,7 +185,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         type="date"
                         name="releaseDate"
                         value={formData.releaseDate}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                     />
                 </div>
                 <div className="inputContainer">
@@ -199,7 +196,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         type="number"
                         name="movieLength"
                         value={formData.movieLength}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                     />
                 </div>
                 <div className="inputContainer">
@@ -208,7 +205,6 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         inputLabel="Réalisateur"
                         inputName="director"
                         handleChangeArray={handleChangeArray}
-                        onChange={handleChange}
                         addInputBtn={addInputBtn}
                     />
                 </div>
@@ -238,7 +234,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         type="text"
                         name="trailerUrl"
                         value={formData.trailerUrl}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                     />
                 </div>
                 <div className="inputContainer">
@@ -256,7 +252,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                     name="synopsis"
                     required
                     value={formData.synopsis}
-                    onChange={handleChange}
+                    onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                 />
                 <div className="inputContainer">
                     <label htmlFor="pg">public authorisé</label>
@@ -264,7 +260,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         type="text"
                         name="pg"
                         value={formData.pg}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                     />
                 </div>
                 <div className="inputContainer">
@@ -285,7 +281,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         name="isOnline"
                         value={1}
                         checked={formData.isOnline === 1}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                     />
                      <label htmlFor="isOnline">oui</label>
                       <input
@@ -294,7 +290,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
                         name="isOnline"
                         value={0}
                         checked={formData.isOnline === 0}
-                        onChange={handleChange}
+                        onChange={(e) => handleChange(e, setFormData, setErrorMsg)}
                     />
                      <label htmlFor="isNotOnline">Non</label>
                 </p>

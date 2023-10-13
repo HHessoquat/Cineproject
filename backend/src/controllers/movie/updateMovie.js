@@ -1,4 +1,3 @@
-const xss = require('xss');
 const query =  require('../../../database.js').database;
 const { addActor } = require('../../models/actors/addActor.js');
 const { addDirector } =  require('../../models/directors/addDirector.js');
@@ -10,11 +9,7 @@ const putMovieToDatabase = require('../../models//movie/updateMovie.js').updateM
 
 exports.updateMovie = async (req, res, next) => {
     const { id } = req.params;
-            //prevent xss attacks
-            //Object.keys(req.body).forEach((key) )
-    for (let element in req.body) {
-        req.body[element] = xss(element);
-    }
+
     
     const movie = {
         title: req.body.movieTitle,
@@ -75,27 +70,7 @@ exports.updateMovie = async (req, res, next) => {
                 throw new Error(checkAssociation);
             }
         });
-        
-         query(
-            'SELECT id FROM Movie WHERE id = ?',
-            [id],
-            (error, results) => {
-                if (error) {
-                    console.error(error);
-                    res.status(500).json({
-                      error: 'Erreur serveur'
-                    });
-                    return;
-                }
-                
-                if (results.length === 0) {
-                    res.status(404).json({
-                      error: `aucun film avec l'id ${id} n'a été trouvé`
-                    });
-                    return
-                }
-            }
-        );
+       
         res.status(200).json({message: 'Movie up to date'});
     } catch (error) {
         console.log(error);

@@ -1,5 +1,4 @@
 const { v4 } = require('uuid');
-const xss = require('xss');
 const { insertMovie } = require('../../models/movie/insertMovie.js');
 const { addActor } = require('../../models/actors/addActor.js');
 const { addDirector } =  require('../../models/directors/addDirector.js');
@@ -7,9 +6,7 @@ const { addOneMA } = require('../../models/movie_actor/addOneMA.js');
 const { addOneMD } = require('../../models//movie_director/addOneMD.js');
 
 exports.addMovie = async (req, res, next) => {
-    for (let element in req.body) {
-        element = xss(element);
-    }
+
     const movie = {
         ...req.body,
         posterUrl: `${req.protocol}://${req.get('host')}/images/${req.files.posterFile[0].filename}`,

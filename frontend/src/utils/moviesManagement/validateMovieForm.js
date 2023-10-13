@@ -1,10 +1,14 @@
 function validateForm(formData) {
     let updateErrorMsg = [];
+    console.log(formData)
     if (!formData.movieTitle) {
         updateErrorMsg.push(`Le titre du film est obligatoire`);
     }
     if (!formData.posterFile) {
         updateErrorMsg.push(`Vous devez ajouter une affiche pour le film`);
+    }
+    if (!formData.coverImgFile) {
+        updateErrorMsg.push(`Vous devez ajouter une image de couverture pour le film`);
     }
     if (!formData.posterAlt) {
         updateErrorMsg.push(
@@ -20,6 +24,10 @@ function validateForm(formData) {
 
     if (isNaN(Number(formData.movieLength))) {
         updateErrorMsg.push('La durée du film doit être un nombre');
+    }
+    
+    if (formData.isOnline != 0 && formData.isOnline != 1) {
+        updateErrorMsg.push('Vous devez indiquez si le film doit être mis en ligne ou non');
     }
 
     return updateErrorMsg;

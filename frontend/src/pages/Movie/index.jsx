@@ -31,6 +31,7 @@ function Movie() {
             fetchMovieDatas();
             }
         , []);
+        console.log(movie)
     function deleteMovie() {
         fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`,{
             method: 'DELETE',
