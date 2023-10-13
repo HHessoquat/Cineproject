@@ -1,9 +1,9 @@
 const { v4 } = require('uuid');
-const { insertMovie } = require('../../models/movie/insertMovie.js');
-const { addActor } = require('../../models/actors/addActor.js');
-const { addDirector } =  require('../../models/directors/addDirector.js');
-const { addOneMA } = require('../../models/movie_actor/addOneMA.js');
-const { addOneMD } = require('../../models//movie_director/addOneMD.js');
+const { insertMovie } = require('../../repository/movie/insertMovie.js');
+const { addActor } = require('../../repository/actors/addActor.js');
+const { addDirector } =  require('../../repository/directors/addDirector.js');
+const { addOneMA } = require('../../repository/movie_actor/addOneMA.js');
+const { addOneMD } = require('../../repository/movie_director/addOneMD.js');
 
 exports.addMovie = async (req, res, next) => {
 

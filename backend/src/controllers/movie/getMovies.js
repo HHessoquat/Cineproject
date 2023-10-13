@@ -1,4 +1,4 @@
-const { retrieveAllMovies, retrieveOneMovie } = require('../../models/movie/retrieveMovies.js');
+const { retrieveAllMovies, retrieveOneMovie } = require('../../repository/movie/retrieveMovies.js');
 
 exports.getAllMovies = async (req, res, next) => {
     try {

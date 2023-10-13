@@ -1,4 +1,4 @@
-const { removeMovie } = require('../../models/movie/deleteMovie.js');
+const { removeMovie } = require('../../repository/movie/deleteMovie.js');
 
 exports.deleteOneMovie = async (req, res, next) => {
     try {

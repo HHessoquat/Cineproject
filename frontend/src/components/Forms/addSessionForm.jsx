@@ -16,7 +16,7 @@ function AddSessionForm({movieSessions, setErrorMsg, setMovieSessions, index}) {
         const updatedMovieSessions = [...movieSessions];
 
         // Insérez la nouvelle session à l'index spécifié
-        updatedMovieSessions.splice(index, 0, session);
+        updatedMovieSessions.splice(index, 1, session);
 
         // Mettez à jour le tableau movieSessions avec la nouvelle session insérée à l'index
         setMovieSessions(updatedMovieSessions);

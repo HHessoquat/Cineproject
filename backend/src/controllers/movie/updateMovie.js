@@ -1,11 +1,11 @@
 const query =  require('../../../database.js').database;
-const { addActor } = require('../../models/actors/addActor.js');
-const { addDirector } =  require('../../models/directors/addDirector.js');
-const { deleteOneMA } = require('../../models/movie_actor/deleteAllFromOneMovie.js');
-const { deleteOneMD } = require('../../models/movie_director/deleteOneMovie.js');
-const { addOneMA } = require('../../models/movie_actor/addOneMA.js');
-const { addOneMD } = require('../../models//movie_director/addOneMD.js');
-const putMovieToDatabase = require('../../models//movie/updateMovie.js').updateMovie;
+const { addActor } = require('../../repository/actors/addActor.js');
+const { addDirector } =  require('../../repository/directors/addDirector.js');
+const { deleteOneMA } = require('../../repository/movie_actor/deleteAllFromOneMovie.js');
+const { deleteOneMD } = require('../../repository/movie_director/deleteOneMovie.js');
+const { addOneMA } = require('../../repository/movie_actor/addOneMA.js');
+const { addOneMD } = require('../../repository/movie_director/addOneMD.js');
+const putMovieToDatabase = require('../../repository/movie/updateMovie.js').updateMovie;
 
 exports.updateMovie = async (req, res, next) => {
     const { id } = req.params;
