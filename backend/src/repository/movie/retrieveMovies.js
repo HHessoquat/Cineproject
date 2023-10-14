@@ -17,6 +17,7 @@ exports.retrieveAllMovies  = () => {
 };
 
 exports.retrieveOneMovie = (id) => {
+    
     return new Promise((resolve, reject) => {
       query(
             `SELECT 
@@ -36,6 +37,7 @@ exports.retrieveOneMovie = (id) => {
                 if (err) {
                     reject(new Error(err));
                 }
+                
                 resolve(result);
                 }
                 

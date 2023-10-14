@@ -30,17 +30,13 @@ exports.addMovie = async (req, res, next) => {
         actorsId.forEach((c) => {
             //MA refers to the table Movie_Actor
             const errorMA = addOneMA(movieId, c);
-            if (errorMA) {
-                throw new Error(errorMA);
-            }
+ 
         });
             
         directorsId.forEach((c) => {
             //MD refers to the table Movie_Director
             const errorMD = addOneMD(movieId, c);
-            if (errorMD) {
-                throw new Error(errorMD);
-            }
+
         });
         
         res.status(201).json({

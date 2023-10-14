@@ -2,8 +2,6 @@ const query =  require('../../../database.js').database;
 
 exports.modifyRoom = (room, id) => {
     return new Promise((resolve, reject) => {
-        console.log(room);
-        console.log(id)
         query(
                 `UPDATE Room SET 
                 name = ?,
