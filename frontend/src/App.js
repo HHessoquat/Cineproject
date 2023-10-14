@@ -9,6 +9,7 @@ import MoviesManagement from './pages/MoviesManagement';
 import UpdateMovie from './pages/MoviesManagement/UpdateMovie.jsx';
 import CreateSession from './components/Forms/addSessionForm.jsx';
 import RoomManagement from './pages/RoomsManagement';
+import UpdateRoom from './pages/RoomsManagement/UpdateRoom.jsx';
 
 function App() {
     return (
@@ -24,7 +25,7 @@ function App() {
                     <Route path="/moviesManagement" element={<MoviesManagement />} />
                     <Route path="/updateMovie/:idMovie" element={<UpdateMovie />} />
                     <Route path="/roomsManagement" element={<RoomManagement />} />
-                    <Route path="/`updateRoom/:id" element={<RoomManagement />} />
+                    <Route path="/roomsManagement/updateRoom/:id" element={<UpdateRoom />} />
                 </Routes>
             </Router>
         </>

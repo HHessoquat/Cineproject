@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import validateDatas from '../../features/room/validateDatas.js';
 import createRoom from '../../features/room/createRoom.js';
-import { postRoom } from '../../features/room/api.js';
-function RoomGenerator() {
+import { sendRoom } from '../../features/room/api.js';
+function RoomGenerator({update, name, roomSettings}) {
+    const { id } = useParams();
     const [room, setRoom] = useState(
                                 createRoom([
                                     [2, 2, 2],
@@ -11,6 +13,14 @@ function RoomGenerator() {
                                 ]));
     const [roomName, setRoomName] = useState('');
     const [errorMsg, setErrorMsg] = useState([]);
+    
+    useEffect(()=>{
+        if (update && name && roomSettings) {
+        setRoomName(name)
+        setRoom(createRoom(roomSettings));
+    }
+    },[])
+    
     
     function handleChange(e) {
         setRoomName(e.target.value);
@@ -103,8 +113,17 @@ function RoomGenerator() {
     }
     
 
-    function handleClick(row, column) {
+    function handleSeatClick(row, column) {
         room.seats[row][column] = true;
+    }
+    
+    
+    function handleCreateClick(){
+        if (update)  {
+            sendRoom('PUT', roomName, room, validateDatas, setErrorMsg, id)
+        }else {
+            sendRoom('POST', roomName, room, validateDatas, setErrorMsg);
+        }
     }
     
     let verticalBlockIterator = 0;
@@ -135,7 +154,7 @@ function RoomGenerator() {
                             seatElement = (
                                 <img
                                     key={i + ' ' + -index}
-                                    src='img/ordering/emptySeat.png'
+                                    src='/img/room/emptySeat.png'
                                     alt="blank space"
                                     className="roomMapSeat"
                                 />
@@ -144,11 +163,11 @@ function RoomGenerator() {
                             seatElement = (
                                 <button
                                     key={i + ' ' + index * 1000}
-                                    onClick={() => handleClick(i, index)}
+                                    onClick={() => handleSeatClick(i, index)}
                                     className="roomMap_btn"
                                 >
                                     <img
-                                        src='img/ordering/freeSeat.png'
+                                        src='/img/room/freeSeat.png'
                                         alt="place libre"
                                         className="roomMapSeat"
                                     />
@@ -158,7 +177,7 @@ function RoomGenerator() {
                             seatElement = (
                                 <img
                                     key={i + ' ' + index * 100}
-                                    src='/img/ordering/takenSeat.png'
+                                    src='/img/room/takenSeat.png'
                                     alt="place réservée"
                                     className="roomMapSeat"
                                 />
@@ -179,7 +198,7 @@ function RoomGenerator() {
                                     <button type="button" onClick={() => addSeatInColumn(currentHBlock)}>+</button>
                                     <button type="button" onClick={() => removeSeatInColumn(currentHBlock)}>-</button>
                                     <img
-                                        src='img/ordering/emptySeat.png'
+                                        src='/img/room/emptySeat.png'
                                         alt="corridor"
                                         className="roomMapSeat"
                                     />
@@ -209,7 +228,7 @@ function RoomGenerator() {
                             
                             <div key={i}>
                                 <img
-                                    src='img/ordering/emptySeat.png' 
+                                    src='/img/room/emptySeat.png' 
                                     alt="corridor"
                                     className="roomMapSeat"
                                 />
@@ -243,7 +262,7 @@ function RoomGenerator() {
                     }
                 })}
             </div>
-            <button type="button" onClick={(e) => postRoom(roomName, room, validateDatas, setErrorMsg)}>Créer la salle</button>
+            <button type="button" onClick={handleCreateClick}>Créer la salle</button>
         </>
     );
 }

@@ -6,7 +6,6 @@ function MoviesManagement() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    
     fetchMoviesData(setMovies);
   }, []);
   
