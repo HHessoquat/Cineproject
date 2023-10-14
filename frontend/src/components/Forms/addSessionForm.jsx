@@ -11,14 +11,14 @@ function AddSessionForm({movieSessions, setErrorMsg, setMovieSessions, index}) {
         room: '1',
     });
     function updateSession(e) {
-        console.log(setSession)
         handleChange(e, setSession, setErrorMsg);
+        
+        //bypass the useState delayed mutate
+        const newSessionData = {...session, [e.target.name] : e.target.value};
         const updatedMovieSessions = [...movieSessions];
-
-        // Insérez la nouvelle session à l'index spécifié
-        updatedMovieSessions.splice(index, 1, session);
-
-        // Mettez à jour le tableau movieSessions avec la nouvelle session insérée à l'index
+        
+        
+        updatedMovieSessions.splice(index, 1, newSessionData);
         setMovieSessions(updatedMovieSessions);
     }
     return (

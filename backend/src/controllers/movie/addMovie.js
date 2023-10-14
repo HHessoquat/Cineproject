@@ -44,12 +44,14 @@ exports.addMovie = async (req, res, next) => {
         });
         
         res.status(201).json({
-            message: 'ok'
+            message: 'ok',
+            movieId
         });
         
     }
     catch (err) {
-        console.log(err)
+        console.log(err);
+        res.status(500).json({message: 'server error'});
     }
     
 };

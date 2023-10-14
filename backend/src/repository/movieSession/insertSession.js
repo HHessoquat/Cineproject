@@ -1,11 +1,11 @@
 const query =  require('../../../database.js').database;
 
-exports.insertMovie = (id, session, idMovie) => {
+exports.insertSession = (id, session) => {
     return new Promise((resolve, reject) => {
-        const seats= ["a", "b"];
+ 
        query(
-            'INSERT INTO Session (id, date, time, takenSeat, idMovie, idRoom) VALUES(?, ?, ?, ?, ?, ?)',
-            [id, session.date, session.time, seats, idMovie, session.room],
+            'INSERT INTO Session (id, date, time, seatMap, idMovie, idRoom) VALUES(?, ?, ?, ?, ?, ?)',
+            [id, session.date, session.time, JSON.stringify(session.seatMap), session.idMovie, session.idRoom],
             (err, result) => {
                 if (err) {
                     reject(new Error(err));

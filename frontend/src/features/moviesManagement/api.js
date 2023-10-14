@@ -68,7 +68,8 @@ export function updateMovie(e, formData, idMovie) {
             );
     }
     
-export  function createMovie(e, formData) {
+export async  function createMovie(e, formData) {
+    try {
         const dataToSend = new FormData();
         
         for (const key in formData) {
@@ -78,18 +79,21 @@ export  function createMovie(e, formData) {
         }
         
         dataToSend.append('movieLength', Number(formData.movieLength));
-        console.log("passe");
-        fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
+        
+        
+        const fetchResult = await fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
             method: 'POST',
             body: dataToSend,
         })
-            .then((response) => response.json())
-            .then((data) =>
-                console.log("reponse de l'API : " + JSON.stringify(data))
-            )
-            .catch((error) =>
-                console.error(`erreur lors de l'envoi du formulaire : `, error)
-            );
+        
+        const response = await fetchResult.json();
+        console.log("reponse de l'API : " + response.message);
+
+        return response.movieId;
+    }catch (err) {
+        console.log(`erreur lors de l'envoi du formulaire : `, err)
+    }
+        
     }
     
 export function deleteMovie(idMovie) {

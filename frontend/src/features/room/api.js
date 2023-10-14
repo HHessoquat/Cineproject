@@ -29,7 +29,7 @@ export async function sendRoom(method, roomName, room, validateDatas, setErrorMs
         
     }
     
-export async function fetchOneRoom(id, setRoom) {
+export async function fetchOneRoom(id) {
         try{
             const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/room/${id}`, {
                 method: 'GET',
@@ -39,7 +39,7 @@ export async function fetchOneRoom(id, setRoom) {
             });
             const room = await response.json();
             const parsedRoom = {...room.result[0], seatsDisplay: JSON.parse(room.result[0].seatsDisplay)}
-            setRoom(parsedRoom);
+            return parsedRoom;
         }catch (err) {
             console.log(err);
         }
