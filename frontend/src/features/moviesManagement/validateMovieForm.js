@@ -1,13 +1,13 @@
-function validateForm(formData) {
+function validateForm(formData, update) {
     let updateErrorMsg = [];
     console.log(formData)
     if (!formData.movieTitle) {
         updateErrorMsg.push(`Le titre du film est obligatoire`);
     }
-    if (!formData.posterFile) {
+    if (!formData.posterFile && !update) {
         updateErrorMsg.push(`Vous devez ajouter une affiche pour le film`);
     }
-    if (!formData.coverImgFile) {
+    if (!formData.coverImgFile && !update) {
         updateErrorMsg.push(`Vous devez ajouter une image de couverture pour le film`);
     }
     if (!formData.posterAlt) {

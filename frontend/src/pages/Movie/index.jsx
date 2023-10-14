@@ -1,48 +1,17 @@
 import {useState, useEffect} from 'react';
-import  { useParams } from 'react-router-dom'
+import  { useParams } from 'react-router-dom';
+import { fetchMovieDatas, deleteMovie } from '../../features/moviesManagement/api.js'
 
 function Movie() {
     const {idMovie} = useParams();
     const [movie, setMovie] = useState({});
     
     useEffect(() => {
-
-            async function fetchMovieDatas() {
-                try {
-                    const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`, {
-                        method: 'GET',
-                        headers: {
-                            accept: 'application/json'
-                        }
-                    })
-                    
-                    if (!response.ok) {
-                        console.log(response);
-                        throw new Error('erreur lors de la récupération du film');
-                    }
-                    
-                    const movieDatas = await response.json();
-                    setMovie(movieDatas);
-                    
-                } catch (error) {
-                    console.log(error);
-                    }
-                }
-            fetchMovieDatas();
+            fetchMovieDatas(idMovie, setMovie);
             }
         , []);
         console.log(movie)
-    function deleteMovie() {
-        fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`,{
-            method: 'DELETE',
-            headers: {
-                accept: 'application/json',
-            }
-            
-        }).then((response) => {
-            response.json()
-        }).then((data) => console.log(data.message));
-    }
+    
         
     
     return (
@@ -64,7 +33,7 @@ function Movie() {
                         </li>
                     </ul>
                 </aside>
-                <button type='button' onClick={deleteMovie}>Supprimer</button>
+                <button type='button' onClick={() => deleteMovie(idMovie)}>Supprimer</button>
             </article>
         </>
     );

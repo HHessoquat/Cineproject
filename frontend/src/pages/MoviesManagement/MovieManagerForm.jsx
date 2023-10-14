@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import DynamicInputList from '../../components/Forms/DynamicInputList';
-import validateForm from '../../utils/moviesManagement/validateMovieForm.js';
-import createMovie from '../../utils/moviesManagement/createMovie.js';
+import validateForm from '../../features/moviesManagement/validateMovieForm.js';
+import { createMovie, updateMovie } from '../../features/moviesManagement/api.js';
 import handleChange from '../../utils/formsManagement/handleChange.js';
 import CreateSession from '../../components/Forms/addSessionForm.jsx';
 
@@ -11,8 +11,8 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
         posterAlt: '',
         coverImgAlt: '',
         releaseDate: '',
-        movieLength: null,
-        synospis: '',
+        movieLength: 0,
+        synopsis: '',
         director: [''],
         mainActors: [''],
         categories: [''],
@@ -85,40 +85,20 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
     };
 
     
-    
-    function updateMovie(e) {
+    function handleSubmit(e) {
         e.preventDefault();
-        const dataToSend = new FormData();
-        for (const key in formData) {
-            if (key !== 'releaseDate' && key !=='movieLength') {
-            dataToSend.append(key, formData[key]);
-            }
+        const errorsArray = validateForm(formData, update);
+        
+        if (errorsArray.length > 0) {
+            setErrorMsg(errorsArray);
+            return;
         }
         
-        dataToSend.append('movieLength', Number(formData.movieLength));
-        dataToSend.append('releaseDate', new Date(formData.releaseDate).toISOString().slice(0, 19).replace('T', ' '));
-        
-        fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/update/${idMovie}`,{
-            method: 'PUT',
-            headers: {
-                accept: 'application/json'
-            },
-            body: dataToSend
-        })
-            .then((response) => response.json())
-            .then((data) =>
-                console.log("reponse de l'API : " + JSON.stringify(data))
-            )
-            .catch((error) =>
-                console.error(`erreur lors de l'envoi du formulaire : `, error)
-            );
-    }
-    function handleSubmit(e) {
         if (update) {
-            updateMovie(e)
+            updateMovie(e, formData, idMovie)
         }
         else {
-            createMovie(e, formData, setErrorMsg);
+            createMovie(e, formData);
         }
     }
     console.log(movieSessions);
