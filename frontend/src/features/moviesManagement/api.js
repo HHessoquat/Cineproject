@@ -1,4 +1,4 @@
-export async function fetchMovieDatas(idMovie, setMovie) {
+export async function fetchMovieDatas(idMovie) {
                 try {
                     const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`, {
                         method: 'GET',
@@ -13,7 +13,7 @@ export async function fetchMovieDatas(idMovie, setMovie) {
                     }
                     
                     const movieDatas = await response.json();
-                    setMovie(movieDatas);
+                    return movieDatas
                     
                 } catch (error) {
                     console.log(error);

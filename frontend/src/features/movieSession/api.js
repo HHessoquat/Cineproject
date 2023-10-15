@@ -27,3 +27,24 @@ export async function postSession(idRoom, idMovie, sessionInfo) {
         console.log(err);
     }
 }
+
+export async function fetchSession(movieId) {
+    try{
+        const fetchResult = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movieSession/${movieId}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'Application/json',
+            }
+        });
+        const retrievedSessions = await fetchResult.json();
+        console.log(`Réponse de l'api :`, retrievedSessions.message);
+        return retrievedSessions.content;
+    }catch (err) {
+        console.log(err)
+    }
+    
+}
+
+export async function putSession() {
+    
+}

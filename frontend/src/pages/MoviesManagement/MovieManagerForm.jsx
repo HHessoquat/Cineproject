@@ -6,7 +6,7 @@ import { postSession } from '../../features/movieSession/api.js';
 import handleChange from '../../utils/formsManagement/handleChange.js';
 import CreateSession from '../../components/Forms/addSessionForm.jsx';
 
-function MovieManagerForm({update, previousMovieData, idMovie}) {
+function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsData}) {
     const [movieData, setmovieData] = useState({
         movieTitle: '',
         posterAlt: '',
@@ -49,6 +49,10 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
             formattedData.releaseDate = formatDate;
             
             setmovieData(formattedData);
+            
+        }
+        if (previousSessionsData) {
+            setMovieSessions(previousSessionsData);
         }
     }, [previousMovieData])
     
@@ -104,7 +108,7 @@ function MovieManagerForm({update, previousMovieData, idMovie}) {
             })
         }
     }
-    // console.log(movieSessions);
+    console.log(movieSessions);
     return (
         <>
             <form className="backOfficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>

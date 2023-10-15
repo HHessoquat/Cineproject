@@ -8,8 +8,15 @@ function AddSessionForm({movieSessions, setErrorMsg, setMovieSessions, index}) {
         idMovie,
         date: '',
         time: '',
-        room: '1',
+        idRoom: '1',
     });
+    
+    useEffect(() => {
+        if (movieSessions[index]) {
+            setSession(movieSessions[index]);
+        }
+    }, [])
+    
     function updateSession(e) {
         handleChange(e, setSession, setErrorMsg);
         
@@ -49,12 +56,12 @@ function AddSessionForm({movieSessions, setErrorMsg, setMovieSessions, index}) {
                 <label>
                 salle :
                     <select 
-                        name="room" id="room" 
+                        name="idRoom" id="idRoom" 
                         onChange={updateSession}
                     >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                        <option value="1" selected={session.idRoom === "1"} >1</option>
+                        <option value="2" selected={session.idRoom === "2"} >2</option>
+                        <option value="3" selected={session.idRoom === "3"} >3</option>
                     </select>
                 </label>
             </div>
