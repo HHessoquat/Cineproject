@@ -8,7 +8,6 @@ exports.addOneMD = (movieId, directorId) => {
                     if (err) {
                         reject(new Error(err));
                     }
-                    console.log('directors association: ok');
                     resolve(result);
                 });
     });

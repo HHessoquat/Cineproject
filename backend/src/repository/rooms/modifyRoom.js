@@ -13,7 +13,7 @@ exports.modifyRoom = (room, id) => {
                 [
                     room.name,
                     room.nbSeats,
-                    JSON.stringify(room.seatsDisplay),
+                    room.seatsDisplay,
                     id],
                 (err, result) => {
                     if (err) {

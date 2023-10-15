@@ -52,7 +52,7 @@ export function updateMovie(e, formData, idMovie) {
         dataToSend.append('movieLength', Number(formData.movieLength));
         dataToSend.append('releaseDate', new Date(formData.releaseDate).toISOString().slice(0, 19).replace('T', ' '));
         
-        fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/update/${idMovie}`,{
+        fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`,{
             method: 'PUT',
             headers: {
                 accept: 'application/json'

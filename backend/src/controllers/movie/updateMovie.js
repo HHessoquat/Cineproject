@@ -1,4 +1,3 @@
-const query =  require('../../../database.js').database;
 const { addActor } = require('../../repository/actors/addActor.js');
 const { addDirector } =  require('../../repository/directors/addDirector.js');
 const { deleteOneMA } = require('../../repository/movie_actor/deleteAllFromOneMovie.js');

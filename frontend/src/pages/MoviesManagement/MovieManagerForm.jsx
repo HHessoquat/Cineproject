@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import DynamicInputList from '../../components/Forms/DynamicInputList';
 import validateForm from '../../features/moviesManagement/validateMovieForm.js';
 import { createMovie, updateMovie } from '../../features/moviesManagement/api.js';
-import { postSession } from '../../features/movieSession/api.js';
+import { postSession, deleteSessions } from '../../features/movieSession/api.js';
 import handleChange from '../../utils/formsManagement/handleChange.js';
 import CreateSession from '../../components/Forms/addSessionForm.jsx';
 
@@ -100,6 +100,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
         }
         
         if (update) {
+            await deleteSessions(idMovie);
             updateMovie(e, movieData, idMovie);
             movieSessions.forEach((c) => {
                 postSession(idMovie, c);
@@ -112,7 +113,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
             });
         }
     }
-    
+    console.log(movieSessions);
     return (
         <>
             <form className="backOfficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>

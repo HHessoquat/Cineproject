@@ -1,4 +1,4 @@
-const xss = require('xss');
+
 exports.validateAndFormatMovie = (req, res, next) => {
     try{
     console.log(req.body)
@@ -6,9 +6,7 @@ exports.validateAndFormatMovie = (req, res, next) => {
         
         req.body.releaseDate = new Date(req.body.releaseDate).toISOString().slice(0, 19).replace('T', ' ');
                     //prevent xss attacks
-    for (let key in req.body) {
-        req.body[key] = xss(req.body[key]);
-    }
+    
         
         if (!req.body.movieTitle) {
             throw new Error(`Le titre du film est obligatoire`);

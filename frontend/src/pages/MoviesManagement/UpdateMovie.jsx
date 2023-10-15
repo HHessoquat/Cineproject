@@ -24,7 +24,6 @@ function UpdateMovie() {
                 const retrievedSessions = await fetchSession(idMovie);
                 
                 setSessions(retrievedSessions);
-                console.log(retrievedSessions);
             } catch (err) {
                 console.log(err)
             }
@@ -33,7 +32,6 @@ function UpdateMovie() {
         fetchSessionDatas();
     }, []);
     
-    // console.log(movieData);
     return(
             <MovieForm update={true} previousMovieData={movieData} idMovie={idMovie} previousSessionsData={sessions} />
         )

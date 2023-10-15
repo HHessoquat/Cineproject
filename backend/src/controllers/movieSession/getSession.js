@@ -3,7 +3,6 @@ exports.getSession = async (req, res) => {
     try {
         const { movieId } = req.params;
         const sessions = await retrieveSession(movieId);
-        console.log(sessions);
         res.status(200).json({
             message: 'got sessions',
             content: sessions

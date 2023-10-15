@@ -12,13 +12,11 @@ function AddSessionForm({update, movieSessions, setErrorMsg, setMovieSessions, i
         time: '',
         idRoom: '1',
     });
-    console.log(session);
+
     const [rooms, setRooms] = useState([]);
     
     useEffect(() => {
-        console.log(movieSessions[index])
         if (Object.keys(movieSessions[index]).length > 0) {
-            console.log(movieSessions[index])
             setSession(movieSessions[index]);
         }
     }, []);

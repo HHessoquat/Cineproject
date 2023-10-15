@@ -3,7 +3,7 @@ import createRoom from '../room/createRoom.js';
 
 export async function postSession(idMovie, sessionInfo) {
     try {
-        console.log(sessionInfo)
+
         const room = await fetchOneRoom(sessionInfo.idRoom);
         const seatMap = (createRoom(room.seatsDisplay)).seats;
 
@@ -46,10 +46,6 @@ export async function fetchSession(movieId) {
     
 }
 
-export async function putSession() {
-    
-}
-
 export async function deleteOneSession(id) {
     try {
         const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movieSession/${id}`, {
@@ -60,6 +56,22 @@ export async function deleteOneSession(id) {
         });
         const parsedResponse = await response.json();
         console.log(parsedResponse.message);
+        
+    }catch (err) {
+        console.log(err);
+    }
+}
+
+export async function deleteSessions(movieId) {
+    try {
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movieSession/all/${movieId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                },
+            });
+            const parsedResponse = await response.json();
+            console.log(parsedResponse.message);
         
     }catch (err) {
         console.log(err);

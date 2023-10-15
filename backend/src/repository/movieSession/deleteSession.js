@@ -1,10 +1,10 @@
 const query =  require('../../../database.js').database;
 
-exports.removeSession = (movieId) => {
+exports.removeSession = (sessionId) => {
     return new Promise((resolve, reject) => {
         query(
-                "DELETE FROM Session WHERE ID= ?",
-                [movieId],
+                "DELETE FROM Session WHERE id= ?",
+                [sessionId],
                 (err, result) => {
                     if (err) {
                         reject(new Error(err));
@@ -14,4 +14,19 @@ exports.removeSession = (movieId) => {
                 }
             )
     })  
+}
+
+exports.removeMovieSessions = (movieId) => {
+    return new Promise((resolve, reject) => {
+        query(
+            'DELETE FROM Session WHERE idMovie = ?',
+            [movieId],
+            (err, result) => {
+                if (err) {
+                    reject(new Error(err));
+                }
+                resolve(result);
+            }
+            );
+    })
 }

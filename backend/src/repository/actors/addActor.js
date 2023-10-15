@@ -5,7 +5,6 @@ exports.addActor = (actors, res) => {
     
     //get all actors in an array --> [[firstName, lastName], [firstName, lastName]...]
     const cast = actors.split(',');
-    console.log(cast);
     
     return cast.map( async (c) => {
         return new Promise((resolve, reject) => {
