@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import {useParams } from 'react-router-dom';
-import handleChange from '../../utils/formsManagement/handleChange.js'
+import handleChange from '../../utils/formsManagement/handleChange.js';
+import { fetchAllRooms } from '../../features/room/api.js';
+import { deleteOneSession } from '../../features/movieSession/api.js';
 
-function AddSessionForm({movieSessions, setErrorMsg, setMovieSessions, index}) {
+function AddSessionForm({update, movieSessions, setErrorMsg, setMovieSessions, index}) {
     const { idMovie } = useParams();
     const [session, setSession] = useState({
         idMovie,
@@ -10,11 +12,26 @@ function AddSessionForm({movieSessions, setErrorMsg, setMovieSessions, index}) {
         time: '',
         idRoom: '1',
     });
+    console.log(session);
+    const [rooms, setRooms] = useState([]);
     
     useEffect(() => {
-        if (movieSessions[index]) {
+        console.log(movieSessions[index])
+        if (Object.keys(movieSessions[index]).length > 0) {
+            console.log(movieSessions[index])
             setSession(movieSessions[index]);
         }
+    }, []);
+    useEffect(() => {
+        async function getRooms() {
+            try {
+                const retrievedRooms = await fetchAllRooms();
+                setRooms(retrievedRooms);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getRooms();
     }, [])
     
     function updateSession(e) {
@@ -28,6 +45,15 @@ function AddSessionForm({movieSessions, setErrorMsg, setMovieSessions, index}) {
         updatedMovieSessions.splice(index, 1, newSessionData);
         setMovieSessions(updatedMovieSessions);
     }
+    
+    async function removeSession() {
+        const updatedSessions = [...movieSessions];
+        updatedSessions.splice(index, 1);
+        if (update) {
+            await deleteOneSession(session.id);
+        }
+    }
+
     return (
             <fieldset>
             <div className='inputContainer'>
@@ -59,12 +85,15 @@ function AddSessionForm({movieSessions, setErrorMsg, setMovieSessions, index}) {
                         name="idRoom" id="idRoom" 
                         onChange={updateSession}
                     >
-                        <option value="1" selected={session.idRoom === "1"} >1</option>
-                        <option value="2" selected={session.idRoom === "2"} >2</option>
-                        <option value="3" selected={session.idRoom === "3"} >3</option>
+                    {rooms.map((c, i) => {
+                        return (<option key={i + Number(c.name)} value={c.name} selected={session.idRoom === c.name} >{c.name}</option>)
+                        
+                    })}
+                
                     </select>
                 </label>
             </div>
+            <button type="button" onClick={removeSession}>supprimer</button>
         </fieldset>
     
         )

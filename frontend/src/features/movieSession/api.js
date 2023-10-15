@@ -1,9 +1,10 @@
 import { fetchOneRoom } from '../room/api.js';
 import createRoom from '../room/createRoom.js';
 
-export async function postSession(idRoom, idMovie, sessionInfo) {
+export async function postSession(idMovie, sessionInfo) {
     try {
-        const room = await fetchOneRoom(idRoom);
+        console.log(sessionInfo)
+        const room = await fetchOneRoom(sessionInfo.idRoom);
         const seatMap = (createRoom(room.seatsDisplay)).seats;
 
         
@@ -12,7 +13,7 @@ export async function postSession(idRoom, idMovie, sessionInfo) {
             time: sessionInfo.time,
             seatMap,
             idMovie,
-            idRoom,
+            idRoom: sessionInfo.idRoom,
         }
 
         const fetchResult = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movieSession/`, {
@@ -47,4 +48,20 @@ export async function fetchSession(movieId) {
 
 export async function putSession() {
     
+}
+
+export async function deleteOneSession(id) {
+    try {
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movieSession/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
+        const parsedResponse = await response.json();
+        console.log(parsedResponse.message);
+        
+    }catch (err) {
+        console.log(err);
+    }
 }

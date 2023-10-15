@@ -52,9 +52,10 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
             
         }
         if (previousSessionsData) {
+
             setMovieSessions(previousSessionsData);
         }
-    }, [previousMovieData])
+    }, [previousMovieData, previousSessionsData])
     
     function addInputBtn(e) {
         const { name } = e.target;
@@ -99,16 +100,19 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
         }
         
         if (update) {
-            updateMovie(e, movieData, idMovie)
+            updateMovie(e, movieData, idMovie);
+            movieSessions.forEach((c) => {
+                postSession(idMovie, c);
+            });
         }
         else {
             const movieId = await createMovie(e, movieData);
             movieSessions.forEach((c) => {
-                postSession(2, movieId, c);
-            })
+                postSession(movieId, c);
+            });
         }
     }
-    console.log(movieSessions);
+    
     return (
         <>
             <form className="backOfficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -294,7 +298,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                     </p>
                 </fieldset>
                 <button type="Button" onClick={addSession}>Ajouter une séance</button>
-                {movieSessions.map((c, i) => <CreateSession key={i+99*222} movieSessions={movieSessions} setErrorMsg={setErrorMsg} setMovieSessions={setMovieSessions} index={i} />)}
+                {movieSessions.map((c, i) => <CreateSession key={i+99*222} update={update} movieSessions={movieSessions} setErrorMsg={setErrorMsg} setMovieSessions={setMovieSessions} index={i} />)}
                 <input type="submit" value="valider" />
             </form>
         </>

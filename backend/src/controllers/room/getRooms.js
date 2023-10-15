@@ -2,7 +2,10 @@ const {retrieveAllRooms, retrieveOneRoom} = require("../../repository/rooms/retr
 exports.getAllRooms = async (req, res) => {
     try {
         const result = await retrieveAllRooms();
-        res.status(200).json({content: result});
+        res.status(200).json({
+            message: "all room retrieved",
+            content: result
+        });
     }catch (err) {
         console.log(err);
         res.status(500).json({message:'Server Error'});

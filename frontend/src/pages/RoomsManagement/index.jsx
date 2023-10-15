@@ -1,20 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { fetchAllRooms, deleteRoom } from '../../features/room/api.js';
 
 function RoomsManagement () {
     const [rooms, setRooms] = useState([]);
     
     async function fetchData() {
             try {
-                const response = await fetch('http://jeremydequeant.ide.3wa.io:9000/api/room',{
-                    method: 'GET',
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                const data = await response.json();
-                console.log(data)
-                setRooms(data.content);
+                const response = await fetchAllRooms()
+                setRooms(response);
             }catch (err) {
                 console.log(err)
             }
@@ -23,15 +17,8 @@ function RoomsManagement () {
         fetchData();
     },[]);
     
-    async function deleteRoom(id) {
-        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/room/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Accept': 'application/json',
-            },
-        });
-        const parsedResponse = await response.json();
-        console.log(parsedResponse.message);
+    async function deleteOneRoom(id) {
+        const response = await deleteRoom(id)
         await fetchData();
     }
     
@@ -42,7 +29,7 @@ function RoomsManagement () {
                 <li key={i}>
                     {c.name} : {c.nbSeats}
                     <Link to={`updateRoom/${c.name}`}>Modifier</Link>
-                    <button type="button" onClick={() => deleteRoom(c.name)}>Supprimer</button>
+                    <button type="button" onClick={() => deleteOneRoom(c.name)}>Supprimer</button>
                 </li>
                 );
             })}

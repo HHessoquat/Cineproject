@@ -44,4 +44,34 @@ export async function fetchOneRoom(id) {
             console.log(err);
         }
     }
+export async function  fetchAllRooms() {
+    try {
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/room/`, {
+            method: 'GET',
+            headers: {
+                'Accept' : 'application/json',
+            }
+        });
+        const rooms = await response.json();
+        console.log('réponse de l\'API : ', rooms.message);
+        return rooms.content
+    } catch (err) {
+        console.log(err);
+    }
+}
     
+export async function deleteRoom(id) {
+    try {
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/room/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+            },
+        });
+        const parsedResponse = await response.json();
+        console.log(parsedResponse.message);
+        
+    }catch (err) {
+        console.log(err);
+    }
+}
