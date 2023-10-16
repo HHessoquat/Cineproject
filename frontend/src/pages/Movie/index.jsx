@@ -1,19 +1,21 @@
 import {useState, useEffect} from 'react';
 import  { useParams } from 'react-router-dom';
-import { fetchMovieDatas, deleteMovie } from '../../features/moviesManagement/api.js'
+import { fetchMovieData, deleteMovie } from '../../features/moviesManagement/api.js'
 
 function Movie() {
     const {idMovie} = useParams();
     const [movie, setMovie] = useState({});
     
     useEffect(() => {
-            fetchMovieDatas(idMovie, setMovie);
+        async function fetchData() {
+            const result = await fetchMovieData(idMovie);
+            
+            setMovie(result);
             }
+            fetchData();
+    }
         , []);
-        console.log(movie)
-    
         
-    
     return (
         <>
             <h1 id="moviePage_title">{movie.title}</h1>
@@ -27,7 +29,7 @@ function Movie() {
                     <ul>
                         <li>durée : {movie.length} minutes</li>
                         <li>De {}</li>
-                        <li>Avec {}</li>
+                        <li>Avec {movie.actors}</li>
                         <li>
                             Date de sortie :
                         </li>

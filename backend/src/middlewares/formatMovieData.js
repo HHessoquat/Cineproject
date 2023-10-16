@@ -1,7 +1,6 @@
 
 exports.validateAndFormatMovie = (req, res, next) => {
     try{
-    console.log(req.body)
         req.body.movieLength = Number(req.body.movieLength);
         
         req.body.releaseDate = new Date(req.body.releaseDate).toISOString().slice(0, 19).replace('T', ' ');

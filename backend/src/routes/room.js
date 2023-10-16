@@ -9,7 +9,7 @@ const { updateRoom } = require('../controllers/room/updateRoom.js');
 
 router.get('/', getAllRooms);
 router.get('/:id', getOneRoom);
-router.post('/', escapeData, validateAndFormatData, addRoom);
-router.put('/:id', escapeData, validateAndFormatData, updateRoom);
+router.post('/',validateAndFormatData, escapeData, addRoom);
+router.put('/:id', validateAndFormatData, escapeData, updateRoom);
 router.delete('/:id', deleteRoom)
 module.exports = router;

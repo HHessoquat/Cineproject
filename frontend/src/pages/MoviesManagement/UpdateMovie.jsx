@@ -1,7 +1,7 @@
 import MovieForm from './MovieManagerForm.jsx';
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
-import { fetchMovieDatas } from '../../features/moviesManagement/api.js';
+import { fetchMovieData } from '../../features/moviesManagement/api.js';
 import { fetchSession } from '../../features/movieSession/api.js';
 
 function UpdateMovie() {
@@ -12,7 +12,7 @@ function UpdateMovie() {
     useEffect(()=>{
         async function fetchMovie() {
                 try {
-                    const retrievedMovie = await fetchMovieDatas(idMovie);
+                    const retrievedMovie = await fetchMovieData(idMovie);
                     setMovieData(retrievedMovie);
                 } catch (error) {
                     console.log(error);
@@ -27,7 +27,8 @@ function UpdateMovie() {
             } catch (err) {
                 console.log(err)
             }
-        }        
+        }    
+        
         fetchMovie();
         fetchSessionDatas();
     }, []);

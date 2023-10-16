@@ -15,3 +15,19 @@ exports.retrieveSession = (movieId) => {
             )
     })  
 }
+
+exports.retrieveOneSession = (id) => {
+    return new Promise((resolve, reject) => {
+        query(
+                "SELECT id, seatMap, idMovie, idRoom  FROM Session WHERE id = ?",
+                [id],
+                (err, result) => {
+                    if (err) {
+                        reject(new Error(err));
+                    }
+                    console.log('sessionRetrieved');
+                    resolve(result);
+                }
+            )
+    })  
+}

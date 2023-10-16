@@ -1,8 +1,7 @@
 function formatSessionData(req, res, next) {
     try {
         const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-        const timeRegex = /^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]$/;
-        
+        const timeRegex = /^([0-1]?[0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/
         
         
         if (!req.body.date || !dateRegex.test(req.body.date)) {
@@ -19,7 +18,7 @@ function formatSessionData(req, res, next) {
             req.body.seatMap = JSON.stringify(req.body.seatMap);
         }
         
-        if (!req.body.idMovie || !req.body.idMovie.length !== 36 || !req.body.idRoom || !req.body.idRoom.length !== 36) {
+        if (!req.body.idMovie || !req.body.idRoom) {
             throw new Error("Une erreur est survenue pendant l'enregistrement de la séance, veuillez réessayez plus tard");
         }
         next()

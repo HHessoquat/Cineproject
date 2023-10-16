@@ -1,5 +1,6 @@
 function formatData(req, res, next) {
     try {
+
         req.body.nbSeats = Number(req.body.nbSeats);
     
         if (!req.body.name) {
