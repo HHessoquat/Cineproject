@@ -14,3 +14,58 @@ export async function postUser(userData) {
         console.log(err);
     }
 }
+
+export async function getAllUsers() {
+    try {
+        const response = await fetch('http://jeremydequeant.ide.3wa.io:9000/api/user/',{
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json'
+            },
+        });
+        const data = await response.json();
+        console.log(data.message)
+        
+    }catch (err) {
+        console.log(err);
+    }
+}
+
+export async function getUSerById(userId) {
+    try {
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/${userId}`,{
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json', 
+            },
+        });
+        const data = await response.json();
+        
+        console.log(data.message);
+        return data.content;
+        
+    }catch (err) {
+        console.log(err);
+    }
+}
+
+export async function getUSerByName(name, firstName) {
+    try {
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/byName`,{
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json', 
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify({name, firstName}),
+        });
+        
+        const data = await response.json();
+        console.log(data.message);
+        return data.content;
+        
+    }catch (err) {
+        console.log(err);
+    }
+}
