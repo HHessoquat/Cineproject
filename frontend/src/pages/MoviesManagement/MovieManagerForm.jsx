@@ -113,7 +113,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
             });
         }
     }
-    console.log(movieSessions);
+    console.log(movieData);
     return (
         <>
             <form className="backOfficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -283,7 +283,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             id="isOnline"
                             name="isOnline"
                             value={1}
-                            checked={movieData.isOnline === 1}
+                            checked={movieData.isOnline === '1'}
                             onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
                         />
                          <label htmlFor="isOnline">oui</label>
@@ -292,10 +292,10 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             id="isNotOnline"
                             name="isOnline"
                             value={0}
-                            checked={movieData.isOnline === 0}
+                            checked={movieData.isOnline === '0'}
                             onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
                         />
-                         <label htmlFor="isNotOnline">Non</label>
+                        
                     </p>
                 </fieldset>
                 <button type="Button" onClick={addSession}>Ajouter une séance</button>
