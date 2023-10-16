@@ -54,7 +54,7 @@ function UserManagementForm ({update}) {
             <div className="inputContainer">
                 <label>
                     mot de passe : 
-                    <input type="password" id="password" name="password" value={user.pseudo} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
+                    <input type="password" id="password" name="password" value={user.password} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
                 </label>
             </div>
             

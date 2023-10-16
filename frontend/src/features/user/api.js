@@ -8,8 +8,8 @@ export async function postUser(userData) {
             },
             body: JSON.stringify(userData),
         });
-        const data = response.json()
-        console.log(data.response);
+        const data = await response.json()
+        console.log(data.message);
     } catch (err) {
         console.log(err);
     }
