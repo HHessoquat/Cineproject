@@ -1,15 +1,18 @@
-import {Link} from 'react-router-dom';
-
-function PrintAllUser({allUsers}) {
+import { deleteUser } from '../../features/user/api.js';
+function PrintAllUser({allUsers, setUpdate, update, setAllUsers, getAll}) {
     
-    function handleDelete(id) {
-        console.log(id);
+    async function handleDelete(id) {
+        await deleteUser(id);
+        getAll()
+    }
+    function toggleUpdate() {
+        setUpdate(!update)
     }
     return(
         <>
             {allUsers && allUsers.map((user, i) => {
                 return (
-                    <p key={i}>{user.firstName} <Link to={`updateUser/${user.id}`}>Modifier</Link> <button type="button" onClick={() => handleDelete(user.id)} >Supprimer</button></p>
+                    <p key={i}>{user.firstName} <button onClick={toggleUpdate}>{update ? 'Annuler' : 'Modifier'}</button> <button type="button" onClick={() => handleDelete(user.id)} >Supprimer</button></p>
                     )
             })}
         </>)

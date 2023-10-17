@@ -41,7 +41,6 @@ exports.retrieveOneByPseudo= (pseudo) => {
                     if (err) {
                         reject(new Error(err));
                     }
-                    console.log(result)
                     resolve(result);
                 }
             )

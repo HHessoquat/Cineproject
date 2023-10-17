@@ -6,6 +6,7 @@ function UserManagement() {
     const [action, setAction] = useState(0);
     const [allUsers, setAllUsers] = useState([]);
     const [user, setUser] = useState({});
+    const [isUpdateOpen, setIsUpdateOpen] = useState(false); 
     
     function handleChange(e) {
         setAction(Number(e.target.value));
@@ -35,7 +36,14 @@ function UserManagement() {
                     Creer un membre
                   </label>
             </form>
-            {action === 0 && <FetchUser setAllUsers={setAllUsers} setUser={setUser} user={user} allUsers={allUsers} />}
+            {action === 0 && <FetchUser 
+                                  setAllUsers={setAllUsers}
+                                  setUser={setUser}
+                                  user={user}
+                                  allUsers={allUsers} 
+                                  update={isUpdateOpen}
+                                  setUpdate={setIsUpdateOpen}
+                              />}
             {action === 1 && <UserManagementForm />}
         </>
         )

@@ -68,3 +68,19 @@ export async function getUserByPseudo(pseudo) {
         console.log(err);
     }
 }
+
+export async function deleteUser(id) {
+    try {
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/${id}`, {
+            method : 'DELETE',
+            headers: {
+                'Accept' : 'application/json',
+            }
+        });
+        const data = await response.json();
+        console.log(data.message);
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
