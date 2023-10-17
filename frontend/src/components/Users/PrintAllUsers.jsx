@@ -1,18 +1,27 @@
-import { deleteUser } from '../../features/user/api.js';
-function PrintAllUser({allUsers, setUpdate, update, setAllUsers, getAll}) {
-    
-    async function handleDelete(id) {
-        await deleteUser(id);
-        getAll()
-    }
-    function toggleUpdate() {
-        setUpdate(!update)
+import { useState } from 'react';
+import UserForm from '../Forms/UserManagementForm.jsx';
+
+function PrintAllUser({allUsers, setAllUsers, getAll, handleDelete}) {
+    const [userUpdate, setUserUpdate] = useState('');
+    function handleUpdateButton(userId) {
+        if (userUpdate === userId) {
+            setUserUpdate('');
+        }else {
+            setUserUpdate(userId);
+        }
     }
     return(
         <>
             {allUsers && allUsers.map((user, i) => {
                 return (
-                    <p key={i}>{user.firstName} <button onClick={toggleUpdate}>{update ? 'Annuler' : 'Modifier'}</button> <button type="button" onClick={() => handleDelete(user.id)} >Supprimer</button></p>
+                    <div key={i}>
+                        <p>
+                            {user.firstName} 
+                            <button onClick={() => handleUpdateButton(user.id)}>{userUpdate === user.id ? 'Annuler' : 'Modifier'}</button>
+                            <button type="button" onClick={() => handleDelete(user.id)} >Supprimer</button>
+                        </p>
+                        {user.id === userUpdate && <UserForm update={true} id={user.id} currentUser={user} />}
+                    </div>
                     )
             })}
         </>)

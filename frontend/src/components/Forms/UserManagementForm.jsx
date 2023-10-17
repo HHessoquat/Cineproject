@@ -1,8 +1,8 @@
 import {useState, useEffect } from 'react';
 import handleChange from '../../utils/formsManagement/handleChange.js';
-import { postUser } from '../../features/user/api.js';
+import { postUser, updateUser } from '../../features/user/api.js';
 
-function UserManagementForm ({update}) {
+function UserManagementForm ({update, id, currentUser}) {
     const [user, setUser] = useState({
         name: "",
         firstName: "",
@@ -13,8 +13,19 @@ function UserManagementForm ({update}) {
     });
     const [errorMsg, setErrorMsg] = useState([]);
     
+    useEffect(() => {
+        if (update) {
+            setUser(currentUser);
+        }
+    },[])
+    
     function handleSubmit(e) {
         e.preventDefault();
+        if (update) {
+            updateUser(id, user);
+            return
+        }
+        
         postUser(user);
     }
     
@@ -50,12 +61,14 @@ function UserManagementForm ({update}) {
                     pseudo : 
                     <input type="text" id="pseudo" name="pseudo" value={user.pseudo} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
                 </label>
-            <div className="inputContainer">
-                <label>
-                    mot de passe : 
-                    <input type="password" id="password" name="password" value={user.password} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
-                </label>
-            </div>
+            {!update && 
+                <div className="inputContainer">
+                    <label>
+                        mot de passe : 
+                        <input type="password" id="password" name="password" value={user.password} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
+                    </label>
+                </div>
+            }
             
             <select name="role" value={user.role} onChange={(e) => handleChange(e, setUser, setErrorMsg)}>
                   <option value="admin">Admin</option>

@@ -3,9 +3,9 @@ import handleChange from '../../utils/formsManagement/handleChange.js';
 import { getAllUsers, getUserByPseudo} from '../../features/user/api.js';
 import PrintUserModal from '../../components/Users/PrintUserModal.jsx';
 import PrintAllUsers from '../../components/Users/PrintAllUsers.jsx';
+import { deleteUser } from '../../features/user/api.js';
 
-function FetchUser({setAllUsers, setUser, allUsers, user, update, setUpdate}) {
-    console.log('passe in fetch')
+function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
     const [userSeeked, setUserSeeked] = useState({
         pseudo: '',
     });
@@ -22,6 +22,11 @@ function FetchUser({setAllUsers, setUser, allUsers, user, update, setUpdate}) {
         setAllUsers(users);
     }
     
+    async function handleDelete(id) {
+        await deleteUser(id);
+        getAll()
+    }
+    
     async function handleSubmit(e) {
         setNoUser(false);
         e.preventDefault();
@@ -34,14 +39,13 @@ function FetchUser({setAllUsers, setUser, allUsers, user, update, setUpdate}) {
         
         setUser(retrievedUser[0]);
     }
-console.log(noUser);
     return (
         <>
             <form onSubmit={handleSubmit}>
                 <div className="inputContainer">
                     <label>
                         pseudo :
-                        <input type="text" id="name" name="pseudo" value={userSeeked.named} onChange={(e) => handleChange(e, setUserSeeked, setErrorMsg)} />
+                        <input type="text" id="pseudonyme" name="pseudo" value={userSeeked.named} onChange={(e) => handleChange(e, setUserSeeked, setErrorMsg)} />
                     </label>
                 </div>
 
@@ -52,14 +56,16 @@ console.log(noUser);
             {noUser && <p>aucun utilisateur n'a été trouvé</p>}
             
             {!noUser && allUsers[0] && <PrintAllUsers 
-                                            allUsers={allUsers} 
-                                            setUpdate={setUpdate} 
-                                            update={update} 
+                                            allUsers={allUsers}
                                             setAllUsers={setAllUsers} 
                                             getAll={getAll} 
+                                            handleDelete= {handleDelete}
                                         /> }
             
-            {!noUser && user.name && <PrintUserModal user={user} />}
+            {!noUser && user.name && <PrintUserModal 
+                                        user={user}
+                                        handleDelete= {handleDelete}
+                                    />}
         </>
         )
 }

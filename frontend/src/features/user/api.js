@@ -69,6 +69,26 @@ export async function getUserByPseudo(pseudo) {
     }
 }
 
+export async function updateUser(userId, user) {
+    try {
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/${userId}`,{
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(user),
+        });
+        const data = await response.json();
+        
+        console.log(data.message);
+        return data.content;
+        
+    }catch (err) {
+        console.log(err);
+    }
+}
+
 export async function deleteUser(id) {
     try {
         const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/${id}`, {
