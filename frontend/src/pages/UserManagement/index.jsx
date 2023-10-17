@@ -4,6 +4,9 @@ import UserManagementForm from '../../components/Forms/UserManagementForm.jsx';
 
 function UserManagement() {
     const [action, setAction] = useState(0);
+    const [allUsers, setAllUsers] = useState([]);
+    const [user, setUser] = useState({});
+    
     function handleChange(e) {
         setAction(Number(e.target.value));
     }
@@ -32,7 +35,7 @@ function UserManagement() {
                     Creer un membre
                   </label>
             </form>
-            {action === 0 && <FetchUser />}
+            {action === 0 && <FetchUser setAllUsers={setAllUsers} setUser={setUser} user={user} allUsers={allUsers} />}
             {action === 1 && <UserManagementForm />}
         </>
         )

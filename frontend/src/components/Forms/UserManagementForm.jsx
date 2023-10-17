@@ -15,7 +15,6 @@ function UserManagementForm ({update}) {
     
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("coucou");
         postUser(user);
     }
     

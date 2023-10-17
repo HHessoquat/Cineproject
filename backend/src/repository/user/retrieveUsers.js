@@ -31,17 +31,17 @@ exports.retrieveOneById = (id) => {
     })
 }
 
-exports.retrieveOneByName = (user) => {
+exports.retrieveOneByPseudo= (pseudo) => {
     return new Promise((resolve, reject) => {
-        const firstName = `%${user.firstName}%`;
-        const name = `%${user.name}%`;
+    
         query(
-                'SELECT * FROM Users WHERE name LIKE ? AND firstName LIKE ?',
-                [name, firstName],
+                'SELECT * FROM Users WHERE pseudo = ?',
+                [pseudo],
                 (err, result) => {
                     if (err) {
                         reject(new Error(err));
                     }
+                    console.log(result)
                     resolve(result);
                 }
             )

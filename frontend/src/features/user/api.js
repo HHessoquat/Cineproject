@@ -26,6 +26,7 @@ export async function getAllUsers() {
         });
         const data = await response.json();
         console.log(data.message)
+        return data.content;
         
     }catch (err) {
         console.log(err);
@@ -49,16 +50,14 @@ export async function getUSerById(userId) {
         console.log(err);
     }
 }
-
-export async function getUSerByName(name, firstName) {
+export async function getUserByPseudo(pseudo) {
     try {
-        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/byName`,{
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/byName/${pseudo}`,{
             method: 'GET',
             headers: {
                 'Accept': 'application/json', 
                 'Content-type': 'application/json',
             },
-            body: JSON.stringify({name, firstName}),
         });
         
         const data = await response.json();
