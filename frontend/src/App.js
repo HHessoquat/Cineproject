@@ -11,25 +11,30 @@ import CreateSession from './components/Forms/addSessionForm.jsx';
 import RoomManagement from './pages/RoomsManagement';
 import UpdateRoom from './pages/RoomsManagement/UpdateRoom.jsx';
 import UserManagement from './pages/UserManagement';
+import { AuthentificationProvider } from './utils/context';
 
 function App() {
     return (
         <>
             <Router>
-                <NavBar />
-                <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/film/:idMovie" element={<Movie />} />
-                    <Route path="/films" element={<Movies />} />
-                    <Route path="/evenements" element={<Events />} />
-                    <Route path="/pratique" element={<Practical />} />
-                    <Route path="/moviesManagement" element={<MoviesManagement />} />
-                    <Route path="/updateMovie/:idMovie" element={<UpdateMovie />} />
-                    <Route path="/roomsManagement" element={<RoomManagement />} />
-                    <Route path="/roomsManagement/updateRoom/:id" element={<UpdateRoom />} />
-                    <Route path="/manageUser" element={<UserManagement />} />
+                <AuthentificationProvider>
+                    <NavBar />
                     
-                </Routes>
+                        <Routes>
+                        
+                            <Route path="/" element={<Home />} />
+                            <Route path="/film/:idMovie" element={<Movie />} />
+                            <Route path="/films" element={<Movies />} />
+                            <Route path="/evenements" element={<Events />} />
+                            <Route path="/pratique" element={<Practical />} />
+                            <Route path="/moviesManagement" element={<MoviesManagement />} />
+                            <Route path="/updateMovie/:idMovie" element={<UpdateMovie />} />
+                            <Route path="/roomsManagement" element={<RoomManagement />} />
+                            <Route path="/roomsManagement/updateRoom/:id" element={<UpdateRoom />} />
+                            <Route path="/manageUser" element={<UserManagement />} />
+                            
+                        </Routes>
+                </AuthentificationProvider>
             </Router>
         </>
     );

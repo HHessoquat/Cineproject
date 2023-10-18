@@ -44,3 +44,19 @@ exports.retrieveOneMovie = (id) => {
             );
     })
 };
+
+exports.retrieveOnlineMovies  = () => {
+    return new Promise((resolve, reject) => {
+        query(
+            'SELECT id, title, posterAlt, poster FROM Movie WHERE online= ?',
+            [1],
+            (err, result) => {
+                if (err) {
+                    reject(new Error(err));
+                } else {
+                    resolve(result);
+                }
+            }
+        );
+    });
+};

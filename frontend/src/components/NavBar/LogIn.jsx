@@ -1,16 +1,27 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { AuthentificationContext } from '../../utils/context';
+import { logout as logUserOut } from '../../features/user/api.js';
 import LoginForm from '../Forms/LoginForm.jsx';
 import SigninForm from '../Forms/UserManagementForm.jsx';
 
 function LogIn() {
- 
+    
     const [isLoginOpen, setIsLoginOpen] = useState(false);
-
+    const { isLogged, connectedUser, setIsLogged, setConnectedUser } = useContext(AuthentificationContext);
+    
+    function logout() {
+        setIsLogged(false);
+        setConnectedUser('');
+        sessionStorage.clear();
+        logUserOut();
+        setIsLoginOpen(false);
+    }
     return (
         <>
-            <div className="navModal">
+            <div className="navDropdown">
                 <button
-                    className="NavBArModalButton"
+                    className="NavBarLoginButton"
                     onClick={() => setIsLoginOpen(!isLoginOpen)}
                     
                 >
@@ -19,16 +30,21 @@ function LogIn() {
                         src="/picto/user.png"
                         alt="picto utilisateur"
                     />
-            </button>
-
+                </button>
+                {isLoginOpen && !isLogged &&  (
+                <div className="userConnectionForm">
+                    <LoginForm closeModal={() => setIsLoginOpen(false)} />
+                    <SigninForm closeModal={() => setIsLoginOpen(false)}  />
+                    <button type="button" onClick={() => setIsLoginOpen(false)} >Annuler</button>
+                </div>
+                )}
+                {isLoginOpen && isLogged && (
+                    <div className='navDropdownLinks'>
+                        <Link to='userAccount'>Mon Compte</Link>
+                        <button type="button" onClick={logout}>Deconnexion</button>
+                    </div>
+                    )}
             </div>
-            {isLoginOpen &&  (
-            <div className="userConnectionForm">
-                <LoginForm closeModal={() => setIsLoginOpen(false)} />
-                <SigninForm closeModal={() => setIsLoginOpen(false)}  />
-                <button type="button" onClick={() => setIsLoginOpen(false)} >Annuler</button>
-            </div>
-            )}
             
         </>
     );

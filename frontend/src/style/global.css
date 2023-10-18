@@ -44,18 +44,18 @@
   justify-content: space-around;
   flex: 6;
 }
-.navBarContainer .navModal {
+.navBarContainer .navDropdown {
   display: flex;
   flex-direction: column;
   position: relative;
   flex: 1;
   align-items: center;
 }
-.navBarContainer .navModal #userLogInPicto {
+.navBarContainer .navDropdown #userLogInPicto {
   width: 20px;
   height: auto;
 }
-.navBarContainer .navModal .NavModalButton {
+.navBarContainer .navDropdown .NavBarLoginButton {
   background-color: transparent;
   border: none;
   padding: 0;
@@ -63,6 +63,18 @@
   cursor: pointer;
   display: block;
   line-height: 0;
+}
+.navBarContainer .navDropdown .navDropdownLinks {
+  position: absolute;
+  bottom: 1em;
+  right: 10px;
+  background-color: #eee;
+  border-radius: 6px;
+  width: 200px;
+  padding: 20px;
+}
+.navBarContainer .navDropdown .navDropdownLinks a {
+  color: #101010;
 }
 .navBarContainer .userConnectionForm {
   position: fixed;

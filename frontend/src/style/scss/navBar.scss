@@ -25,7 +25,7 @@
 
         flex: 6;
     }
-    .navModal {
+    .navDropdown {
         #userLogInPicto {
             width: 20px;
             height: auto;
@@ -35,8 +35,7 @@
         position: relative;
         flex: 1;
         align-items: center;
-        
-        .NavModalButton {
+        .NavBarLoginButton {
             background-color: transparent;
             border: none;
             padding: 0;
@@ -45,7 +44,18 @@
             display: block;
             line-height: 0;
         }
-
+        .navDropdownLinks {
+            position: absolute;
+            bottom: 1em;
+            right: 10px;
+            background-color: #eee;
+            border-radius: 6px;
+            width: 200px;
+            padding: 20px;
+            a {
+                color: #101010;
+            }
+        }
     }
     .userConnectionForm {
           position: fixed;

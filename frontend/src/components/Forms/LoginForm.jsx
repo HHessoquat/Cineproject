@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import handleChange from '../../utils/formsManagement/handleChange.js'
+import { useState, useContext } from 'react';
+import handleChange from '../../utils/formsManagement/handleChange.js';
+import {AuthentificationContext} from '../../utils/context';
 import { login } from '../../features/user/api.js';
 function LoginForm({closeModal}) {
     
@@ -9,15 +10,18 @@ function LoginForm({closeModal}) {
     });
     const [errorMsg, setErrorMsg] = useState([]);
     
+    const {setIsLogged, setConnectedUser} = useContext(AuthentificationContext); 
+    
     async function handleSubmit(e) {
         e.preventDefault();
         const loginResult = await login(identifier);
         if (loginResult.isLogged === true) {
             setErrorMsg([]);
-            console.log(loginResult)
+            setIsLogged(true);
+            setConnectedUser(loginResult.id);
             sessionStorage.setItem('isLogged', JSON.stringify(true));
             sessionStorage.setItem('userId', loginResult.content);
-            console.log(sessionStorage)
+
             closeModal();
         }else if (loginResult.isLogged === null) {
             setErrorMsg(['Identifiants invalides']);
@@ -25,7 +29,7 @@ function LoginForm({closeModal}) {
             setErrorMsg([`Une erreur s'est produite lors de la connxion, veuillez réessayer plus tard.`]);
         }
     }
-    
+
     return (
         <form onSubmit={handleSubmit}>
         {errorMsg && (

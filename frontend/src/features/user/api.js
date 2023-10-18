@@ -122,3 +122,18 @@ export async function login(identifier) {
         console.log(err);
     }
 }
+
+export async function logout() {
+    try{
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/logout`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            }
+        });
+        const data= await response.json();
+        console.log(data.message);
+    } catch (err) {
+        console.log(err);
+    }
+}

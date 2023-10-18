@@ -1,6 +1,6 @@
-const { retrieveAllMovies, retrieveOneMovie } = require('../../repository/movie/retrieveMovies.js');
+const { retrieveAllMovies, retrieveOneMovie, retrieveOnlineMovies } = require('../../repository/movie/retrieveMovies.js');
 
-exports.getAllMovies = async (req, res, next) => {
+exports.getAllMovies = async (req, res) => {
     try {
         const moviesResult = await retrieveAllMovies();
         res.status(200).json({ content: moviesResult });
@@ -26,4 +26,14 @@ exports.getOneMovie = async (req, res, next) => {
         res.status(500).json({ message: 'Server error' });
     }
         
+};
+
+exports.getOnlineMovies = async (req, res) => {
+    try {
+        const moviesResult = await retrieveOnlineMovies();
+        res.status(200).json({ content: moviesResult });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
 };
