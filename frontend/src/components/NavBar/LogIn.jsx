@@ -1,39 +1,36 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import LoginForm from '../Forms/LoginForm.jsx';
+import SigninForm from '../Forms/UserManagementForm.jsx';
 
 function LogIn() {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+ 
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-    function toggleDropdown() {
-        isDropdownOpen ? setIsDropdownOpen(false) : setIsDropdownOpen(true);
-    }
-    function handleBlur() {
-        setIsDropdownOpen(false);
-    }
     return (
-        <div className="navDropdown">
-            <button
-                className="NavBArDropDownButton"
-                onClick={toggleDropdown}
-                onBlur={handleBlur}
-            >
-                <img
-                    id="userLogInPicto"
-                    src="/picto/user.png"
-                    alt="picto utilisateur"
-                />
+        <>
+            <div className="navModal">
+                <button
+                    className="NavBArModalButton"
+                    onClick={() => setIsLoginOpen(!isLoginOpen)}
+                    
+                >
+                    <img
+                        id="userLogInPicto"
+                        src="/picto/user.png"
+                        alt="picto utilisateur"
+                    />
             </button>
-            {isDropdownOpen && (
-                <ul className="navDropdownLinks">
-                    <li>
-                        <Link to="/LogIn">Mon Compte</Link>
-                    </li>
-                    <li>
-                        <Link to="/SignIn">Créer mon compte</Link>
-                    </li>
-                </ul>
+
+            </div>
+            {isLoginOpen &&  (
+            <div className="userConnectionForm">
+                <LoginForm closeModal={() => setIsLoginOpen(false)} />
+                <SigninForm closeModal={() => setIsLoginOpen(false)}  />
+                <button type="button" onClick={() => setIsLoginOpen(false)} >Annuler</button>
+            </div>
             )}
-        </div>
+            
+        </>
     );
 }
 export default LogIn;

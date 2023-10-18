@@ -104,3 +104,21 @@ export async function deleteUser(id) {
         console.log(err)
     }
 }
+
+export async function login(identifier) {
+    try {
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/login`, {
+            method: 'POST',
+            headers : {
+                'Accept' : 'application/json',
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(identifier)
+        });
+        const data = await response.json();
+        console.log(data.message);
+        return data
+    }catch (err) {
+        console.log(err);
+    }
+}

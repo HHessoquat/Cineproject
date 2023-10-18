@@ -30,7 +30,11 @@ function UserManagementForm ({update, id, currentUser}) {
     }
     
     return(
-        <form className="backOfficeForm" onSubmit={handleSubmit}>
+        <form 
+            className="backOfficeForm"
+            onSubmit={handleSubmit}
+
+        >
         {errorMsg.length > 0 && (
                     <div className="userMessageContainer">
                         <p>le ou les champs suivant ne sont pas valide(s) : </p>
@@ -43,38 +47,44 @@ function UserManagementForm ({update, id, currentUser}) {
                 )}
             <div className="inputContainer">
                 <label>
+                    Prénom : 
+                    <input type="text" id="firstName" name="firstName" value={user.firstName} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
+                </label>
+            </div>
+            <div className="inputContainer">
+                <label>
                     Nom : 
                     <input type="text" id="name" name="name" value={user.name} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
                 </label>
             </div>
-                <label>
-                    prénom : 
-                    <input type="text" id="firstName" name="firstName" value={user.firstName} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
-                </label>
+            
             <div className="inputContainer">
                 <label>
-                        email : 
-                        <input type="email" id="email" name="email" value={user.email} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
+                    Email : 
+                    <input type="email" id="email" name="email" value={user.email} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
                 </label>
             </div>
+            <div className="inputContainer">
                 <label>
-                    pseudo : 
+                    Pseudo : 
                     <input type="text" id="pseudo" name="pseudo" value={user.pseudo} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
                 </label>
+            </div>
             {!update && 
                 <div className="inputContainer">
                     <label>
-                        mot de passe : 
+                        Mot de passe : 
                         <input type="password" id="password" name="password" value={user.password} onChange={(e) => handleChange(e, setUser, setErrorMsg)} />
                     </label>
                 </div>
             }
-            
-            <select name="role" value={user.role} onChange={(e) => handleChange(e, setUser, setErrorMsg)}>
-                  <option value="admin">Admin</option>
-                  <option value="moderator">Modérateur</option>
-                  <option value="user">Utilisateur</option>
+            <div className="inputContainer">
+                <select name="role" value={user.role} onChange={(e) => handleChange(e, setUser, setErrorMsg)}>
+                      <option value="admin">Admin</option>
+                      <option value="moderator">Modérateur</option>
+                      <option value="user">Utilisateur</option>
             </select>
+            </div>
             
         <input type="submit" value="Envoyer" />
         </form>

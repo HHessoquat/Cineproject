@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
+const session = require('express-session')
 dotenv.config();
 
 const moviesRoutes = require('./src/routes/movie');
@@ -23,6 +24,14 @@ app.use((req, res, next) => {
     );
     next();
 });
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 3600000  }
+}));
+
 app.use(bodyParser.json());
 
 app.use('/uploads', express.static(path.join(__dirname, 'src', 'assets')));
