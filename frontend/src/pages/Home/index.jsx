@@ -4,7 +4,7 @@ import RoomGenerator from '../../components/room/RoomGenerator.jsx';
 
 function Home() {
 
-    // return <MovieManagerForm />;
-    return <RoomGenerator />;
+    return <MovieManagerForm />;
+    // return <RoomGenerator />;
 }
 export default Home;

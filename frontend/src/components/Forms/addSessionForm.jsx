@@ -11,6 +11,7 @@ function AddSessionForm({update, movieSessions, setErrorMsg, setMovieSessions, i
         date: '',
         time: '',
         idRoom: '1',
+        event: '',
     });
 
     const [rooms, setRooms] = useState([]);
@@ -74,6 +75,21 @@ function AddSessionForm({update, movieSessions, setErrorMsg, setMovieSessions, i
                         value={session.time}
                         onChange={updateSession}
                         />
+                </label>
+            </div>
+            <div className='inputContainer'>
+                <label>
+                événement :
+                    <select 
+                        name="event" id="eventInput" 
+                        onChange={updateSession}
+                    >
+                    <option value='' selected={session.idRoom === ''} >---</option>
+                    <option value='premiere' selected={session.idRoom === 'premiere'} >Avant-première</option>
+                    <option value='wednesday' selected={session.idRoom === 'wednesday'} >Le Mercredi des enfants</option>
+                    <option value='friday' selected={session.idRoom === 'friday'} >Les Vendredis cultes</option>
+
+                    </select>
                 </label>
             </div>
             <div className='inputContainer'>

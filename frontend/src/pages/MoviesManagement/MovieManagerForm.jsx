@@ -113,7 +113,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
             });
         }
     }
-    console.log(movieData);
+    console.log(movieSessions);
     return (
         <>
             <form className="backOfficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>

@@ -11,6 +11,7 @@ export async function postSession(idMovie, sessionInfo) {
         const session = {
             date: sessionInfo.date,
             time: sessionInfo.time,
+            event: sessionInfo.event,
             seatMap,
             idMovie,
             idRoom: sessionInfo.idRoom,

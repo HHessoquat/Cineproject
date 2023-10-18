@@ -16,6 +16,29 @@ exports.retrieveSession = (movieId) => {
     })  
 }
 
+exports.retrieveAllEventSessions = (event, nbSession) => {
+    return new Promise((resolve, reject) => {
+        query(`
+            SELECT Session.*, Movie.*
+            FROM Session
+            INNER JOIN Movie ON Session.idMovie = Movie.id
+            WHERE Session.event = ?
+            AND Session.date >= CURDATE()
+            ORDER BY Session.date
+            LIMIT ?;
+            `,
+            [event, nbSession],
+            (err, result) => {
+                if (err) {
+                    reject(new Error(err));
+                }
+                console.log('sessionRetrieved');
+                resolve(result);
+            }
+        );
+    });
+}
+
 exports.retrieveOneSession = (id) => {
     return new Promise((resolve, reject) => {
         query(
