@@ -14,6 +14,7 @@ export async function sendRoom(method, roomName, room, validateDatas, setErrorMs
         
         const response = await fetch(queryString, {
             method: method,
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
                 'Content-type': 'application/json'
@@ -33,6 +34,7 @@ export async function fetchOneRoom(id) {
         try{
             const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/room/${id}`, {
                 method: 'GET',
+                credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                 }
@@ -48,6 +50,7 @@ export async function  fetchAllRooms() {
     try {
         const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/room/`, {
             method: 'GET',
+            credentials: 'include',
             headers: {
                 'Accept' : 'application/json',
             }
@@ -64,6 +67,7 @@ export async function deleteRoom(id) {
     try {
         const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/room/${id}`, {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
             },

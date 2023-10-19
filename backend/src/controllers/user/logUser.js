@@ -19,6 +19,7 @@ exports.login = async (req, res) => {
         }
         req.session.isLogged= true;
         req.session.userId= result[0].id;
+        
         res.status(200).json({message: 'connected', isLogged: true, content: result[0].id});
         
     }catch (err) {
@@ -33,6 +34,7 @@ exports.logout = (req, res) => {
             if (err) {
                 throw new Error(err);
             }
+            console.log('logout')
             res.status(200).json({message: "you've been successfully logged out"});
         });
     }catch (err) {

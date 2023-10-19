@@ -3,6 +3,7 @@ export async function fetchMovieData(idMovie) {
                  
                     const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`, {
                         method: 'GET',
+                        credentials: 'include',
                         headers: {
                             accept: 'application/json'
                         }
@@ -26,6 +27,7 @@ export async function fetchMoviesData(setMovies) {
       try {
         const response = await fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
           method: 'GET',
+          credentials: 'include',
           headers: {
             accept: 'application/json'
           }
@@ -42,8 +44,24 @@ export async function fetchMoviesData(setMovies) {
       }
     }
 
-export function updateMovie(e, formData, idMovie) {
-        e.preventDefault();
+export async function fetchOnlineMoviesdata(setMovies) {
+    try {
+        const result = await fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie/online',{
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Accept' : 'application/json',
+            }
+        });
+        const data = await result.json();
+        console.log(data.message);
+        setMovies(data.content);
+    }catch (err) {
+        console.log(err)
+    }
+}
+
+export function updateMovie(formData, idMovie) {
         const dataToSend = new FormData();
         for (const key in formData) {
             if (key !== 'releaseDate' && key !=='movieLength') {
@@ -56,6 +74,7 @@ export function updateMovie(e, formData, idMovie) {
         
         fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`,{
             method: 'PUT',
+            credentials: 'include',
             headers: {
                 accept: 'application/json'
             },
@@ -70,7 +89,8 @@ export function updateMovie(e, formData, idMovie) {
             );
     }
     
-export async  function createMovie(e, formData) {
+    
+export async  function createMovie(formData) {
     try {
         const dataToSend = new FormData();
         
@@ -85,6 +105,7 @@ export async  function createMovie(e, formData) {
         
         const fetchResult = await fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
             method: 'POST',
+            credentials: 'include',
             body: dataToSend,
         })
         
@@ -101,6 +122,7 @@ export async  function createMovie(e, formData) {
 export function deleteMovie(idMovie) {
         fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`,{
             method: 'DELETE',
+            credentials: 'include',
             headers: {
                 accept: 'application/json',
             }

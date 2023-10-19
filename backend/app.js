@@ -14,6 +14,7 @@ const userRoutes = require('./src/routes/user');
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'http://jeremydequeant.ide.3wa.io:3000');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader(
         'Access-Control-Allow-Headers',
         'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'
@@ -29,7 +30,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 3600000  }
+  cookie: { maxAge: 3600000 }
 }));
 
 app.use(bodyParser.json());

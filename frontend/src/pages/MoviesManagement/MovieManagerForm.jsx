@@ -101,13 +101,13 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
         
         if (update) {
             await deleteSessions(idMovie);
-            updateMovie(e, movieData, idMovie);
+            updateMovie(movieData, idMovie);
             movieSessions.forEach((c) => {
                 postSession(idMovie, c);
             });
         }
         else {
-            const movieId = await createMovie(e, movieData);
+            const movieId = await createMovie(movieData);
             movieSessions.forEach((c) => {
                 postSession(movieId, c);
             });

@@ -19,6 +19,7 @@ export async function postSession(idMovie, sessionInfo) {
 
         const fetchResult = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movieSession/`, {
             method: 'POST',
+            credentials: 'include',
             headers: {
                 'Content-type': 'application/json',
                 'Accept': 'application/json'
@@ -34,6 +35,7 @@ export async function fetchSession(movieId) {
     try{
         const fetchResult = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movieSession/${movieId}`, {
             method: 'GET',
+            credentials: 'include',
             headers: {
                 'Accept': 'Application/json',
             }
@@ -51,6 +53,7 @@ export async function deleteOneSession(id) {
     try {
         const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movieSession/${id}`, {
             method: 'DELETE',
+            credentials: 'include',
             headers: {
                 'Accept': 'application/json',
             },
@@ -67,6 +70,7 @@ export async function deleteSessions(movieId) {
     try {
         const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movieSession/all/${movieId}`, {
                 method: 'DELETE',
+                credentials: 'include',
                 headers: {
                     'Accept': 'application/json',
                 },

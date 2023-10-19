@@ -6,10 +6,11 @@ const { addRoom } = require("../controllers/room/addRoom.js");
 const { getAllRooms, getOneRoom } = require('../controllers/room/getRooms.js');
 const { deleteRoom } = require('../controllers/room/deleteRoom.js');
 const { updateRoom } = require('../controllers/room/updateRoom.js');
+const {checkAdmin} = require('../middlewares/checkAuth');
 
 router.get('/', getAllRooms);
 router.get('/:id', getOneRoom);
-router.post('/',validateAndFormatData, escapeData, addRoom);
-router.put('/:id', validateAndFormatData, escapeData, updateRoom);
-router.delete('/:id', deleteRoom)
+router.post('/', checkAdmin, validateAndFormatData, escapeData, addRoom);
+router.put('/:id', checkAdmin, validateAndFormatData, escapeData, updateRoom);
+router.delete('/:id', checkAdmin, deleteRoom)
 module.exports = router;

@@ -7,12 +7,13 @@ const { updateMovie } = require('../controllers/movie/updateMovie.js');
 const { deleteOneMovie } = require('../controllers/movie/deleteMovie.js');
 const multer = require('../middlewares/multer-config');
 const {validateAndFormatMovie} = require('../middlewares/formatMovieData');
+const {checkModerator} = require('../middlewares/checkAuth');
 
 router.get('/', getAllMovies);
-router.get('/', getOnlineMovies);
-router.post('/', multer, escapeData, validateAndFormatMovie, addMovie);
+router.get('/online', getOnlineMovies);
+router.post('/', checkModerator, multer, escapeData, validateAndFormatMovie, addMovie);
 router.get('/:id', getOneMovie);
-router.put('/:id', multer, escapeData, validateAndFormatMovie, updateMovie);
-router.delete('/:id', multer, deleteOneMovie);
+router.put('/:id', checkModerator, multer, escapeData, validateAndFormatMovie, updateMovie);
+router.delete('/:id', checkModerator, multer, deleteOneMovie);
 
 module.exports = router;

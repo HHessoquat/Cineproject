@@ -1,10 +1,15 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import MovieManagerForm from '../MoviesManagement/MovieManagerForm.jsx';
-import RoomGenerator from '../../components/room/RoomGenerator.jsx';
+import EventsSlider from './EventsSlider.jsx';
+import { fetchOnlineMoviesdata } from '../../features/moviesManagement/api.js';
 
 function Home() {
-
-    return <MovieManagerForm />;
-    // return <RoomGenerator />;
+    const [movies, setMovies] = useState([]);
+    useEffect(() => {
+        fetchOnlineMoviesdata(setMovies);
+    }, []);
+    return (
+        <EventsSlider movies={movies}/>
+        )
 }
 export default Home;

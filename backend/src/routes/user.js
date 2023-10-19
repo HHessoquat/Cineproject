@@ -7,12 +7,13 @@ const getUsers = require("../controllers/user/getUsers.js");
 const updateUser = require('../controllers/user/updateUser');
 const deleteUser = require('../controllers/user/deleteUser.js');
 const { login, logout } = require("../controllers/user/logUser.js");
+const {checkAdmin} = require('../middlewares/checkAuth');
 
 router.get('/', getUsers.getAllUsers);
 router.get('/byName/:pseudo', getUsers.getUserByPseudo);
-router.post('/', escapeData, validateAndFormatData, addUser);
-router.put('/:id', escapeData, validateAndFormatData, updateUser);
-router.delete('/:id', deleteUser);
+router.post('/', checkAdmin, escapeData, validateAndFormatData, addUser);
+router.put('/:id', checkAdmin, escapeData, validateAndFormatData, updateUser);
+router.delete('/:id', checkAdmin, deleteUser);
 router.post('/login', escapeData, login);
 router.get('/logout', logout);
 

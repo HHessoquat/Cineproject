@@ -48,7 +48,17 @@ exports.retrieveOneMovie = (id) => {
 exports.retrieveOnlineMovies  = () => {
     return new Promise((resolve, reject) => {
         query(
-            'SELECT id, title, posterAlt, poster FROM Movie WHERE online= ?',
+            `SELECT
+                Movie.id, 
+                Movie.title, 
+                Movie.posterAlt, 
+                Movie.poster,
+                Session.date,
+                Session.time,
+                Session.event
+            FROM Movie
+            LEFT JOIN Session ON Movie.id = Session.idMovie
+            WHERE online= ?`,
             [1],
             (err, result) => {
                 if (err) {
