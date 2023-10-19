@@ -3,7 +3,7 @@ const query =  require('../../../database.js').database;
 exports.retrieveSession = (movieId) => {
     return new Promise((resolve, reject) => {
         query(
-                "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') AS date, time, seatMap, idMovie, idRoom  FROM Session WHERE idMovie = ?",
+                "SELECT id, DATE_FORMAT(date, '%Y-%m-%d') AS date, time, event, seatMap, idMovie, idRoom  FROM Session WHERE idMovie = ?",
                 [movieId],
                 (err, result) => {
                     if (err) {

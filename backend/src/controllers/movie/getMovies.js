@@ -31,7 +31,16 @@ exports.getOneMovie = async (req, res, next) => {
 exports.getOnlineMovies = async (req, res) => {
     try {
         const moviesResult = await retrieveOnlineMovies();
-        res.status(200).json({ content: moviesResult });
+        
+        const movieToCome = moviesResult.filter((c) => !c.sessions);
+        const regularSessions = moviesResult.filter((c) => !c.event);
+        const premiereSessions = moviesResult.filter((c) => c.event === 'premiere');
+        const wednesdaySessions = moviesResult.filter((c) => c.event === "wednesday");
+        const fridaySessions = moviesResult.filter((c) => c.event === 'friday');
+        
+        const sortedMovie = {movieToCome, regularSessions, premiereSessions, wednesdaySessions, fridaySessions}
+
+        res.status(200).json({ content: sortedMovie});
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Server error' });

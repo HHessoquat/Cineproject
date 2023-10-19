@@ -85,9 +85,9 @@ function AddSessionForm({update, movieSessions, setErrorMsg, setMovieSessions, i
                         onChange={updateSession}
                     >
                     <option value='' selected={session.idRoom === ''} >---</option>
-                    <option value='premiere' selected={session.idRoom === 'premiere'} >Avant-première</option>
-                    <option value='wednesday' selected={session.idRoom === 'wednesday'} >Le Mercredi des enfants</option>
-                    <option value='friday' selected={session.idRoom === 'friday'} >Les Vendredis cultes</option>
+                    <option value='premiere' selected={session.event === 'premiere'} >Avant-première</option>
+                    <option value='wednesday' selected={session.event === 'wednesday'} >Le Mercredi des enfants</option>
+                    <option value='friday' selected={session.event === 'friday'} >Les Vendredis cultes</option>
 
                     </select>
                 </label>

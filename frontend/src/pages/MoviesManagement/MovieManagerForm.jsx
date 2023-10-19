@@ -277,24 +277,28 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                     </div>
                     <p className="inputContainer">
                         Mettre le site en ligne ?
-                       
-                        <input
-                            type="radio"
-                            id="isOnline"
-                            name="isOnline"
-                            value={1}
-                            checked={movieData.isOnline === '1'}
-                            onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
-                        />
-                         <label htmlFor="isOnline">oui</label>
-                          <input
-                            type="radio"
-                            id="isNotOnline"
-                            name="isOnline"
-                            value={0}
-                            checked={movieData.isOnline === '0'}
-                            onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
-                        />
+                       <label >
+                            <input
+                                type="radio"
+                                id="isOnline"
+                                name="isOnline"
+                                value={1}
+                                checked={movieData.isOnline == '1'}
+                                onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
+                            />
+                            Oui
+                        </label>
+                         <label htmlFor="isOnline">
+                              <input
+                                type="radio"
+                                id="isNotOnline"
+                                name="isOnline"
+                                value={0}
+                                checked={movieData.isOnline == '0'}
+                                onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
+                            />
+                            non
+                        </label>
                         
                     </p>
                 </fieldset>

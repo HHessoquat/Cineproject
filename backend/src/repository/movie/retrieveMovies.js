@@ -49,16 +49,17 @@ exports.retrieveOnlineMovies  = () => {
     return new Promise((resolve, reject) => {
         query(
             `SELECT
-                Movie.id, 
-                Movie.title, 
-                Movie.posterAlt, 
+                Movie.id,
+                Movie.title,
+                Movie.posterAlt,
                 Movie.poster,
-                Session.date,
-                Session.time,
-                Session.event
+                GROUP_CONCAT(DISTINCT  CONCAT(Session.date, ' ', Session.time, ' - ', Session.event) ORDER BY Session.date ASC SEPARATOR ', ') AS sessions,
+                NULLIF(GROUP_CONCAT(DISTINCT Session.event), '') as event
             FROM Movie
             LEFT JOIN Session ON Movie.id = Session.idMovie
-            WHERE online= ?`,
+            WHERE online = ?
+            AND (Session.id IS NULL OR CONCAT(Session.date, ' ', Session.time) > NOW())
+            GROUP BY Movie.id`,
             [1],
             (err, result) => {
                 if (err) {

@@ -1,5 +1,4 @@
-
-import MgmtForm from './MovieManagerForm.js';
+import MgmtForm from './MovieManagerForm.jsx';
 function CreateMovie() {
     
     return(
@@ -7,4 +6,4 @@ function CreateMovie() {
         );
 }
 
-export default CreateMovie();
+export default CreateMovie;
