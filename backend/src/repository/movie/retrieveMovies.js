@@ -71,3 +71,19 @@ exports.retrieveOnlineMovies  = () => {
         );
     });
 };
+
+exports.retrieveMovieBytitle= (title) => {
+    return new Promise((resolve, reject) => {
+    
+        query(
+                'SELECT * FROM Movie WHERE title = ?',
+                [title],
+                (err, result) => {
+                    if (err) {
+                        reject(new Error(err));
+                    }
+                    resolve(result);
+                }
+            );
+    })
+}

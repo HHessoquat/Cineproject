@@ -23,7 +23,7 @@ export async function fetchMovieData(idMovie) {
                     }
                 }
                 
-export async function fetchMoviesData(setMovies) {
+export async function fetchMoviesData() {
       try {
         const response = await fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
           method: 'GET',
@@ -38,11 +38,31 @@ export async function fetchMoviesData(setMovies) {
         }
 
         const data = await response.json();
-        setMovies(data.content);
+        return data.content;
       } catch (error) {
         console.error('Erreur:', error);
       }
     }
+    
+export async function getMovieByTitle(title) {
+    try {
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/byTitle/${title}`,{
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json', 
+                'Content-type': 'application/json',
+            },
+        });
+        
+        const data = await response.json();
+        console.log(data.message);
+        return data.content;
+        
+    }catch (err) {
+        console.log(err);
+    }
+}
 
 export async function fetchOnlineMoviesdata(setMovies) {
     try {

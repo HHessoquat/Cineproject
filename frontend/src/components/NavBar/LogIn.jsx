@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthentificationContext } from '../../utils/context';
 import { logout as logUserOut } from '../../features/user/api.js';
 import LoginForm from '../Forms/LoginForm.jsx';
-import SigninForm from '../Forms/UserManagementForm.jsx';
+import SigninForm from '../Users/UserManagementForm.jsx';
 
 function LogIn() {
     

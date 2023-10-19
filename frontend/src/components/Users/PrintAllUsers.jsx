@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import UserForm from '../Forms/UserManagementForm.jsx';
+import UserForm from './UserManagementForm.jsx';
 
 function PrintAllUser({allUsers, setAllUsers, getAll, handleDelete}) {
     const [userUpdate, setUserUpdate] = useState('');

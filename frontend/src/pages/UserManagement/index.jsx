@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import FetchUser from '../../components/Forms/FetchUserForm.jsx';
-import UserManagementForm from '../../components/Forms/UserManagementForm.jsx';
+import FetchUser from '../../components/Users/FetchUserForm.jsx';
+import UserManagementForm from '../../components/Users/UserManagementForm.jsx';
 
 function UserManagement() {
     const [action, setAction] = useState(0);

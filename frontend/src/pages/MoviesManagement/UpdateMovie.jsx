@@ -1,4 +1,4 @@
-import MovieForm from './MovieManagerForm.jsx';
+import MovieForm from '../../components/Movies/MovieManagerForm.jsx';
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import { fetchMovieData } from '../../features/moviesManagement/api.js';

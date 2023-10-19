@@ -1,20 +1,49 @@
-import MovieCard from '../../components/MovieCard';
-import {useState, useEffect} from 'react';
-import { fetchMoviesData } from '../../features/moviesManagement/api.js'
+import {useState} from 'react';
+import SearchMovie from '../../components/Movies/SearchMovie';
+import CreateMovieForm from '../../components/Movies/MovieManagerForm';
 
 function MoviesManagement() {
-  const [movies, setMovies] = useState([]);
+  const [action, setAction] = useState(0);
+  const [allMovies, setAllMovies] = useState([]);
+  const [movie, setMovie] = useState({});
+    
+  function handleChange(e) {
+      setAction(Number(e.target.value));
+  }
 
-  useEffect(() => {
-    fetchMoviesData(setMovies);
-  }, []);
-  
+
   return (
     <>
-      {movies.map(movie => (<MovieCard key={movie.id} movie={movie} />)
-        
-      )}
+      <form onSubmit={(e) => e.preventDefault()}>
+            <label>
+              <input
+                type="radio"
+                name="action"
+                value={0}
+                checked={action === 0}
+                onChange={handleChange}
+              />
+              Chercher film
+            </label>
       
+            <label>
+              <input
+                type="radio"
+                name="action"
+                value={1}
+                checked={action === 1}
+                onChange={handleChange}
+              />
+              Ajouter un film
+            </label>
+      </form>
+      {action === 0 && <SearchMovie 
+                        allMovies={allMovies} 
+                        setAllMovies={setAllMovies}
+                        movie={movie}
+                        setMovie={setMovie}
+                      />}
+      {action === 1 && <CreateMovieForm />}
     </>
   );
 }

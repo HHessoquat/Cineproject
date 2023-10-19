@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import handleChange from '../../utils/formsManagement/handleChange.js';
 import { getAllUsers, getUserByPseudo} from '../../features/user/api.js';
-import PrintUserModal from '../../components/Users/PrintUserModal.jsx';
-import PrintAllUsers from '../../components/Users/PrintAllUsers.jsx';
+import PrintUserModal from './PrintUserModal.jsx';
+import PrintAllUsers from './PrintAllUsers.jsx';
 import { deleteUser } from '../../features/user/api.js';
 
 function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
