@@ -27,6 +27,7 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
     }, [movie])
 
     async function getAll() {
+        setMovie({});
         setNoMovie(false);
         const movies = await fetchMoviesData();
         if (movies === []) {
@@ -42,13 +43,9 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
         getAll()
     }
     
-    async function handleSubmit(e) {
-        e.preventDefault();
-        setNoMovie(false);
-        setAllMovies([])
+    async function getOne(e, title) {
         
-
-        const retrievedMovie = await getMovieByTitle(movieSeeked.title);
+        const retrievedMovie = await getMovieByTitle(title);
         if (retrievedMovie === null) {
             setNoMovie(true);
             return
@@ -56,10 +53,17 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
         
         setMovie(retrievedMovie[0]);
     }
+    async function handleSubmit(e, title) {
+        e.preventDefault();
+        setNoMovie(false);
+        setAllMovies([]);
+        
+        await getOne(e, title);   
+    }
     console.log(allMovies)
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleSubmit(e, movieSeeked.title)}>
                 <div className="inputContainer">
                     <label>
                         title :
@@ -73,10 +77,10 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
             
             {noMovie && <p>aucun film n'a été trouvé</p>}
             
-            {!noMovie && allMovies[0] 
+            {!noMovie && !movie.title && allMovies[0] 
                 && <PrintAllMovies 
                         movies={allMovies}
-                        setAllMovies={setAllMovies} 
+                        getOne={getOne} 
                         getAll={getAll} 
                         handleDelete= {handleDelete}
                     /> }

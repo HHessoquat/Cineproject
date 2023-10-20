@@ -28,18 +28,19 @@ exports.updateMovie = async (req, res, next) => {
         trailerUrl: req.body.trailerUrl,
     };
     
-    if (req. file && req.file.posterFile) {
+    if (req.files && req.files.posterFile) {
         movie.poster = `${req.protocol}://${req.get('host')}/images/${req.files.posterFile[0].filename}`;
     }
     
-    if (req. file && req.file.coverImgFile){
+    if (req.files && req.files.coverImgFile){
         movie.coverImgUrl = `${req.protocol}://${req.get('host')}/images/${req.files.coverImgFile[0].filename}`;
     }
     
-    if (req. file && req.file.trailerFile) {
+    if (req.files && req.files.trailerFile) {
         movie.trailerUrl = `${req.protocol}://${req.get('host')}/images/${req.files.trailerFile[0].filename}`;
     }
-    
+    console.log(movie.poster)
+    console.log(req.files.posterFile)
     
     try {
         const updateError = await putMovieToDatabase(movie, id);
