@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import DynamicInputList from '../../components/Forms/DynamicInputList';
+import DynamicInputList from '../Forms/DynamicInputList';
 import validateForm from '../../features/moviesManagement/validateMovieForm.js';
 import { createMovie, updateMovie } from '../../features/moviesManagement/api.js';
 import { postSession, deleteSessions } from '../../features/movieSession/api.js';
 import handleChange from '../../utils/formsManagement/handleChange.js';
-import CreateSession from '../../components/Forms/addSessionForm.jsx';
+import CreateSession from '../Forms/addSessionForm.jsx';
 
 function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsData}) {
     const [movieData, setmovieData] = useState({

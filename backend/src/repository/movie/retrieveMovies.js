@@ -1,5 +1,20 @@
 const query =  require('../../../database.js').database;
 
+const MovieAndSessionQueryString = (field) => {
+        return `SELECT 
+                M.*, 
+                GROUP_CONCAT(DISTINCT D.name) AS directors,
+                GROUP_CONCAT(DISTINCT A.name) AS actors
+            FROM 
+                Movie AS M
+            INNER JOIN Movie_Director AS MD ON M.id = MD.movieId
+            INNER JOIN Directors AS D ON MD.directorId = D.id
+            INNER JOIN Movie_Actor AS MA ON M.id = MA.idMovie
+            Inner JOIN Actors as A  ON MA.idActor = A.id
+            Where M.${field} = ?
+            GROUP BY M.id`
+}
+
 exports.retrieveAllMovies  = () => {
     return new Promise((resolve, reject) => {
         query(
@@ -20,18 +35,7 @@ exports.retrieveOneMovie = (id) => {
     
     return new Promise((resolve, reject) => {
       query(
-            `SELECT 
-                M.*, 
-                GROUP_CONCAT(DISTINCT D.name) AS directors,
-                GROUP_CONCAT(DISTINCT A.name) AS actors
-            FROM 
-                Movie AS M
-            INNER JOIN Movie_Director AS MD ON M.id = MD.movieId
-            INNER JOIN Directors AS D ON MD.directorId = D.id
-            INNER JOIN Movie_Actor AS MA ON M.id = MA.idMovie
-            Inner JOIN Actors as A  ON MA.idActor = A.id
-            Where M.id = ?
-            GROUP BY M.id`,
+            MovieAndSessionQueryString('id'),
             [id],
             (err, result) => {
                 if (err) {
@@ -76,7 +80,7 @@ exports.retrieveMovieBytitle= (title) => {
     return new Promise((resolve, reject) => {
     
         query(
-                'SELECT * FROM Movie WHERE title = ?',
+                MovieAndSessionQueryString('title'),
                 [title],
                 (err, result) => {
                     if (err) {
