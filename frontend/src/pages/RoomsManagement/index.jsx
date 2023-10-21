@@ -1,12 +1,16 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { fetchAllRooms, deleteRoom } from '../../features/room/api.js';
+import { fetchAllRooms } from '../../features/room/api.js';
+import PrintAllRooms from '../../components/Rooms/PrintAllRooms';
+import RoomGenerator from '../../components/Rooms/RoomGenerator'
 
 function RoomsManagement () {
+    const [action, setAction] = useState(0);
     const [rooms, setRooms] = useState([]);
+    const [roomToUpdate, setRoomToUpdate] = useState({});
     
     async function fetchData() {
             try {
+                console.log('passe');
                 const response = await fetchAllRooms()
                 setRooms(response);
             }catch (err) {
@@ -17,23 +21,53 @@ function RoomsManagement () {
         fetchData();
     },[]);
     
-    async function deleteOneRoom(id) {
-        const response = await deleteRoom(id)
-        await fetchData();
+    function handleChange(e) {
+      setAction(Number(e.target.value));
     }
     
     return(
-        <ul>
-            {rooms.map((c,i) => {
-                return (
-                <li key={i}>
-                    {c.name} : {c.nbSeats}
-                    <Link to={`updateRoom/${c.name}`}>Modifier</Link>
-                    <button type="button" onClick={() => deleteOneRoom(c.name)}>Supprimer</button>
-                </li>
-                );
-            })}
-        </ul>
+        <form onSubmit={(e) => e.preventDefault()}>
+            
+            <label>
+              <input
+                type="radio"
+                name="action"
+                value={0}
+                checked={action === 0}
+                onChange={handleChange}
+              />
+              Gérer les salles
+            </label>
+      
+            <label>
+              <input
+                type="radio"
+                name="action"
+                value={1}
+                checked={action === 1}
+                onChange={handleChange}
+              />
+              Ajouter une salle
+            </label>
+            
+            {action === 0 && !roomToUpdate.seatsDisplay &&
+                <PrintAllRooms 
+                    fetchData={fetchData} 
+                    rooms={rooms}
+                    setRoomToUpdate={setRoomToUpdate}
+                />}
+                
+            {action === 1 && <RoomGenerator setAction={setAction} />}
+            
+            {roomToUpdate.seatsDisplay && 
+                <RoomGenerator
+                    update={true}
+                    name={roomToUpdate.name}
+                    roomSettings={roomToUpdate.seatsDisplay} 
+                    setRoomToUpdate={setRoomToUpdate}
+                    fetchData={fetchData}
+                    />}
+        </form>
         )
 }
 export default RoomsManagement

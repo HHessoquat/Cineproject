@@ -56,8 +56,10 @@ exports.retrieveOnlineMovies  = () => {
                 Movie.id,
                 Movie.title,
                 Movie.posterAlt,
+                Movie.coverImgUrl,
+                Movie.coverImgAlt,
                 Movie.poster,
-                GROUP_CONCAT(DISTINCT  CONCAT(Session.date, ' ', Session.time, ' - ', Session.event) ORDER BY Session.date ASC SEPARATOR ', ') AS sessions,
+                GROUP_CONCAT(DISTINCT  CONCAT(Session.date, ' ', Session.time) ORDER BY Session.date ASC SEPARATOR ', ') AS sessions,
                 NULLIF(GROUP_CONCAT(DISTINCT Session.event), '') as event
             FROM Movie
             LEFT JOIN Session ON Movie.id = Session.idMovie

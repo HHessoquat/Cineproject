@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import validateDatas from '../../features/room/validateDatas.js';
 import createRoom from '../../features/room/createRoom.js';
 import { sendRoom } from '../../features/room/api.js';
-function RoomGenerator({update, name, roomSettings}) {
-    const { id } = useParams();
+
+function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, fetchData}) {
     const [room, setRoom] = useState(
                                 createRoom([
                                     [2, 2, 2],
@@ -18,6 +17,7 @@ function RoomGenerator({update, name, roomSettings}) {
         if (update && name && roomSettings) {
         setRoomName(name)
         setRoom(createRoom(roomSettings));
+        return fetchData;
     }
     },[])
     
@@ -118,11 +118,13 @@ function RoomGenerator({update, name, roomSettings}) {
     }
     
     
-    function handleCreateClick(){
+    async function handleCreateClick(){
         if (update)  {
-            sendRoom('PUT', roomName, room, validateDatas, setErrorMsg, id)
+            await sendRoom('PUT', roomName, room, validateDatas, setErrorMsg, name);
+            setRoomToUpdate({});
         }else {
             sendRoom('POST', roomName, room, validateDatas, setErrorMsg);
+            setAction(0);
         }
     }
     

@@ -11,7 +11,6 @@ export async function sendRoom(method, roomName, room, validateDatas, setErrorMs
             return;
         }
         const queryString = method === 'POST' ? `http://jeremydequeant.ide.3wa.io:9000/api/room/` : `http://jeremydequeant.ide.3wa.io:9000/api/room/${id}`;
-        
         const response = await fetch(queryString, {
             method: method,
             credentials: 'include',

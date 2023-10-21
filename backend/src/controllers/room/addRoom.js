@@ -2,7 +2,7 @@ const { insertRoom } = require('../../repository/rooms/insertRoom.js');
 exports.addRoom = async (req, res) => {
     try {
         const room= {...req.body};
-
+console.log('passe room create');
         const resultInsert = await insertRoom(room);
         res.status(201).json({message: 'ok'});
     }catch (err) {

@@ -27,7 +27,7 @@ function LogIn() {
                 >
                     <img
                         id="userLogInPicto"
-                        src="/picto/user.png"
+                        src="/img/picto/user.png"
                         alt="picto utilisateur"
                     />
                 </button>

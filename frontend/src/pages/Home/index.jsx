@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import EventsSlider from './EventsSlider.jsx';
+import EventsSlider from '../../components/Sliders/EventsSlider.jsx';
 import { fetchOnlineMoviesdata } from '../../features/moviesManagement/api.js';
 
 function Home() {
@@ -9,7 +9,10 @@ function Home() {
         fetchOnlineMoviesdata(setMovies);
     }, []);
     return (
-        <EventsSlider movies={movies}/>
+        <>
+        {Object.keys(movies).length > 0 && <EventsSlider movies={movies}/>}
+        </>
         )
+        
 }
 export default Home;
