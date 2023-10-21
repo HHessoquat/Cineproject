@@ -18,7 +18,7 @@ function formatSessionData(req, res, next) {
             req.body.seatMap = JSON.stringify(req.body.seatMap);
         }
         
-        if (!req.body.idMovie || !req.body.idRoom) {
+        if (!req.body.idRoom) {
             throw new Error("Une erreur est survenue pendant l'enregistrement de la séance, veuillez réessayez plus tard");
         }
         next()

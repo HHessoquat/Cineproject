@@ -4,12 +4,12 @@ function MovieCard({movie, isInBackOffice, handleDelete}) {
     function content() {
         return (
             <>
-                <h2 className="movieCardHeader">{movie.title}</h2>
                 <img
                     className="moviePoster"
                     src={movie.poster}
                     alt={movie.posterAlt}
                 />
+                <h3 className="movieCardHeader">{movie.title}</h3>
             </>
         );
 }

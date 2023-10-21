@@ -131,7 +131,7 @@ export async  function createMovie(formData) {
         
         const response = await fetchResult.json();
         console.log("reponse de l'API : " + response.message);
-
+        console.log(response)
         return response.movieId;
     }catch (err) {
         console.log(`erreur lors de l'envoi du formulaire : `, err)

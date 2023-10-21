@@ -2,6 +2,7 @@
 @use './scss/moviePage.scss';
 @use './scss/navBar.scss';
 @use './scss/roomMap.scss';
+@use './scss/HomePage.scss';
 
 html {
     font-size: 16px;
@@ -20,4 +21,9 @@ ul {
 }
 li {
     list-style: none;
+}
+img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }

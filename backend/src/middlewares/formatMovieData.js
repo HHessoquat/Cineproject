@@ -1,12 +1,12 @@
 
 exports.validateAndFormatMovie = (req, res, next) => {
     try{
+        console.log('passe FormatMovie Data');
+
         req.body.movieLength = Number(req.body.movieLength);
-        
-        req.body.releaseDate = new Date(req.body.releaseDate).toISOString().slice(0, 19).replace('T', ' ');
-                    //prevent xss attacks
+
     
-        
+        console.log(req.body.releaseDate)
         if (!req.body.movieTitle) {
             throw new Error(`Le titre du film est obligatoire`);
         }
@@ -33,7 +33,7 @@ exports.validateAndFormatMovie = (req, res, next) => {
             throw new Error(`Le film doit avoir au moins une catégorie`);
         }
     
-        if (isNaN(Number(req.body.movieLength))) {
+        if (isNaN(req.body.movieLength)) {
             throw new Error('La durée du film doit être un nombre');
         }
         if (req.body.isOnline != 0 && req.body.isOnline != 1) {

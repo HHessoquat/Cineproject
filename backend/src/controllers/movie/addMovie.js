@@ -6,7 +6,6 @@ const { addOneMA } = require('../../repository/movie_actor/addOneMA.js');
 const { addOneMD } = require('../../repository/movie_director/addOneMD.js');
 
 exports.addMovie = async (req, res, next) => {
-
     const movie = {
         ...req.body,
         posterUrl: `${req.protocol}://${req.get('host')}/images/${req.files.posterFile[0].filename}`,

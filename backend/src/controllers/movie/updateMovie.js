@@ -8,7 +8,6 @@ const putMovieToDatabase = require('../../repository/movie/updateMovie.js').upda
 
 exports.updateMovie = async (req, res, next) => {
     const { id } = req.params;
-
     
     const movie = {
         title: req.body.movieTitle,
@@ -39,8 +38,6 @@ exports.updateMovie = async (req, res, next) => {
     if (req.files && req.files.trailerFile) {
         movie.trailerUrl = `${req.protocol}://${req.get('host')}/images/${req.files.trailerFile[0].filename}`;
     }
-    console.log(movie.poster)
-    console.log(req.files.posterFile)
     
     try {
         const updateError = await putMovieToDatabase(movie, id);
