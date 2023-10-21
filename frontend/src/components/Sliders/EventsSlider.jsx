@@ -1,30 +1,40 @@
+import { useState } from 'react';
+import EventSlide from './EventSlide';
+
 function EventsSlider({ movies }) {
-    console.log(movies);
     const events =  [
         movies.wednesdaySessions[0],
         movies.fridaySessions[0],
         ];
     movies.premiereSessions[0] && events.push(movies.premiereSessions[0]);
-
+    const [activeSlide, setActiveSlide] = useState(0);
+    
     events.sort((a, b) => {
-        const parseDate = (dateString) => {
-            const [datePart, timePart] = dateString.split(" ");
-            const [year, month, day] = datePart.split("-");
-            const [hour, minute, second] = timePart.split(":");
-            return new Date(year, month - 1, day, hour, minute, second);
-        };
 
-    const aDate = parseDate(a.sessions.split(', ')[0]);
-    const bDate = parseDate(b.sessions.split(', ')[0]);
+    return a.sessions[0] - b.sessions[0];
+    });
 
-    return aDate - bDate;
-});
-        console.log(events);
-        return(
-            <>
-               <img src={events[0].coverImgUrl} alt={events[0].coverImgAlt} />
-            </>
-            )
+    function sliderAnimation() {
+        if (activeSlide === events.length -1) {
+            setActiveSlide(0);
+            return
+        } 
+        setActiveSlide(activeSlide + 1);
+    }
+    const timeoutId = setTimeout(sliderAnimation, 4000);
+    
+    return(
+        <>
+            
+            <EventSlide
+                events={events}
+                movie={events[activeSlide]}
+                setActiveSlide={setActiveSlide}
+                timeoutId={timeoutId}
+            />
+
+        </>
+        )
 }
 
 export default EventsSlider

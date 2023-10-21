@@ -64,7 +64,7 @@ export async function getMovieByTitle(title) {
     }
 }
 
-export async function fetchOnlineMoviesdata(setMovies) {
+export async function fetchOnlineMoviesdata() {
     try {
         const result = await fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie/online',{
             method: 'GET',
@@ -74,8 +74,8 @@ export async function fetchOnlineMoviesdata(setMovies) {
             }
         });
         const data = await result.json();
-        console.log(data.message);
-        setMovies(data.content);
+
+        return data.content;
     }catch (err) {
         console.log(err)
     }
