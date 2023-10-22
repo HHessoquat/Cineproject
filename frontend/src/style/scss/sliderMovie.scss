@@ -1,0 +1,40 @@
+.movieRow {
+  max-width: 100vw;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  .movableContainer {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.3s;
+  }
+
+  .movieSliderBtnContainer {
+    position: absolute;
+    top: 50%;
+    left:0;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 95%;
+    margin: 0 10px;
+  }
+
+  .movieSliderBtn {
+    transition: display 0.3s;
+  }
+
+  .sliderButtonLeft {
+    justify-self: start;
+    align-self: center;
+    grid-column: 1;
+  }
+
+  .sliderButtonRight {
+    justify-self: end;
+    align-self: center;
+    grid-column: 2
+  }
+}

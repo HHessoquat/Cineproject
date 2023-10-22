@@ -43,37 +43,3 @@
     right: 0;
     z-index: 10;
 }
-
-.movieRow {
-  max-width: 100vw;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-
-  .movableContainer {
-    display: flex;
-    flex-wrap: nowrap;
-    transition: transform 0.3s;
-  }
-
-  .movieSliderBtnContainer {
-    position: absolute;
-    top: 50%;
-    z-index: 10;
-    display: grid;
-    width: 95%;
-    margin: 0 10px;
-  }
-
-  .movieSliderBtn {
-    // Ajoutez les styles pour les boutons de défilement
-  }
-
-  .sliderButtonLeft {
-    justify-self: start;
-  }
-
-  .sliderButtonRight {
-    justify-self: end;
-  }
-}

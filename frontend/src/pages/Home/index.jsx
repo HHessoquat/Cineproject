@@ -13,11 +13,15 @@ function Home() {
         
         for (let key in moviesObject) {
             newMovies[key] = moviesObject[key].map((c) => {
-                const movie = { ...c };
-                const sessionsArray = movie.sessions.split(', ');
-                const sessionsDate = sessionsArray.map((current) => parseDate(current));
-                movie.sessions = sessionsDate;
-                return movie;
+                if (c.sessions) {
+                    const movie = { ...c };
+                    const sessionsArray = movie.sessions.split(', ');
+                    const sessionsDate = sessionsArray.map((current) => parseDate(current));
+                    movie.sessions = sessionsDate;
+                    return movie;
+                }
+                return c;
+                
             });
         }
         
@@ -26,7 +30,6 @@ function Home() {
     
     async function fetchMoviesAndFormatDate() {
         const retrievedMovies = await fetchOnlineMoviesdata();
-
         formatDates(retrievedMovies);
         
     }

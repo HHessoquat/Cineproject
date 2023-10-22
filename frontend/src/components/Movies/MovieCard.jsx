@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 function MovieCard({movie, isInBackOffice, handleDelete}) {
-    console.log('passe')
     function content() {
         return (
             <>
