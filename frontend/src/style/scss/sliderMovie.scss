@@ -20,11 +20,19 @@
     grid-template-columns: 1fr 1fr;
     width: 95%;
     margin: 0 10px;
+    height: 0;
   }
 
   .movieSliderBtn {
-    transition: display 0.3s;
+    z-index: 10;
+    animation: printButton 1s ease;
   }
+  
+  .hiddenBtn{
+    opacity: 0;
+    animation: removeBtn 1s ease;
+  }
+  
 
   .sliderButtonLeft {
     justify-self: start;
@@ -36,5 +44,25 @@
     justify-self: end;
     align-self: center;
     grid-column: 2
+  }
+
+}
+
+@keyframes printButton {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes removeBtn {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    z-index: -10;
   }
 }

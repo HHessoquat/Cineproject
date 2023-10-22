@@ -184,9 +184,15 @@
   grid-template-columns: 1fr 1fr;
   width: 95%;
   margin: 0 10px;
+  height: 0;
 }
 .movieRow .movieSliderBtn {
-  transition: display 0.3s;
+  z-index: 10;
+  animation: printButton 1s ease;
+}
+.movieRow .hiddenBtn {
+  opacity: 0;
+  animation: removeBtn 1s ease;
 }
 .movieRow .sliderButtonLeft {
   justify-self: start;
@@ -199,6 +205,23 @@
   grid-column: 2;
 }
 
+@keyframes printButton {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes removeBtn {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    z-index: -10;
+  }
+}
 html {
   font-size: 16px;
 }

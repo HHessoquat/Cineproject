@@ -26,17 +26,9 @@ function MovieSlider({movieRow}) {
             const rightBorderPosition = containerRect.right;
             const nextRightBorderPosition = willMoveLeft ? rightBorderPosition + movieCardWidth : rightBorderPosition - movieCardWidth;
             setIsLastMovieOnScreen(nextRightBorderPosition <= window.innerWidth);
-            console.log(willMoveLeft)
-            console.log('rightBorder : ', rightBorderPosition)
-            console.log('next : ',nextRightBorderPosition);
-            console.log('returned : ',containerRect.right)
         }
     }
     
-    //  useEffect(() => {
-    //     setTimeout(checkLastMovieOnScreen, 3000);
-    // }, [currentImage]);
-  
     function scrollLeft() {
     if (currentImage > 0) {
         checkLastMovieOnScreen(true);
@@ -52,26 +44,30 @@ function MovieSlider({movieRow}) {
       
     }
   };
-     if (movableContainerRef.current) {
-            const containerRect = movieCardRef.current.getBoundingClientRect();
- 
-            console.log(containerRect.right)
-        }
+    
     return(
         <section className='movieRow'>
             <div className='movieSliderBtnContainer'>
                 {currentImage > 0 &&
                     <button 
-                    className="movieSliderBtn sliderButtonLeft" 
-                    onClick={scrollLeft}>&lt;</button>
+                        className={`movieSliderBtn sliderButtonLeft ${currentImage === 0 ? 'hiddenBtn' : ''} `}
+                        onClick={scrollLeft}
+                        disabled={currentImage === 0}
+                    >
+                        &lt;
+                        </button>
                 }
                 
-                {!isLastMovieOnScreen && 
                     <button 
-                    className="movieSliderBtn sliderButtonRight" 
-                    onClick={scrollRight}>&gt;</button>
+                        className={`movieSliderBtn sliderButtonRight ${isLastMovieOnScreen ? 'hiddenBtn' : ''}`}  
+                        onClick={scrollRight}
+                        disabled={isLastMovieOnScreen}
+                    >
+                        &gt;
+    
+                    </button>
                     
-                }
+          
             </div>
             
             <div ref={movableContainerRef} className="movableContainer" style={{ transform: `translateX(-${currentImage * movieCardWidth}px)` }} >
