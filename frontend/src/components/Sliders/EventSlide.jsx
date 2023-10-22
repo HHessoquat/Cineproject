@@ -5,10 +5,10 @@ function EventSlide({events, movie, setActiveSlide, timeoutId}) {
         clearTimeout(timeoutId);
     }
     return(
-        <section className="eventSliderWrapper">
-            <figure>
+        <section  className="eventSliderWrapper">
+            <figure key={Math.random()*100} className="sliderTransition">
                 <img id="eventSliderCover" src={movie.coverImgUrl} alt={movie.coverImgAlt} />
-                <figcaption>
+                <figcaption >
                     <h2 id="eventSliderTitle">
                         {movie.title}
                     </h2>
@@ -22,21 +22,20 @@ function EventSlide({events, movie, setActiveSlide, timeoutId}) {
                         </time>
                     </p>
                 </figcaption>
-                <div className='sliderBtn'>
+                
+            </figure>
+            <div className='sliderBtn'>
                     {events.map((c, i) => {
                         return (
                             <button 
                                 key={i} type="button" 
-                                className="EventSliderBtn" 
+                                className="eventSliderBtn" 
                                 onClick={() => toggleSlide(i)} 
                             > 
-                                {i} 
                             </button>
                         )}
                     )}
                 </div>
-            </figure>
-            
             
             
         </section>

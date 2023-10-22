@@ -159,10 +159,39 @@
 .sliderBtn {
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 16px;
   z-index: 10;
 }
 
+.eventSliderBtn {
+  background-color: #FFF;
+  border-radius: 100%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  height: 12px;
+  width: 12px;
+  outline: none;
+  border: none;
+}
+
+.sliderTransition {
+  animation: printSlide 6.5s ease-in-out;
+}
+
+@keyframes printSlide {
+  0% {
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
 .movieRow {
   max-width: 100vw;
   overflow: hidden;
