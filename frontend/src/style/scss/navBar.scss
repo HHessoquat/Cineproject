@@ -13,21 +13,35 @@
         align-items: center;
     }
     a,
-    .NavBArDropDownButton {
+    .NavBarDropDownButton {
         color: #fff;
         text-decoration: none;
         font-weight: bold;
         font-size: 0.8em;
+        background-color: transparent;
+        border: none;
+        padding: 0;
     }
     .navBar {
         display: flex;
         justify-content: space-around;
-
-        flex: 6;
+        margin: 4px;
+    }
+    li{
+        width: 10%;
+    }
+    .navText{
+        display: none;
+    }
+    .logoPicto{
+        width: 100%;
+    }
+    .navPicto{
+        width: 100%;
     }
     .navDropdown {
         #userLogInPicto {
-            width: 20px;
+            width: 100%;
             height: auto;
         }
         display: flex;
@@ -75,10 +89,16 @@
         position: static;
         padding: 1px 0;
         a,
-        .NavBArDropDownButton {
+        .NavBarDropDownButton {
             font-size: 1.2em;
+           
         }
-
+        .navText{
+            display: block;
+        }
+        .navPicto{
+            display: none;
+        }
         .navDropdown {
             #userLogInPicto {
                 width: 30px;

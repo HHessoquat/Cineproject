@@ -8,24 +8,26 @@ function NavBar() {
             <ul className="navBar">
                 <li>
                     <Link to="/" id="homeLink">
-                        Accueil
+                        <img className='logoPicto' src="/img/picto/logo_min_claire.png" alt='logo de cinéproject' />
                     </Link>
                 </li>
-                <li>
-                    <Link to="/films" id="moviesLink">
-                        Films
-                    </Link>
-                </li>
+                
                 <li>
                     <Events />
                 </li>
+                
                 <li>
                     <Link to="/pratique" id="practicalLink">
-                        Infos pratiques
+                    <img className='navPicto' src="/img/picto/Location.png" alt="Lien vers la page infos pratiques" />
+                        <p className="navText">Infos pratiques</p>
                     </Link>
                 </li>
+                
+                <li>
+                    <Login />
+                </li>
             </ul>
-            <Login />
+            
         </nav>
     );
 }

@@ -13,11 +13,12 @@ function Events() {
     return (
         <div className="navDropdown">
             <button
-                className="NavBArDropDownButton"
+                className="NavBarDropDownButton"
                 onClick={toggleDropdown}
                 onBlur={handleBlur}
             >
-                Evénements
+                <img className='navPicto' src="/img/picto/Event.png" alt="liens vers la page événement"/>
+                <p className="navText">Evénements</p>
             </button>
             {isDropdownOpen && (
                 <ul className="navDropdownLinks">

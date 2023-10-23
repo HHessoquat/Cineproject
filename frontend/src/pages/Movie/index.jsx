@@ -10,6 +10,7 @@ function Movie() {
     const [sessions, setSessions] = useState([]);
     const [showFullSynopsis, setShowFullSynopsis] = useState(false);
     const printSynopsis = movie.synopsis ? (showFullSynopsis ? movie.synopsis : `${movie.synopsis.slice(0, 100)}...`) : "";
+    const [showSessionTime, setShowSessionTime] = useState(null);
     let groupedSessions = [];
     
     async function fetchData() {
@@ -50,12 +51,11 @@ function Movie() {
     }
     
     function printTime(date){
-        console.log('passe')
-        return sessions.map((c, i) => {
-            if (c.date === date) {
-                return <p>{c.time}</p>;
-            }
-        })
+        if(showSessionTime === date){
+            setShowSessionTime(null);
+            return
+        }
+        setShowSessionTime(date);
     }
     
     
@@ -93,10 +93,24 @@ function Movie() {
                             {showFullSynopsis ? 'Réduire' : 'Lire la suite'}
                         </button>
                     }
-                    <aside className="movieSessionBtnContainer">
+                    <aside className="movieSessionContainer">
                         {groupedSessions.map((c,i) => {
                             console.log(c)
-                            return <button class="movieSessionBtn" key= {i} onClick={() => printTime(c)}><textarea class="multi-line-Button" readOnly rows="3" value={c.replace(/ /g, '\n')} /></button>
+                            return (
+                            <div className='movieSessionInfo' key={i}>
+                            <button class={`movieSessionBtn ${c === showSessionTime ? "selected" : ''}` } onClick={() => printTime(c)}>
+                                <textarea className="multi-line-Button" readOnly rows="3" value={c.replace(/ /g, '\n')} />
+                            </button>
+                            {showSessionTime && ( <div className="sessionTimeContainer">
+                                { sessions.map((c, i) => {
+                                    if (c.date === showSessionTime) {
+                                        return <button className="movieSessionBtn sessionTime">{c.time}</button>;
+                                    }
+                                })}
+                            </div>
+                            )}
+                            </div>
+                            )
                         })}
                     </aside>
                 </section>

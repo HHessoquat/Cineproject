@@ -44,6 +44,7 @@
 }
 .movieDescription #synopsis {
   width: 100%;
+  margin: 0;
 }
 .movieDescription .movieFeatureHeader {
   font-size: 0.8em;
@@ -53,18 +54,32 @@
   font-size: 0.8em;
   font-style: italic;
 }
-.movieDescription .movieSessionBtnContainer {
+.movieDescription .movieSessionContainer {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 2em;
 }
-.movieDescription .movieSessionBtnContainer .movieSessionBtn {
+.movieDescription .movieSessionContainer .movieSessionInfo {
+  width: 24%;
+}
+.movieDescription .movieSessionContainer .movieSessionBtn {
   background: transparent;
   border: #FFF solid 2px;
   border-radius: 8px;
   color: white;
-  width: 24%;
+  width: 100%;
+  transform: scale(1);
+  transition: transform 0.5s ease-out;
 }
-.movieDescription .movieSessionBtnContainer .multi-line-Button {
+.movieDescription .movieSessionContainer .movieSessionBtn:hover {
+  background-color: #6e6e6e;
+  transform: scale(1.1);
+}
+.movieDescription .movieSessionContainer .movieSessionBtn.selected {
+  background-color: #444;
+  border: 2px solid #2070EE;
+}
+.movieDescription .movieSessionContainer .multi-line-Button {
   background: transparent;
   color: white;
   border: none;
@@ -72,8 +87,14 @@
   text-align: center;
   width: 100%;
 }
-.movieDescription .movieSessionBtnContainer .multi-line-Button:focus {
+.movieDescription .movieSessionContainer .multi-line-Button:focus {
   outline: none;
+}
+.movieDescription .movieSessionContainer .sessionTimeContainer {
+  display: flex;
+}
+.movieDescription .movieSessionContainer .sessionTime {
+  margin-right: 10px;
 }
 
 .navBarContainer {
@@ -92,16 +113,31 @@
   align-items: center;
 }
 .navBarContainer a,
-.navBarContainer .NavBArDropDownButton {
+.navBarContainer .NavBarDropDownButton {
   color: #fff;
   text-decoration: none;
   font-weight: bold;
   font-size: 0.8em;
+  background-color: transparent;
+  border: none;
+  padding: 0;
 }
 .navBarContainer .navBar {
   display: flex;
   justify-content: space-around;
-  flex: 6;
+  margin: 4px;
+}
+.navBarContainer li {
+  width: 10%;
+}
+.navBarContainer .navText {
+  display: none;
+}
+.navBarContainer .logoPicto {
+  width: 100%;
+}
+.navBarContainer .navPicto {
+  width: 100%;
 }
 .navBarContainer .navDropdown {
   display: flex;
@@ -111,7 +147,7 @@
   align-items: center;
 }
 .navBarContainer .navDropdown #userLogInPicto {
-  width: 20px;
+  width: 100%;
   height: auto;
 }
 .navBarContainer .navDropdown .NavBarLoginButton {
@@ -153,8 +189,14 @@
     padding: 1px 0;
   }
   .navBarContainer a,
-  .navBarContainer .NavBArDropDownButton {
+  .navBarContainer .NavBarDropDownButton {
     font-size: 1.2em;
+  }
+  .navBarContainer .navText {
+    display: block;
+  }
+  .navBarContainer .navPicto {
+    display: none;
   }
   .navBarContainer .navDropdown #userLogInPicto {
     width: 30px;
