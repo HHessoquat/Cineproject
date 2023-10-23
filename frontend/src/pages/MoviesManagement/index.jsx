@@ -13,7 +13,7 @@ function MoviesManagement() {
 
 
   return (
-    <>
+    <main>
       <form onSubmit={(e) => e.preventDefault()}>
             <label>
               <input
@@ -44,7 +44,7 @@ function MoviesManagement() {
                         setMovie={setMovie}
                       />}
       {action === 1 && <CreateMovieForm />}
-    </>
+    </main>
   );
 }
 

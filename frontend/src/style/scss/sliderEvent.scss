@@ -62,6 +62,7 @@
 
 .sliderTransition {
   animation: printSlide 6.5s ease-in-out;
+  opacity: 0;
 }
 
 @keyframes printSlide {

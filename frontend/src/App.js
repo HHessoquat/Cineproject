@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar/NavBar.jsx';
+import Footer from './components/Footer/Footer.jsx';
 import Home from './pages/Home';
 import Movie from './pages/Movie';
-import NavBar from './components/NavBar/NavBar.jsx';
 import Movies from './pages/Movies';
 import Events from './pages/Events';
 import Practical from './pages/Practical';
@@ -34,6 +35,7 @@ function App() {
                             <Route path ="/admin/movieDetail" element={MovieDetail} />
                             
                         </Routes>
+                    <Footer />
                 </AuthentificationProvider>
             </Router>
         </>

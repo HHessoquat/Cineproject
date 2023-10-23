@@ -45,7 +45,6 @@ function LogIn() {
                     </div>
                     )}
             </div>
-            
         </>
     );
 }

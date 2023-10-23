@@ -42,10 +42,11 @@ function Home() {
     console.log(movies.regularSessions)
     
     return (
-        <>
+        <main>
+        
         {Object.keys(movies).length > 0 && <EventsSlider movies={movies} />}
         {Object.keys(movies).length > 0 && movies.regularSessions && <MovieSlider movieRow={movies.regularSessions} />}
-        </>
+        </main>
         
         )
         

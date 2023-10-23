@@ -11,7 +11,7 @@ function UserManagement() {
         setAction(Number(e.target.value));
     }
     return(
-        <>
+        <main>
             <form onSubmit={(e) => e.preventDefault()}>
                   <label>
                     <input
@@ -42,7 +42,7 @@ function UserManagement() {
                                   allUsers={allUsers} 
                               />}
             {action === 1 && <UserManagementForm />}
-        </>
+        </main>
         )
 }
 
