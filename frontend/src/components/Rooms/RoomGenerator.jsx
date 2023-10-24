@@ -117,7 +117,10 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
     
 
     function handleSeatClick(row, column) {
-        room.seats[row][column] = true;
+        const newSeats= [...room.seats];
+        newSeats[row][column] = !newSeats[row][column];
+        const updatedRoom = {...room, seats: newSeats}
+        setRoom(updatedRoom);
     }
     
     
@@ -185,12 +188,16 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                             );
                         } else {
                             seatElement = (
-                                <img
-                                    key={i + ' ' + index * 100}
-                                    src='/img/room/takenSeat.png'
-                                    alt="place réservée"
-                                    className="roomMapSeat"
-                                />
+                                <button key={i + ' ' + index * 100} 
+                                    className="roomMap_btn" 
+                                    onClick={() => handleSeatClick(i, index)}
+                                >
+                                    <img
+                                        src='/img/room/takenSeat.png'
+                                        alt="place réservée"
+                                        className="roomMapSeat"
+                                    />
+                                </button>
                             );
                         }
                         
