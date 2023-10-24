@@ -1,14 +1,17 @@
 import {useState, useEffect} from 'react';
 import { useParams, redirect} from "react-router-dom";
 import { fetchEventMovie } from '../../features/moviesManagement/api.js';
-import MovieSlider from '../../components/Sliders/MovieSlider'
+import MovieSlider from '../../components/Sliders/MovieSlider';
+import createRoom from '../../features/room/createRoom.js';
+import RoomGenerator from '../../components/Rooms/RoomGenerator';
 function Events() {
     const { event } = useParams();
     const [movie, setMovie] = useState({});
-    const [allSessions, setAllSessions] = useState([])
+    const [allSessions, setAllSessions] = useState([]);
+    const [room, setRoom] = useState({});
+    const [isReservationOpen, setIsReservationOpen] = useState(false);
     
     function setEventTitle() {
-        console.log(event)
         if (event === "wednesday") {
             return 'Le Mercredi des enfants';
         }else if (event === 'friday') {
@@ -23,31 +26,36 @@ function Events() {
 
     async function getMovie() {
         const retrievedMovie = await fetchEventMovie(event);
-        console.log(retrievedMovie)
         const formatedMovie = retrievedMovie.map((c) => {
-            const currentMovie = formatDateAndTime(c);
+            const currentMovie = formatData(c);
             return currentMovie
-        }) 
+        });
+        setRoom(createRoom(formatedMovie[0].seatsDisplay));
         setMovie(formatedMovie[0]);
         setAllSessions(formatedMovie);
     } 
     
-    function formatDateAndTime(movie) {
+    function formatData(movie) {
         const movieCopy = {...movie}
         const date = new Date(movie.date);
         const time = movie.time.substring(0, 5);
         const releaseDate = new Date(movie.releaseDate).toLocaleString('fr-FR', {  year: 'numeric', month: 'long', day: 'numeric', })
+        const seatsArray = JSON.parse(movie.seatsDisplay);
+        movieCopy.seatsDisplay = seatsArray
         movieCopy.date= date;
         movieCopy.time = time;
         movieCopy.releaseDate = releaseDate
         return movieCopy;
     }
     
+    function handleReservationClick() {
+        setIsReservationOpen(!isReservationOpen);
+    }
+    
     useEffect(()=>{
         getMovie()
     }, [])
-
-    console.log(movie)
+    
     return(
         <main id="eventPageMain">
         {!header && redirect('/404')}
@@ -69,14 +77,15 @@ function Events() {
                         </ul>
                     </aside>
                     {movie.date && (
-                    <div class="eventSessionContainer">
-                            <p class="movieSessionText">
+                    <div className="eventSessionContainer">
+                            <p className="movieSessionText">
                                 {movie.date.toLocaleString('fr-FR', {  year: 'numeric', month: 'long', day: 'numeric', })} <br />
                                 {movie.time}
                             </p>
-                            <button class='reservationBtn'>reserver</button>
+                            <button className='reservationBtn' onClick={handleReservationClick}>reserver</button>
                         </div>
                     )}
+                    {isReservationOpen && <RoomGenerator roomSettings={room} isInFrontOffice={true} />}
                     </section>
             </section>
             <section className="eventSessionSlider" >

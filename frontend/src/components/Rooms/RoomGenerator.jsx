@@ -3,7 +3,7 @@ import validateDatas from '../../features/room/validateDatas.js';
 import createRoom from '../../features/room/createRoom.js';
 import { sendRoom } from '../../features/room/api.js';
 
-function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, fetchData}) {
+function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, fetchData, isInFrontOffice}) {
     const [room, setRoom] = useState(
                                 createRoom([
                                     [2, 2, 2],
@@ -19,6 +19,9 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
         setRoom(createRoom(roomSettings));
         return fetchData;
     }
+        if (isInFrontOffice) {
+            setRoom(roomSettings);
+        }
     },[])
     
     
@@ -131,18 +134,23 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
     let verticalBlockIterator = 0;
     return (
         <>
-            <form onSubmit={(e) => e.preventDefault()}>
-                <label>
-                    Nom de la salle : 
-                    <input type="text" onChange={handleChange} value={roomName} />
-                </label>
-            </form>
-            {errorMsg && errorMsg.map((c,i)=> {return <p key={i-123*(-12)}>{c}</p>})}
-            <button type="button" onClick={addBlockH}>ajouter un block horizontal</button>
-            <button type="button" onClick={addBlockV}>ajouter un block vertical</button>
-            <button type="button" onClick={deleteBlockH}>supprimer un block horizontal</button>
-            <button type="button" onClick={deleteBlockV}>supprimer un block vertical</button>
-            
+            {!isInFrontOffice && (
+                <form onSubmit={(e) => e.preventDefault()}>
+                    <label>
+                        Nom de la salle : 
+                        <input type="text" onChange={handleChange} value={roomName} />
+                    </label>
+                </form>
+            )}
+            {!isInFrontOffice && errorMsg && errorMsg.map((c,i)=> {return <p key={i-123*(-12)}>{c}</p>})}
+            {!isInFrontOffice &&(
+            <>
+                <button type="button" onClick={addBlockH}>ajouter un block horizontal</button>
+                <button type="button" onClick={addBlockV}>ajouter un block vertical</button>
+                <button type="button" onClick={deleteBlockH}>supprimer un block horizontal</button>
+                <button type="button" onClick={deleteBlockV}>supprimer un block vertical</button>
+            </>
+            )}
             <div>
                 {room.seats.map((c, i) => {
                     let blockSeatIterator = 0;
@@ -194,11 +202,16 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                             
                             const currentHBlock = blockSeatIterator;
                             
+                            const addSeatsButton = (
+                                <>
+                                    <button type="button" onClick={() => addSeatInColumn(currentHBlock)}>+</button>
+                                    <button type="button" onClick={() => removeSeatInColumn(currentHBlock)}>-</button>
+                                </>
+                            )
                             const seatAndButton = (
                                 <span key={i + ' ' + index * 2}>
                                     {seatElement}
-                                    <button type="button" onClick={() => addSeatInColumn(currentHBlock)}>+</button>
-                                    <button type="button" onClick={() => removeSeatInColumn(currentHBlock)}>-</button>
+                                    {!isInFrontOffice && addSeatsButton}
                                     <img
                                         src='/img/room/emptySeat.png'
                                         alt="corridor"
@@ -247,12 +260,17 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                     else if (i === room.vCorridorIndex[verticalBlockIterator] -1 ) {
 
                     const currentvBlockIndex = verticalBlockIterator;
+                    const addRowButtons =(
+                                <>
+                                    <button type="button" onClick={() => addRowInBlock(currentvBlockIndex)}>Ajouter une rangée</button>
+                                    <button type="button" onClick={() => removeRowInBlock(currentvBlockIndex)}>enlever une rangée</button>
+                                </>
+                                )
                         const rowAndButton = (
-                        
+                            
                             <div key={i} >
                                 {seatRow}
-                                <button type="button" onClick={() => addRowInBlock(currentvBlockIndex)}>Ajouter une rangée</button>
-                                <button type="button" onClick={() => removeRowInBlock(currentvBlockIndex)}>enlever une rangée</button>
+                                {!isInFrontOffice && addRowButtons}
                             </div>
                         );
                         
@@ -264,7 +282,8 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                     }
                 })}
             </div>
-            <button type="button" onClick={handleCreateClick}>Créer la salle</button>
+            {!isInFrontOffice && <button type="button" onClick={handleCreateClick}>Créer la salle</button>}
+            {isInFrontOffice && <button type="button" onClick={() => {}}> Réserver </button>}
         </>
     );
 }

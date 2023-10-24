@@ -99,6 +99,7 @@ exports.retrieveEventMovie = (event) => {
             `SELECT 
                 S.*,
                 M.*,
+                R.seatsDisplay,
                 GROUP_CONCAT(DISTINCT D.name) AS directors,
                 GROUP_CONCAT(DISTINCT A.name) AS actors
             FROM Session AS S
@@ -106,7 +107,8 @@ exports.retrieveEventMovie = (event) => {
             INNER JOIN Movie_Director AS MD ON M.id = MD.movieId
             INNER JOIN Directors AS D ON MD.directorId = D.id
             INNER JOIN Movie_Actor AS MA ON M.id = MA.idMovie
-            Inner JOIN Actors as A  ON MA.idActor = A.id
+            Inner JOIN Actors AS A  ON MA.idActor = A.id
+            INNER JOIN Room AS R ON R.name = S.idRoom
             WHERE S.Event= ?
             GROUP BY S.id
             ORDER BY S.date
