@@ -81,6 +81,23 @@ export async function fetchOnlineMoviesdata() {
     }
 }
 
+export async function fetchEventMovie(event) {
+    try {
+        const result = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/event/${event}`, {
+            method: 'GET',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json',
+            }
+        });
+        const data = await result.json();
+        console.log(data.message);
+        return data.content;
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export function updateMovie(formData, idMovie) {
         const dataToSend = new FormData();
         for (const key in formData) {

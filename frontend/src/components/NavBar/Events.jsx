@@ -23,15 +23,15 @@ function Events() {
             {isDropdownOpen && (
                 <ul className="navDropdownLinks">
                     <li>
-                        <Link to="/Events/premiere">Avant-premières</Link>
+                        <Link to="/evenements/premiere">Avant-premières</Link>
                     </li>
                     <li>
-                        <Link to="/Events/Vendredi_cultes">
+                        <Link to="/evenements/friday">
                             Les vendredis cultes
                         </Link>
                     </li>
                     <li>
-                        <Link to="/Events/Vendredi_cultes">
+                        <Link to="/evenements/wednesday">
                             Le mercredi des enfants
                         </Link>
                     </li>

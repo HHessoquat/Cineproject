@@ -93,3 +93,31 @@ exports.retrieveMovieBytitle= (title) => {
             );
     })
 }
+exports.retrieveEventMovie = (event) => {
+    return new Promise((resolve, reject) => {
+        query(
+            `SELECT 
+                S.*,
+                M.*,
+                GROUP_CONCAT(DISTINCT D.name) AS directors,
+                GROUP_CONCAT(DISTINCT A.name) AS actors
+            FROM Session AS S
+            INNER Join Movie AS M ON M.id = S.idMovie
+            INNER JOIN Movie_Director AS MD ON M.id = MD.movieId
+            INNER JOIN Directors AS D ON MD.directorId = D.id
+            INNER JOIN Movie_Actor AS MA ON M.id = MA.idMovie
+            Inner JOIN Actors as A  ON MA.idActor = A.id
+            WHERE S.Event= ?
+            GROUP BY S.id
+            ORDER BY S.date
+            `,
+            [event],
+            (err, result) => {
+                if (err) {
+                    reject(new Error(err));
+                }
+                resolve(result);
+            }
+        )
+    })
+}

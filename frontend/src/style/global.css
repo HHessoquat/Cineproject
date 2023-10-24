@@ -12,7 +12,13 @@
   object-fit: cover;
 }
 
+#eventPageMain {
+  display: grid;
+  grid-template-rows: 0.9fr 1fr;
+}
+
 .movieDescription {
+  grid-row: 1/2;
   display: flex;
   flex-direction: column;
 }
@@ -95,6 +101,25 @@
 }
 .movieDescription .movieSessionContainer .sessionTime {
   margin-right: 10px;
+}
+.movieDescription .eventSessionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.movieDescription .eventSessionContainer .movieSessionText {
+  text-align: center;
+  margin: auto;
+  border: #FFF solid 2px;
+  border-radius: 8px;
+  color: white;
+  width: 50%;
+  padding: 10px;
+}
+
+.inEventPage {
+  grid-row: 2/3;
+  align-self: end;
 }
 
 .navBarContainer {
