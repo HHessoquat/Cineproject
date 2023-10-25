@@ -26,7 +26,7 @@ function RoomsManagement () {
     }
     
     return(
-        <main>
+        <main className="backOfficeMain">
             <form onSubmit={(e) => e.preventDefault()}>
                 
                 <label>

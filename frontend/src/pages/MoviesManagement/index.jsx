@@ -13,7 +13,7 @@ function MoviesManagement() {
 
 
   return (
-    <main>
+    <main className="backOfficeMain">
       <form onSubmit={(e) => e.preventDefault()}>
             <label>
               <input

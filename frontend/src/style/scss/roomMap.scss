@@ -1,6 +1,23 @@
+.roomcontainer{
+    div{ 
+        span {
+            display:flex; 
+            // flex-direction: column;
+        }
+        div p{
+            display: flex;
+            flex-wrap: nowrap;
+            margin: 0;
+            span {
+                display: flex;
+            }
+        }
+    }
+}
+
 .roomMapSeat{
-    width: 30px;
-    Height: 30px;
+    width: 14px;
+    height: 14px;
 }
 .roomMap_btn{
     background-color: #ffffff00;

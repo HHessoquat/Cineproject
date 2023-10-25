@@ -18,6 +18,7 @@ exports.retrieveAll = () => {
 
 exports.retrieveOneById = (id) => {
     return new Promise((resolve, reject) => {
+
         query(
                 'SELECT * FROM Users WHERE id = ?',
                 [id],

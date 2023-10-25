@@ -2,6 +2,29 @@
     display: grid;
     grid-template-rows: 0.9fr 1fr;
 }
+.reservationModalContainer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0000008a; 
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reservationModal{
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: #000000cf; 
+    width: 80%; 
+    max-width: 90vw;
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 6;
+    overflow: scroll;
+}
 .movieDescription {
     grid-row: 1/2;
     display: flex;

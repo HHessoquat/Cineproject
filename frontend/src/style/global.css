@@ -17,6 +17,31 @@
   grid-template-rows: 0.9fr 1fr;
 }
 
+.reservationModalContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5411764706);
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reservationModal {
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: rgba(0, 0, 0, 0.8117647059);
+  width: 80%;
+  max-width: 90vw;
+  padding: 20px;
+  border-radius: 5px;
+  z-index: 6;
+  overflow: scroll;
+}
+
 .movieDescription {
   grid-row: 1/2;
   display: flex;
@@ -232,9 +257,21 @@
     top: 1em;
   }
 }
+.roomcontainer div span {
+  display: flex;
+}
+.roomcontainer div div p {
+  display: flex;
+  flex-wrap: nowrap;
+  margin: 0;
+}
+.roomcontainer div div p span {
+  display: flex;
+}
+
 .roomMapSeat {
-  width: 30px;
-  Height: 30px;
+  width: 14px;
+  height: 14px;
 }
 
 .roomMap_btn {
@@ -388,6 +425,25 @@
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.7) 100%);
 }
 
+#backOfficeNavBar {
+  grid-row: 1/2;
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #111;
+  height: 100%;
+}
+#backOfficeNavBar .backOfficeNavBtn {
+  background-color: transparent;
+  border: none;
+  color: #FFF;
+  margin: 10px;
+  width: 30%;
+  flex: 1;
+}
+#backOfficeNavBar .backOfficeNavBtn:not(:last-child) {
+  border-right: 2px solid #FFF;
+}
+
 html {
   font-size: 16px;
 }
@@ -402,12 +458,16 @@ body {
 
 #root {
   display: grid;
-  grid-template-rows: 50px 1fr 120px;
+  grid-template-rows: 0.1fr 1fr 120px;
   min-height: 100vh;
 }
 
 main {
   grid-row: 1/3;
+}
+
+.backOfficeMain {
+  grid-row: 2/3;
 }
 
 ul {

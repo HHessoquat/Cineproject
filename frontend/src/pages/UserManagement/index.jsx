@@ -11,7 +11,7 @@ function UserManagement() {
         setAction(Number(e.target.value));
     }
     return(
-        <main>
+        <main className="backOfficeMain">
             <form onSubmit={(e) => e.preventDefault()}>
                   <label>
                     <input

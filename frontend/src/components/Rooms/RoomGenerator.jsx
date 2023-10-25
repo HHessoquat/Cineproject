@@ -154,7 +154,7 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                 <button type="button" onClick={deleteBlockV}>supprimer un block vertical</button>
             </>
             )}
-            <div>
+            <div className='roomcontainer'>
                 {room.seats.map((c, i) => {
                     let blockSeatIterator = 0;
                     

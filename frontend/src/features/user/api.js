@@ -35,9 +35,10 @@ export async function getAllUsers() {
     }
 }
 
-export async function getUSerById(userId) {
+export async function getUserById(userId) {
     try {
-        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/${userId}`,{
+
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/user/byId/${userId}`,{
             method: 'GET',
             credentials: 'include',
             headers: {
@@ -47,7 +48,7 @@ export async function getUSerById(userId) {
         const data = await response.json();
         
         console.log(data.message);
-        return data.content;
+        return data.content[0];
         
     }catch (err) {
         console.log(err);

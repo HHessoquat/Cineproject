@@ -15,10 +15,11 @@ exports.getAllUsers = async (req, res) => {
     }
 }
 
-exports.getUSerById = async (req, res) => {
+exports.getUserById = async (req, res) => {
     try {
         const {id} = req.params;
-        const result = getUsers.retrieveOneById(id)
+
+        const result = await getUsers.retrieveOneById(id);
         if (result.length === 0) {
             res.status(404).json({message: "no user found", content: null});
             return

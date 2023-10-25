@@ -1,8 +1,11 @@
 import {useState, useEffect} from 'react';
 import  { useParams } from 'react-router-dom';
-import { fetchMovieData} from '../../features/moviesManagement/api.js'
+import { fetchMovieData} from '../../features/moviesManagement/api.js';
+import { fetchOneRoom } from '../../features/room/api.js';
+import createRoom from '../../features/room/createRoom.js';
 import {parseDate} from '../../utils/dateFormat/parseDate.js';
 import { fetchSession } from '../../features/movieSession/api.js';
+import RoomGenerator from '../../components/Rooms/RoomGenerator';
 
 function Movie() {
     const {idMovie} = useParams();
@@ -11,6 +14,9 @@ function Movie() {
     const [showFullSynopsis, setShowFullSynopsis] = useState(false);
     const printSynopsis = movie.synopsis ? (showFullSynopsis ? movie.synopsis : `${movie.synopsis.slice(0, 100)}...`) : "";
     const [showSessionTime, setShowSessionTime] = useState(null);
+    const [isReservationOpen, setIsReservationOpen] = useState(false);
+    const [room, setRoom] = useState({});
+    
     let groupedSessions = [];
     
     async function fetchData() {
@@ -58,15 +64,36 @@ function Movie() {
         setShowSessionTime(date);
     }
     
+    async function handleReservationClick(id, seatsMap) {
+        if (Object.keys(room).length === 0){
+            const retrievedRoom = await fetchOneRoom(id);
+            const newRoom= createRoom(retrievedRoom.seatsDisplay);
+            
+            newRoom.seats = JSON.parse(seatsMap);
+            setRoom(newRoom);
+        }else {
+            setRoom({});
+        }
+        setIsReservationOpen(!isReservationOpen);
+    }
     
     useEffect(() => {
             fetchData();
     }, []);
     groupSession(
         )
-     
+     console.log(room)
     return (
         <main>
+            {isReservationOpen && (
+            <div className="reservationModalContainer">
+                <div className="reservationModal">
+                    <p className="reservationHeader"> Choisissez votre place </p>
+                        <RoomGenerator roomSettings={room} isInFrontOffice={true} />
+                   <button type="button" className='sendReservationBtn'>Réserver ma place</button>
+               </div>
+            </div>
+                )}
             <article className="movieDescription">
                 <img
                     className="movieCover"
@@ -93,26 +120,39 @@ function Movie() {
                             {showFullSynopsis ? 'Réduire' : 'Lire la suite'}
                         </button>
                     }
+                    
                     <aside className="movieSessionContainer">
-                        {groupedSessions.map((c,i) => {
-                            console.log(c)
-                            return (
+                    
+                    {groupedSessions.map((c,i) => {
+                        return (
                             <div className='movieSessionInfo' key={i}>
-                            <button class={`movieSessionBtn ${c === showSessionTime ? "selected" : ''}` } onClick={() => printTime(c)}>
-                                <textarea className="multi-line-Button" readOnly rows="3" value={c.replace(/ /g, '\n')} />
-                            </button>
-                            {showSessionTime && ( <div className="sessionTimeContainer">
-                                { sessions.map((c, i) => {
-                                    if (c.date === showSessionTime) {
-                                        return <button className="movieSessionBtn sessionTime">{c.time}</button>;
-                                    }
-                                })}
+                            
+                                <button className={`movieSessionBtn ${c === showSessionTime ? "selected" : ''}` } onClick={() => printTime(c)}>
+                                    <textarea className="multi-line-Button" readOnly rows="3" value={c.replace(/ /g, '\n')} />
+                                </button>
+                                
+                                {showSessionTime && ( 
+                                    <div className="sessionTimeContainer">
+                                        {sessions.map((c, i) => {
+                                            if (c.date === showSessionTime) {
+                                                return (
+                                                    <button 
+                                                    key={-i*5*3*11*43}
+                                                        className="movieSessionBtn sessionTime" 
+                                                        onClick={() => handleReservationClick(c.idRoom, c.seatMap)}
+                                                    >
+                                                        {c.time}
+                                                    </button>
+                                                );
+                                            }
+                                        })}
+                                    </div>
+                                )}
                             </div>
-                            )}
-                            </div>
-                            )
-                        })}
+                        )
+                    })}
                     </aside>
+                    
                 </section>
             </article>
             
