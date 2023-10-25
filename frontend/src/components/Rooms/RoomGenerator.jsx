@@ -17,7 +17,6 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
         if (update && name && roomSettings) {
         setRoomName(name)
         setRoom(createRoom(roomSettings));
-        return fetchData;
     }
         if (isInFrontOffice) {
             setRoom(roomSettings);
@@ -127,9 +126,11 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
     async function handleCreateClick(){
         if (update)  {
             await sendRoom('PUT', roomName, room, validateDatas, setErrorMsg, name);
+            await fetchData();
             setRoomToUpdate({});
         }else {
-            sendRoom('POST', roomName, room, validateDatas, setErrorMsg);
+            await sendRoom('POST', roomName, room, validateDatas, setErrorMsg);
+            await fetchData();
             setAction(0);
         }
     }
@@ -289,7 +290,15 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                     }
                 })}
             </div>
-            {!isInFrontOffice && <button type="button" onClick={handleCreateClick}>Créer la salle</button>}
+            {!isInFrontOffice && 
+                <button 
+                    type="button" 
+                    onClick={handleCreateClick}
+                > 
+                    {update ? 'Modifier la salle' : 'Créer la salle'} 
+                </button>
+                
+            }
             {isInFrontOffice && <button type="button" onClick={() => {}}> Réserver </button>}
         </>
     );

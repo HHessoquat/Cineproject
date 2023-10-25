@@ -8,6 +8,8 @@ function UserManagement() {
     const [user, setUser] = useState({});
     
     function handleChange(e) {
+        setAllUsers([]);
+        setUser({});
         setAction(Number(e.target.value));
     }
     return(
@@ -41,7 +43,7 @@ function UserManagement() {
                                   user={user}
                                   allUsers={allUsers} 
                               />}
-            {action === 1 && <UserManagementForm />}
+            {action === 1 && <UserManagementForm closeModal={() => setAction(0)} />}
         </main>
         )
 }

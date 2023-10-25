@@ -14,6 +14,7 @@ function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
 
     async function getAll() {
         setNoUser(false);
+        setUser({});
         const users= await getAllUsers();
         if (users === null) {
             setNoUser(true);
@@ -24,11 +25,13 @@ function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
     
     async function handleDelete(id) {
         await deleteUser(id);
+        setUser({});
         getAll()
     }
     
     async function handleSubmit(e) {
         setNoUser(false);
+        setAllUsers([]);
         e.preventDefault();
 
         const retrievedUser = await getUserByPseudo(userSeeked.pseudo);

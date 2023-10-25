@@ -211,10 +211,11 @@
 }
 .navBarContainer .navDropdown .navDropdownLinks {
   position: absolute;
-  bottom: 1em;
+  bottom: 100%;
   right: 10px;
   background-color: #eee;
   border-radius: 6px;
+  box-shadow: 5px 5px 8px #000;
   width: 200px;
   padding: 20px;
 }

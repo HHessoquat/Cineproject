@@ -1,6 +1,7 @@
 import { useState } from 'react'
 function PrintUserModal({user, handleDelete}) {
     const [updating, setUpdating] = useState(false);
+    
     function toggleUpdate() {
         setUpdating(!updating);
     }

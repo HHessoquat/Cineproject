@@ -10,8 +10,8 @@ function RoomsManagement () {
     
     async function fetchData() {
             try {
-                console.log('passe');
                 const response = await fetchAllRooms()
+                console.log(response)
                 setRooms(response);
             }catch (err) {
                 console.log(err)
@@ -51,14 +51,15 @@ function RoomsManagement () {
                   Ajouter une salle
                 </label>
                 
-                {action === 0 && !roomToUpdate.seatsDisplay &&
+            </form>
+            {action === 0 && !roomToUpdate.seatsDisplay &&
                     <PrintAllRooms 
                         fetchData={fetchData} 
                         rooms={rooms}
                         setRoomToUpdate={setRoomToUpdate}
                     />}
                     
-                {action === 1 && <RoomGenerator setAction={setAction} />}
+                {action === 1 && <RoomGenerator setAction={setAction} fetchData={fetchData} />}
                 
                 {roomToUpdate.seatsDisplay && 
                     <RoomGenerator
@@ -68,7 +69,6 @@ function RoomsManagement () {
                         setRoomToUpdate={setRoomToUpdate}
                         fetchData={fetchData}
                         />}
-            </form>
         </main>
         )
 }

@@ -3,6 +3,7 @@ import UserForm from './UserManagementForm.jsx';
 
 function PrintAllUser({allUsers, setAllUsers, getAll, handleDelete}) {
     const [userUpdate, setUserUpdate] = useState('');
+    
     function handleUpdateButton(userId) {
         if (userUpdate === userId) {
             setUserUpdate('');
@@ -20,7 +21,15 @@ function PrintAllUser({allUsers, setAllUsers, getAll, handleDelete}) {
                             <button onClick={() => handleUpdateButton(user.id)}>{userUpdate === user.id ? 'Annuler' : 'Modifier'}</button>
                             <button type="button" onClick={() => handleDelete(user.id)} >Supprimer</button>
                         </p>
-                        {user.id === userUpdate && <UserForm update={true} id={user.id} currentUser={user} />}
+                        {user.id === userUpdate && 
+                            <UserForm 
+                                update={true} 
+                                id={user.id} 
+                                currentUser={user} 
+                                closeModal={() => setUserUpdate('')}
+                            />
+                                
+                        }
                     </div>
                     )
             })}

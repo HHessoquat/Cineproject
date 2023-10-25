@@ -38,9 +38,6 @@ function Home() {
         fetchMoviesAndFormatDate()
     }, []);
     
-    
-    console.log(movies)
-    
     return (
         <main>
         

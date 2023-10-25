@@ -2,7 +2,7 @@ import {useState, useEffect } from 'react';
 import handleChange from '../../utils/formsManagement/handleChange.js';
 import { postUser, updateUser } from '../../features/user/api.js';
 
-function UserManagementForm ({update, id, currentUser}) {
+function UserManagementForm ({update, id, currentUser, isInFrontOffice, closeModal}) {
     const [user, setUser] = useState({
         name: "",
         firstName: "",
@@ -23,10 +23,11 @@ function UserManagementForm ({update, id, currentUser}) {
         e.preventDefault();
         if (update) {
             updateUser(id, user);
+            closeModal();
             return
         }
-        
         postUser(user);
+        closeModal();
     }
     
     return(
@@ -78,14 +79,15 @@ function UserManagementForm ({update, id, currentUser}) {
                     </label>
                 </div>
             }
-            <div className="inputContainer">
-                <select name="role" value={user.role} onChange={(e) => handleChange(e, setUser, setErrorMsg)}>
-                      <option value="admin">Admin</option>
-                      <option value="moderator">Modérateur</option>
-                      <option value="user">Utilisateur</option>
-            </select>
-            </div>
-            
+            {!isInFrontOffice && (
+                <div className="inputContainer">
+                    <select name="role" value={user.role} onChange={(e) => handleChange(e, setUser, setErrorMsg)}>
+                          <option value="admin">Admin</option>
+                          <option value="moderator">Modérateur</option>
+                          <option value="user">Utilisateur</option>
+                </select>
+                </div>
+            )}
         <input type="submit" value="Envoyer" />
         </form>
         )
