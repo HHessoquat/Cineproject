@@ -38,32 +38,39 @@
         mask-image: linear-gradient(to top, transparent 0, black 30%);
     }
     #movie_info{
-        position: absolute;
-        top:20%;
-        left: 0;
-        width: 90%;
-        padding: 10px 20px;
+        margin-top: 20%;
+        width: 100%;
         background: linear-gradient(
             to bottom,
             #00000000 0%,
             #000000aa 10%,
             #1c1c1cff 100%
         );
+        
     }
     #movieDetail{
         display: flex;
-        
+        padding: 0 20px;
         .moviePoster{
-            width: 40%;
-            height: auto;
+            display: none;
         }
-        ul{
-            margin-left: 10px;
-        }
+        
     }
     #synopsis{
-        width: 100%;
-        margin: 0;
+        width: 85%;
+        margin: 5px 0;
+    }
+    .showSynopsisButton {
+        background-color: transparent;
+        border : #FFF solid 1px;
+        outline: none;
+        color: #FFF;
+        border-radius: 8px;
+        padding: 0.5em 1em;
+        
+        &:hover{
+            border: #99AAFF solid 3px;
+        }
     }
     .movieFeatureHeader{
         font-size: 0.8em;
@@ -137,4 +144,40 @@
     align-self: end;
 }
 
-
+@media screen AND (min-width: 1199px) {
+    .movieDescription{ 
+        #movie_info {
+            display: flex;
+            flex-direction: column;
+            padding: 15px 0;
+            width: 100%;
+            margin-top: 10%;
+            
+            .moviePoster{
+                display: block;
+                width: 30%;
+                height: auto;
+            }
+            ul{
+                margin-left: 10px;
+            }
+            li {
+                margin-bottom: 1.2em;
+            }
+            .movieFeatureHeader{
+                font-size: 1em
+            }
+            .movieFeature{
+                font-size: 1em;
+            }
+            #synopsis{
+                width: 70%;
+            }
+            .showSynopsisButton {
+                width: 150px;
+            }
+        }
+        
+    }
+    
+}

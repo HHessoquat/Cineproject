@@ -26,6 +26,8 @@
         display: flex;
         justify-content: space-around;
         margin: 4px;
+        width : 100%;
+        max-height: 50px;
     }
     li{
         width: 10%;
@@ -34,15 +36,18 @@
         display: none;
     }
     .logoPicto{
+        max-height: 50px;
         width: 100%;
     }
     .navPicto{
         width: 100%;
+        max-height : 40px;
     }
     .navDropdown {
         #userLogInPicto {
             width: 100%;
             height: auto;
+            max-height: 40px;
         }
         display: flex;
         flex-direction: column;

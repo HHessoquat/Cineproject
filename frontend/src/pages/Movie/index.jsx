@@ -101,25 +101,29 @@ function Movie() {
                     alt={movie.coverImgAlt}
                 />
                 <section id="movie_info">
-                    <h2 id="moviePage_title">{movie.title}</h2>
-                    <aside id="movieDetail">
+                    
+                    <main id="movieDetail">
                         <img className="moviePoster" src={movie.poster} alt={movie.posterAlt} />
                         <ul>
-                            
+                            <h2 id="moviePage_title">{movie.title}</h2>
                             <li><span className="movieFeatureHeader">Durée : </span><span className="movieFeature"> {movie.length} minutes</span></li>
                             <li><span className="movieFeatureHeader">De : </span><span className="movieFeature">{movie.directors && movie.directors.replace(/,/g, ', ')}</span></li>
                             <li><span className="movieFeatureHeader">Avec : </span><span className="movieFeature">{movie.actors && movie.actors.replace(/,/g, ', ')}</span></li>
                             <li><span className="movieFeatureHeader">Date de sortie : </span><span className="movieFeature">{movie.releaseDate}</span></li>
                             {movie.pg && <li><span className="movieFeatureHeader">public : </span><span className="movieFeature">{movie.pg}</span></li>}
-                            {movie.warnings && <li><span className="movieFeatureHeader">avertissements : </span><span className="movieFeature">{movie.warnings}</span></li>}
+                            {movie.warnings && 
+                                <li><span className="movieFeatureHeader">avertissements : </span>
+                            <span className="movieFeature">{movie.warnings}</span></li>
+                            }
+                            <li id="synopsis">{printSynopsis}</li>
+                            {movie.synopsis && movie.synopsis.length > 100 &&
+                                <button className="showSynopsisButton" onClick={() => setShowFullSynopsis(!showFullSynopsis)}>
+                                    {showFullSynopsis ? 'Réduire' : 'Lire la suite'}
+                                </button>
+                            }
                         </ul>
-                    </aside>
-                    <p id="synopsis">{printSynopsis}</p>
-                    {movie.synopsis && movie.synopsis.length > 100 &&
-                        <button onClick={() => setShowFullSynopsis(!showFullSynopsis)}>
-                            {showFullSynopsis ? 'Réduire' : 'Lire la suite'}
-                        </button>
-                    }
+                    </main>
+                    
                     
                     <aside className="movieSessionContainer">
                     
@@ -137,7 +141,7 @@ function Movie() {
                                             if (c.date === showSessionTime) {
                                                 return (
                                                     <button 
-                                                    key={-i*5*3*11*43}
+                                                    key={-2-i*5*3*11*43}
                                                         className="movieSessionBtn sessionTime" 
                                                         onClick={() => handleReservationClick(c.idRoom, c.seatMap)}
                                                     >

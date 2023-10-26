@@ -63,26 +63,31 @@
   mask-image: linear-gradient(to top, transparent 0, black 30%);
 }
 .movieDescription #movie_info {
-  position: absolute;
-  top: 20%;
-  left: 0;
-  width: 90%;
-  padding: 10px 20px;
+  margin-top: 20%;
+  width: 100%;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6666666667) 10%, #1c1c1c 100%);
 }
 .movieDescription #movieDetail {
   display: flex;
+  padding: 0 20px;
 }
 .movieDescription #movieDetail .moviePoster {
-  width: 40%;
-  height: auto;
-}
-.movieDescription #movieDetail ul {
-  margin-left: 10px;
+  display: none;
 }
 .movieDescription #synopsis {
-  width: 100%;
-  margin: 0;
+  width: 85%;
+  margin: 5px 0;
+}
+.movieDescription .showSynopsisButton {
+  background-color: transparent;
+  border: #FFF solid 1px;
+  outline: none;
+  color: #FFF;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+}
+.movieDescription .showSynopsisButton:hover {
+  border: #99AAFF solid 3px;
 }
 .movieDescription .movieFeatureHeader {
   font-size: 0.8em;
@@ -154,6 +159,38 @@
   align-self: end;
 }
 
+@media screen and (min-width: 1199px) {
+  .movieDescription #movie_info {
+    display: flex;
+    flex-direction: column;
+    padding: 15px 0;
+    width: 100%;
+    margin-top: 10%;
+  }
+  .movieDescription #movie_info .moviePoster {
+    display: block;
+    width: 30%;
+    height: auto;
+  }
+  .movieDescription #movie_info ul {
+    margin-left: 10px;
+  }
+  .movieDescription #movie_info li {
+    margin-bottom: 1.2em;
+  }
+  .movieDescription #movie_info .movieFeatureHeader {
+    font-size: 1em;
+  }
+  .movieDescription #movie_info .movieFeature {
+    font-size: 1em;
+  }
+  .movieDescription #movie_info #synopsis {
+    width: 70%;
+  }
+  .movieDescription #movie_info .showSynopsisButton {
+    width: 150px;
+  }
+}
 .navBarContainer {
   z-index: 99;
   position: fixed;
@@ -183,6 +220,8 @@
   display: flex;
   justify-content: space-around;
   margin: 4px;
+  width: 100%;
+  max-height: 50px;
 }
 .navBarContainer li {
   width: 10%;
@@ -191,10 +230,12 @@
   display: none;
 }
 .navBarContainer .logoPicto {
+  max-height: 50px;
   width: 100%;
 }
 .navBarContainer .navPicto {
   width: 100%;
+  max-height: 40px;
 }
 .navBarContainer .navDropdown {
   display: flex;
@@ -206,6 +247,7 @@
 .navBarContainer .navDropdown #userLogInPicto {
   width: 100%;
   height: auto;
+  max-height: 40px;
 }
 .navBarContainer .navDropdown .NavBarLoginButton {
   background-color: transparent;
