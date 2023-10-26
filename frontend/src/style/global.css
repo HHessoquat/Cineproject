@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Allura&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 .movieCard {
   display: flex;
   flex-direction: column;
@@ -10,6 +11,12 @@
   width: 100%;
   height: 415px;
   object-fit: cover;
+}
+
+.movieCardHeader {
+  text-align: center;
+  color: #FFF;
+  text-decoration: none;
 }
 
 #eventPageMain {
@@ -236,6 +243,7 @@
 
 @media screen and (min-width: 1199px) {
   .navBarContainer {
+    grid-row: 1/2;
     position: static;
     padding: 1px 0;
   }
@@ -289,7 +297,6 @@
   position: relative;
   overflow: hidden;
   max-width: 100%;
-  height: 0;
   padding-top: 56.25%;
   margin-bottom: 1rem;
 }
@@ -328,7 +335,7 @@
 }
 
 .eventSliderBtn {
-  background-color: #FFF;
+  background-color: #000;
   border-radius: 100%;
   margin-right: 10px;
   margin-bottom: 10px;
@@ -336,6 +343,10 @@
   width: 12px;
   outline: none;
   border: none;
+}
+
+.eventSliderBtn.active {
+  background-color: #fff;
 }
 
 .sliderTransition {
@@ -355,6 +366,36 @@
   }
   100% {
     opacity: 0;
+  }
+}
+@media screen and (min-width: 1199px) {
+  .eventSliderWrapper {
+    margin-bottom: 2rem;
+    padding: 0;
+    height: 500px;
+    background: #000;
+  }
+  .eventSliderWrapper .sliderTransition {
+    padding: 0;
+    margin: 0;
+  }
+  .eventSliderWrapper .sliderEventLink {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    width: 100%;
+  }
+  .eventSliderWrapper .sliderEventLink #eventSliderCover {
+    display: block;
+    position: static;
+    width: 70%;
+    object-position: bottom;
+    mask-image: linear-gradient(to right, transparent 0%, black 100%);
+  }
+  .eventSliderWrapper figcaption {
+    position: static;
+    background: transparent;
+    max-height: 500px;
   }
 }
 .movieRow {
@@ -381,8 +422,19 @@
   height: 0;
 }
 .movieRow .movieSliderBtn {
+  background-color: rgba(34, 60, 114, 0.8);
+  color: #FFF;
+  border: none;
+  border-radius: 100%;
+  padding: 0 0.2em;
+  font-size: 2em;
+  font-family: Allura;
+  font-weight: bold;
   z-index: 10;
   animation: printButton 1s ease;
+}
+.movieRow .movieSliderBtn:hover {
+  background-color: rgba(48, 74, 192, 0.8);
 }
 .movieRow .hiddenBtn {
   opacity: 0;
@@ -483,6 +535,22 @@ img {
   width: 100%;
   height: auto;
   object-fit: cover;
+  object-position: center;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:visited {
+  color: #fff;
+}
+
+@media screen and (min-width: 1199px) {
+  main {
+    grid-row: 2/3;
+  }
 }
 
 /*# sourceMappingURL=global.css.map */

@@ -17,6 +17,7 @@ function MovieSlider({movieRow}) {
         if (movieCardRef.current){
             const movieCardWidth = movieCardRef.current.offsetWidth;
             setMovieCardWidth(movieCardWidth);
+            checkLastMovieOnScreen(false)
         }
     }, []);
     

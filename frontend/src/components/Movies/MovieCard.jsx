@@ -16,7 +16,7 @@ function MovieCard({movie, isInBackOffice, handleDelete}) {
         <>
             <article className="movieCard">
                 {!isInBackOffice ? (
-                    <Link to={`/film/${movie.id}`}> 
+                    <Link to={`/film/${movie.id}`} style={{textDecoration: 'none'}}> 
                         {content()}
                     </Link>)
                     : content()}

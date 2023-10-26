@@ -20,7 +20,7 @@ exports.login = async (req, res) => {
         req.session.isLogged= true;
         req.session.userId= result[0].id;
         
-        res.status(200).json({message: 'connected', isLogged: true, content: result[0].id});
+        res.status(200).json({message: 'connected', isLogged: true, content: {id : result[0].id, role: result[0].role}});
         
     }catch (err) {
         console.log(err);

@@ -22,13 +22,13 @@ function EventsSlider({ movies }) {
         setActiveSlide(activeSlide + 1);
     }
     const timeoutId = setTimeout(sliderAnimation, 6500);
-    
     return(
         <>
             
             <EventSlide
                 events={events}
                 movie={events[activeSlide]}
+                activeSlide={activeSlide}
                 setActiveSlide={setActiveSlide}
                 timeoutId={timeoutId}
 

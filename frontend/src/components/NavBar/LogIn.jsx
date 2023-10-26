@@ -8,7 +8,7 @@ import SigninForm from '../Users/UserManagementForm.jsx';
 function LogIn() {
     
     const [isLoginOpen, setIsLoginOpen] = useState(false);
-    const { isLogged, connectedUser, setIsLogged, setConnectedUser } = useContext(AuthentificationContext);
+    const { isLogged, connectedUser, setIsLogged, setConnectedUser, role, setRole } = useContext(AuthentificationContext);
     
     function logout() {
         setIsLogged(false);
@@ -40,7 +40,7 @@ function LogIn() {
                 )}
                 {isLoginOpen && isLogged && (
                     <div className='navDropdownLinks' onBlur={() => setIsLoginOpen(false)}>
-                        <Link to='userAccount'>Mon Compte</Link>
+                        {(role === 'admin' || role === "moderator") && <Link to='/admin/home'>Espace administrateur</Link>}
                         <button type="button" onClick={logout}>Deconnexion</button>
                     </div>
                     )}

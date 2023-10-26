@@ -88,6 +88,7 @@
 
 @media screen AND (min-width: 1199px) {
     .navBarContainer {
+        grid-row: 1/2;
         position: static;
         padding: 1px 0;
         a,

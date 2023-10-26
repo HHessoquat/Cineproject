@@ -3,7 +3,6 @@ import NavBar from './components/NavBar/NavBar.jsx';
 import Footer from './components/Footer/Footer.jsx';
 import Home from './pages/Home';
 import Movie from './pages/Movie';
-import Movies from './pages/Movies';
 import Events from './pages/Events';
 import Practical from './pages/Practical';
 import BackOfficeLanding from './pages/BackOffice';
@@ -29,7 +28,6 @@ function App() {
                         
                             <Route path="/" element={<Home />} />
                             <Route path="/film/:idMovie" element={<Movie />} />
-                            <Route path="/films" element={<Movies />} />
                             <Route path="/evenements/:event" element={<Events />} />
                             <Route path="/pratique" element={<Practical />} />
                             <Route path='/admin/home' element={<BackOfficeLanding />} />

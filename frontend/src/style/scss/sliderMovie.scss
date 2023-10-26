@@ -24,10 +24,21 @@
   }
 
   .movieSliderBtn {
+    background-color : #223C72CC;
+    color: #FFF;
+    border: none;
+    border-radius: 100%;
+    padding: 0 0.2em;
+    font-size: 2em;
+    font-family: Allura;
+    font-weight: bold;
     z-index: 10;
     animation: printButton 1s ease;
   }
-  
+  .movieSliderBtn:hover{
+    background-color: #304AC0CC;
+    
+  }
   .hiddenBtn{
     opacity: 0;
     animation: removeBtn 1s ease;

@@ -10,7 +10,7 @@ function LoginForm({closeModal}) {
     });
     const [errorMsg, setErrorMsg] = useState([]);
     
-    const {setIsLogged, setConnectedUser} = useContext(AuthentificationContext); 
+    const {setIsLogged, setConnectedUser, setRole} = useContext(AuthentificationContext); 
     
     async function handleSubmit(e) {
         e.preventDefault();
@@ -18,7 +18,8 @@ function LoginForm({closeModal}) {
         if (loginResult.isLogged === true) {
             setErrorMsg([]);
             setIsLogged(true);
-            setConnectedUser(loginResult.id);
+            setConnectedUser(loginResult.content.id);
+            setRole(loginResult.content.role);
             sessionStorage.setItem('isLogged', JSON.stringify(true));
             sessionStorage.setItem('userId', loginResult.content);
 

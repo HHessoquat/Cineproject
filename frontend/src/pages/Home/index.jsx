@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import EventsSlider from '../../components/Sliders/EventsSlider.jsx';
 import MovieSlider from '../../components/Sliders/MovieSlider';
 import { fetchOnlineMoviesdata } from '../../features/moviesManagement/api.js';
