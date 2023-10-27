@@ -5,7 +5,7 @@ const { addDirector } =  require('../../repository/directors/addDirector.js');
 const { addOneMA } = require('../../repository/movie_actor/addOneMA.js');
 const { addOneMD } = require('../../repository/movie_director/addOneMD.js');
 
-exports.addMovie = async (req, res, next) => {
+exports.addMovie = async (req, res) => {
     const movie = {
         ...req.body,
         posterUrl: `${req.protocol}://${req.get('host')}/images/${req.files.posterFile[0].filename}`,
@@ -20,21 +20,21 @@ exports.addMovie = async (req, res, next) => {
     
     try{
         
-        const errorAdd = await insertMovie(movieId, movie);
+        await insertMovie(movieId, movie);
         const actorsPromise = await addActor(movie.mainActors, res);
         const directorsPromise = await addDirector(movie.director, res);
         const actorsId = await Promise.all(actorsPromise);
         const directorsId = await Promise.all(directorsPromise);
         
-        actorsId.forEach((c) => {
+        actorsId.forEach(async (c) => {
             //MA refers to the table Movie_Actor
-            const errorMA = addOneMA(movieId, c);
+            await addOneMA(movieId, c);
  
         });
             
-        directorsId.forEach((c) => {
+        directorsId.forEach(async (c) => {
             //MD refers to the table Movie_Director
-            const errorMD = addOneMD(movieId, c);
+            await addOneMD(movieId, c);
 
         });
         

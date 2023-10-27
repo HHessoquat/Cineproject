@@ -1,8 +1,8 @@
 function Error404() {
     return(
         <main>
-            <h2>Error404</h2>
-            <p>Nous n'avon pas pu trouver la page que vous cherchez.</p>
+            <h2>Error 404</h2>
+            <p>Nous n'avons pas pu trouver la page que vous cherchez.</p>
         </main>
         )
 }

@@ -6,6 +6,7 @@ import createRoom from '../../features/room/createRoom.js';
 import {parseDate} from '../../utils/dateFormat/parseDate.js';
 import { fetchSession } from '../../features/movieSession/api.js';
 import RoomGenerator from '../../components/Rooms/RoomGenerator';
+import Trailer from '../../components/Movies/Trailer';
 
 function Movie() {
     const {idMovie} = useParams();
@@ -82,7 +83,7 @@ function Movie() {
     }, []);
     groupSession(
         )
-     console.log(room)
+     console.log(movie)
     return (
         <main>
             {isReservationOpen && (
@@ -94,7 +95,9 @@ function Movie() {
                </div>
             </div>
                 )}
+                
             <article className="movieDescription">
+            {/* <Trailer trailer={movie.trailer} />*/}
                 <img
                     className="movieCover"
                     src={movie.coverImgUrl}

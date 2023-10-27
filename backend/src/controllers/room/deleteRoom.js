@@ -1,8 +1,9 @@
 const removeRoom = require('../../repository/rooms/deleteRoom.js').deleteRoom;
-exports.deleteRoom = (req, res) => {
+exports.deleteRoom = async (req, res) => {
     try{
         const { id } = req.params;
-        const checkDelete = removeRoom(id);
+        
+        await removeRoom(id);
         res.status(200).json({message: 'salle supprimée avec succès'});
     }catch (err) {
         console.log(err);

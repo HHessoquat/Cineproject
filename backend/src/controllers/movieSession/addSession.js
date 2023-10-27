@@ -4,7 +4,8 @@ const { insertSession } = require("../../repository/movieSession/insertSession.j
 exports.addSession = async (req, res) => {
     try{
         const movieSessionId = v4();
-        const result = await insertSession(movieSessionId, req.body);
+        
+        await insertSession(movieSessionId, req.body);
         res.status(201).json({message: "séance créée avec succès"});
     }catch (err) {
         console.log(err);

@@ -2,7 +2,8 @@ const { removeSession, removeMovieSessions } = require('../../repository/movieSe
 exports.deleteSession = async (req, res) => {
     try {
         const { id } = req.params;
-        const result = await removeSession(id);
+        
+        await removeSession(id);
         res.status(200).json({message: 'séance supprimée avec succès'});
     }
     catch (err) {
@@ -13,7 +14,8 @@ exports.deleteSession = async (req, res) => {
 exports.deleteMovieSessions = async (req, res) => {
     try{
         const { movieId } = req.params;
-        const result= await removeMovieSessions(movieId);
+        
+        await removeMovieSessions(movieId);
         
         res.status(200).json({message: 'done'});
     }catch (err) {

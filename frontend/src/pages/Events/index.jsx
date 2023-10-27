@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import { useParams, redirect} from "react-router-dom";
+import { useParams} from "react-router-dom";
 import { fetchEventMovie } from '../../features/moviesManagement/api.js';
 import MovieSlider from '../../components/Sliders/MovieSlider';
 import createRoom from '../../features/room/createRoom.js';
@@ -11,18 +11,19 @@ function Events() {
     const [room, setRoom] = useState({});
     const [isReservationOpen, setIsReservationOpen] = useState(false);
     
-    function setEventTitle() {
+    
+    function setPageContent() {
         if (event === "wednesday") {
-            return 'Le Mercredi des enfants';
+            return {header : 'Le Mercredi des enfants', eventDescription: 'Tous les mecredis après-midi, un film jeunesse à savourer en famille'};
         }else if (event === 'friday') {
-            return 'Les Vendredi cultes';
+            return {header : 'Les Vendredi cultes', eventDescription: "Tous les vendredis, retrouvez les films qui ont fait l'histoire du cinéma"};
         }else if (event === 'premiere') {
-            return 'avant-première';
+            return {header: 'avant-première', eventDescription: "Le CinéProject propose régulièrement des films en avant-première"};
         } else {
             return null;
         }
     }
-    const header = setEventTitle();
+    const pageContent = setPageContent();
 
     async function getMovie() {
         const retrievedMovie = await fetchEventMovie(event);
@@ -55,17 +56,21 @@ function Events() {
     useEffect(()=>{
         getMovie()
     }, [])
-    
+    console.log(pageContent)
     return(
         <main id="eventPageMain">
-        {!header && redirect('/404')}
         
+            <section id="eventDescription" >
+                <h2>{pageContent.header}</h2>
+                <p>{pageContent.eventDescription}</p>
+            </section>
+            
             <section className="movieDescription">
-            <h2>{header}</h2>
+            
                 <img className="movieCover" src={movie.coverImgUrl} alt={movie.coverImgAlt}  />
  
                 <section id="movie_info">
-                    <h2 id="moviePage_title">{movie.title}</h2>
+                    <h3 id="moviePage_title">{movie.title}</h3>
                     <aside id="movieDetail">        
                         <ul>
                             <li><span className="movieFeatureHeader">Durée : </span><span className="movieFeature"> {movie.length} minutes</span></li>

@@ -54,14 +54,14 @@ exports.updateMovie = async (req, res, next) => {
         await deleteOneMA(id);
         await deleteOneMD(id)
         
-        actorsId.forEach((c) => {
+        actorsId.forEach(async (c) => {
             //MA refers to the table Movie_Actor
-            const errorMA = addOneMA(id, c);
+            await addOneMA(id, c);
         });
         
-        directorsId.forEach((c) => {
+        directorsId.forEach(async (c) => {
             //MD refers to the table Movie_Director
-            const errorMD = addOneMD(id, c);
+            await addOneMD(id, c);
         });
        
         res.status(200).json({message: 'Movie up to date'});
