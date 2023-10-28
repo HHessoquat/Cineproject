@@ -4,7 +4,7 @@ import { fetchOneRoom } from '../../features/room/api.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Trailer from './Trailer';
 import RoomGenerator from '../Rooms/RoomGenerator';
-import { faPlay, faCircleDot } from '@fortawesome/free-solid-svg-icons';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 function DisplayMovie({movie, sessions}) {
     
@@ -75,31 +75,36 @@ function DisplayMovie({movie, sessions}) {
                 />
                 <section id="movie_info">
                    
-                    <main id="movieDetail">
+                    <div id="movieDetail">
                         <img className="moviePoster" src={movie.poster} alt={movie.posterAlt} />
-                        <ul>
+                        <section className="movieFeaturesContainer">
                             <h2 id="moviePage_title">{movie.title}</h2>
-                            <li>
-                                <span className="movieMainFeature"> {movie.length} minutes</span>
-                                <FontAwesomeIcon className="mainFeatureSeparator" icon={faCircleDot} style={{color: "#ffffff",}} />
-                                <span className="movieMainFeature"> {movie.category} </span>
+                            <ul>
+                                
+                                <li>
+                                    <span className="movieMainFeature"> {movie.length} minutes</span>
+                                        <span className="movieMainFeatureDivider">&bull;</span>
+                                    <span className="movieMainFeature"> {movie.category ? movie.category.replace(/,/g, ', ') : ''} </span>
                                 </li>
-                            <li><span className="movieFeatureHeader">De : </span><span className="movieFeature">{movie.directors && movie.directors.replace(/,/g, ', ')}</span></li>
-                            <li><span className="movieFeatureHeader">Avec : </span><span className="movieFeature">{movie.actors && movie.actors.replace(/,/g, ', ')}</span></li>
-                            <li><span className="movieFeatureHeader">Date de sortie : </span><span className="movieFeature">{movie.releaseDate}</span></li>
-                            {movie.pg && <li><span className="movieFeatureHeader">public : </span><span className="movieFeature">{movie.pg}</span></li>}
-                            {movie.warning && 
-                                <li><span className="movieFeatureHeader">avertissements : </span>
-                            <span className="movieFeature">{movie.warning.replace(/,/g, ', ')}</span></li>
-                            }
-                            <li id="synopsis">{printSynopsis}</li>
-                            {movie.synopsis && movie.synopsis.length > 100 &&
-                                <button className="showSynopsisButton" onClick={() => setShowFullSynopsis(!showFullSynopsis)}>
-                                    {showFullSynopsis ? 'Réduire' : 'Lire la suite'}
-                                </button>
-                            }
-                        </ul>
-                    </main>
+                                <li><span className="movieFeatureHeader">De : </span><span className="movieFeature">{movie.directors && movie.directors.replace(/,/g, ', ')}</span></li>
+                                <li><span className="movieFeatureHeader">Avec : </span><span className="movieFeature">{movie.actors && movie.actors.replace(/,/g, ', ')}</span></li>
+                                <li><span className="movieFeatureHeader">Date de sortie : </span><span className="movieFeature">{movie.releaseDate}</span></li>
+                                {movie.pg && <li><span className="movieFeatureHeader">public : </span><span className="movieFeature">{movie.pg}</span></li>}
+                                {movie.warning && 
+                                        <li>
+                                            <span className="movieFeatureHeader">avertissements : </span>
+                                            <span className="movieFeature">{movie.warning.replace(/,/g, ', ')}</span> 
+                                    </li>
+                                }
+                                <li id="synopsis">{printSynopsis} <br/>
+                                {movie.synopsis && movie.synopsis.length > 100 &&
+                                    <button className="showSynopsisButton" onClick={() => setShowFullSynopsis(!showFullSynopsis)}>
+                                        {showFullSynopsis ? 'Réduire' : 'Lire la suite'}
+                                    </button>
+                                }</li>
+                            </ul>
+                        </section>
+                    </div>
                     
                     
                     <aside >

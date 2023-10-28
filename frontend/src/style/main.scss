@@ -9,6 +9,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Allura&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+*{
+    box-sizing: border-box;
+}
+
 html {
     font-size: 16px;
 }
@@ -26,7 +30,7 @@ body {
     display: grid;
     grid-template-rows : 0.1fr 1fr 120px;
     min-height: 100vh;
-    box-sizing: border-box;
+    
 }
 main{
     grid-row: 1/3;

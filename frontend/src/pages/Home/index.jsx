@@ -41,35 +41,21 @@ function Home() {
         <main>
         
         {Object.keys(movies).length > 0 && <EventsSlider movies={movies} />}
+        
         {Object.keys(movies).length > 0 && movies.regularSessions.length > 0 && (
-            <>
-                <h2>A l'affiche</h2>
-                <MovieSlider movieRow={movies.regularSessions} />
-            </>
+                <MovieSlider movieRow={movies.regularSessions} header={"A l'affiche"} />
         )}
         {Object.keys(movies).length > 0 && movies.movieToCome.length > 0 && (
-            <>
-                <h2>A venir</h2>
-                <MovieSlider movieRow={movies.movieToCome} />
-            </>
+                <MovieSlider movieRow={movies.movieToCome} header={'A venir'} />
         )}
         {Object.keys(movies).length > 0 && movies.premiereSessions.length > 0 && (
-            <>
-                <h2>Les avants-premières</h2>
-                <MovieSlider movieRow={movies.premiereSessions} />
-            </>
+                <MovieSlider movieRow={movies.premiereSessions} header={'Les avants-premières'} />
         )}
         {Object.keys(movies).length > 0 && movies.wednesdaySessions.length > 0 && (
-            <>
-                <h2>Le mercredi des enfants</h2>
-                <MovieSlider movieRow={movies.wednesdaySessions} />
-            </>
+                <MovieSlider movieRow={movies.wednesdaySessions} header={'Le mercredi des enfants'} />
         )}
         {Object.keys(movies).length > 0 && movies.fridaySessions.length > 0 && (
-            <>
-                <h2>Les vendredi cultes</h2>
-                <MovieSlider movieRow={movies.fridaySessions} />
-            </>
+                <MovieSlider movieRow={movies.fridaySessions} header={'Les vendredi cultes'} />
         )}
         </main>
         

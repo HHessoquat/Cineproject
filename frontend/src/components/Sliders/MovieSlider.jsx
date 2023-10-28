@@ -1,6 +1,6 @@
 import {useState, useRef, useEffect} from 'react';
 import MovieCard from '../Movies/MovieCard';
-function MovieSlider({movieRow}) {
+function MovieSlider({movieRow, header}) {
     const [currentImage, setCurrentImage] = useState(0);
     const [movableContainerWidth, setMovableContainerWidth] = useState(null);
     const [movieCardWidth, setMovieCardWidth] = useState(null);
@@ -47,41 +47,42 @@ function MovieSlider({movieRow}) {
   };
     
     return(
-        <section className='movieRow'>
-            <div className='movieSliderBtnContainer'>
-                {currentImage > 0 &&
-                    <button 
-                        className={`movieSliderBtn sliderButtonLeft ${currentImage === 0 ? 'hiddenBtn' : ''} `}
-                        onClick={scrollLeft}
-                        disabled={currentImage === 0}
-                    >
-                        &lt;
-                        </button>
-                }
-                
-                    <button 
-                        className={`movieSliderBtn sliderButtonRight ${isLastMovieOnScreen ? 'hiddenBtn' : ''}`}  
-                        onClick={scrollRight}
-                        disabled={isLastMovieOnScreen}
-                    >
-                        &gt;
-    
-                    </button>
-                    
-          
-            </div>
+        <section>
+            <h2>{header}</h2>
+                <div className='movieRow'>
+                    <div className='movieSliderBtnContainer'>
+                        {currentImage > 0 &&
+                            <button 
+                                className={`movieSliderBtn sliderButtonLeft ${currentImage === 0 ? 'hiddenBtn' : ''} `}
+                                onClick={scrollLeft}
+                                disabled={currentImage === 0}
+                            >
+                                &lt;
+                                </button>
+                        }
+                        
+                            <button 
+                                className={`movieSliderBtn sliderButtonRight ${isLastMovieOnScreen ? 'hiddenBtn' : ''}`}  
+                                onClick={scrollRight}
+                                disabled={isLastMovieOnScreen}
+                            >
+                                &gt;
             
-            <div ref={movableContainerRef} className="movableContainer" style={{ transform: `translateX(-${currentImage * movieCardWidth}px)` }} >
-                {movieRow.map((c, i) => {
-                    return (
-                        <article key={i} className='movieInRow' ref={movieCardRef}>
-                            <MovieCard movie={c} />
-                        </article>
-                    )
+                            </button>
+                            
+                    </div>
                     
-                })}
+                    <div ref={movableContainerRef} className="movableContainer" style={{ transform: `translateX(-${currentImage * movieCardWidth}px)` }} >
+                        {movieRow.map((c, i) => {
+                            return (
+                                <div key={i} className='movieInRow' ref={movieCardRef}>
+                                    <MovieCard movie={c} />
+                                </div>
+                            )
+                            
+                        })}
+                    </div>
             </div>
-            
         </section>
         )
 }

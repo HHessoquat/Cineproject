@@ -19,7 +19,7 @@ function NavBar() {
                 <li>
                     <Link to="/pratique" id="practicalLink">
                     <img className='navPicto' src="/img/picto/Location.png" alt="Lien vers la page infos pratiques" />
-                        <p className="navText">Infos pratiques</p>
+                        <span className="navText">Infos pratiques</span>
                     </Link>
                 </li>
                 

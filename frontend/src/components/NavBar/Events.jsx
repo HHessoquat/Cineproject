@@ -17,10 +17,10 @@ function Events() {
                 onClick={toggleDropdown}
             >
                 <img className='navPicto' src="/img/picto/Event.png" alt="liens vers la page événement"/>
-                <p className="navText">Evénements</p>
+                <span className="navText">Evénements</span>
             </button>
             {isDropdownOpen && (
-                <ul className="navDropdownLinks" onBlur={handleBlur}>
+                <ul className="navDropdownLinks">
                     <li>
                         <Link to="/evenements/premiere">Avant-premières</Link>
                     </li>

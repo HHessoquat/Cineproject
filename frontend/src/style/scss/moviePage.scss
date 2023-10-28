@@ -127,8 +127,9 @@
         margin-bottom: 10px;
         color: #bbddff;
     }
-    .mainFeatureSeparator{
-         margin: 0 1em;   
+    .movieMainFeatureDivider{
+        margin: 0 .5em;
+        font-size: 2em;
     }
     .movieFeature{
         font-size: 0.8em;
@@ -280,6 +281,7 @@
                 width: 30%;
                 height: auto;
             }
+
             ul{
                 margin-left: 10px;
             }
