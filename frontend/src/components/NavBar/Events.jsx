@@ -15,13 +15,12 @@ function Events() {
             <button
                 className="NavBarDropDownButton"
                 onClick={toggleDropdown}
-                onBlur={handleBlur}
             >
                 <img className='navPicto' src="/img/picto/Event.png" alt="liens vers la page événement"/>
                 <p className="navText">Evénements</p>
             </button>
             {isDropdownOpen && (
-                <ul className="navDropdownLinks">
+                <ul className="navDropdownLinks" onBlur={handleBlur}>
                     <li>
                         <Link to="/evenements/premiere">Avant-premières</Link>
                     </li>
