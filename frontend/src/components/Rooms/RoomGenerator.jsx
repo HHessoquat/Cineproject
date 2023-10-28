@@ -18,12 +18,13 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
         setRoomName(name)
         setRoom(createRoom(roomSettings));
     }
+    },[]);
+    
+    useEffect(() => {
         if (isInFrontOffice) {
             setRoom(roomSettings);
         }
-    },[])
-    
-    
+    }, [])
     function handleChange(e) {
         setRoomName(e.target.value);
         setErrorMsg([]);
@@ -134,7 +135,7 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
             setAction(0);
         }
     }
-    
+    console.log(room)
     let verticalBlockIterator = 0;
     return (
         <>
@@ -299,7 +300,7 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                 </button>
                 
             }
-            {isInFrontOffice && <button type="button" onClick={() => {}}> Réserver </button>}
+            {isInFrontOffice && <button type="button" onClick={() => {}}> Réserver ma place</button>}
         </>
     );
 }

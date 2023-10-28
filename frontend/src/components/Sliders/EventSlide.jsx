@@ -6,7 +6,7 @@ function EventSlide({events, movie, activeSlide, setActiveSlide, timeoutId}) {
         setActiveSlide(index);
         clearTimeout(timeoutId);
     }
-    console.log(movie)
+
     return(
         <section  className="eventSliderWrapper">
             <figure key={Math.random()*100} className="sliderTransition">

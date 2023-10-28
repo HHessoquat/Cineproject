@@ -12,7 +12,7 @@ const {checkAdmin} = require('../middlewares/checkAuth');
 router.get('/', getUsers.getAllUsers);
 router.get('/byName/:pseudo', getUsers.getUserByPseudo);
 router.get('/byId/:id', getUsers.getUserById)
-router.post('/', escapeData, validateAndFormatData, addUser);
+router.post('/', checkAdmin, escapeData, validateAndFormatData, addUser);
 router.put('/:id', checkAdmin, escapeData, validateAndFormatData, updateUser);
 router.delete('/:id', checkAdmin, deleteUser);
 router.post('/login', escapeData, login);

@@ -1,3 +1,4 @@
+const checkSeatMap = require('./checkSeatMap.js')
 function formatData(req, res, next) {
     try {
 
@@ -6,7 +7,7 @@ function formatData(req, res, next) {
         if (!req.body.name) {
             throw new Error('La salle doit avoir un nom');
         }
-        if (!req.body.nbSeats || isNaN(req.body.nbSeats) || !req.body.seatsDisplay) {
+        if (!req.body.nbSeats || isNaN(req.body.nbSeats) || !req.body.seatsDisplay || !checkSeatMap(req.body.seatsDisplay)) {
             throw new Error('La salle doit avoir des sièges');
         }else {
             req.body.seatsDisplay = JSON.stringify(req.body.seatsDisplay);

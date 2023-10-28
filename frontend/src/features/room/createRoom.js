@@ -1,5 +1,5 @@
 function createRoom(setting) {
-        console.log('setting : ', setting)
+
         const numberSeatsInRow = setting[0].reduce(
             (total, current) => total + current,
             0

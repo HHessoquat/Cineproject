@@ -49,14 +49,19 @@
         margin-right: 10px;
         background-color: #C000001c;
         color: #fff;
-        border: #FFF solid 3px;
+
         padding: 0 5px;
+    }
+    #trailerLecter{
+        max-width: 780px;
     }
     
 }
 .reservationModal{
     display: flex;
     flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
     background-color: #000000cf; 
     width: 80%; 
     max-width: 90vw;
@@ -93,18 +98,26 @@
         transform: scale(1.2);
         opacity: 1;
     }
+    
 
     #movieDetail {
         display: flex;
         padding: 0 20px;
+        
         .moviePoster{
             display: none;
         }
         
+        li{
+            line-height: 1.4em;
+        }
+        
     }
     #synopsis{
-        width: 85%;
+        width: 100%;
         margin: 5px 0;
+        line-height: 1em;
+        margin-top: 2em;
     }
     .showSynopsisButton {
         background-color: transparent;
@@ -122,9 +135,20 @@
         font-size: 0.8em;
         font-weight: bold;
     }
+    .movieMainFeature{
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #bbddff;
+    }
+    .mainFeatureSeparator{
+         margin: 0 1em;   
+    }
     .movieFeature{
         font-size: 0.8em;
         font-style: italic;
+    }
+    .sessionTitle{
+        text-align: center;
     }
     .movieSessionContainer{
         display: flex;
@@ -148,7 +172,6 @@
             border: #FFF solid 2px;
             border-radius: 8px;
             color: white;
-            width: 100%;
             transform: scale(1);
             transition : transform 0.5s ease-out;
         }
@@ -175,6 +198,11 @@
         .sessionTimeContainer{
             display: flex;
             justify-content: center;
+        }
+        .sessionTime{
+            font-size: 1.8em;
+            font-weight: bold;
+            padding: 5px;
         }
         .sessionTime:not(:last-child){
             margin-right: 10px;

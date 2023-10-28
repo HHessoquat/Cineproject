@@ -7,7 +7,7 @@ const { getSession } = require('../controllers/movieSession/getSession.js');
 const { deleteSession, deleteMovieSessions } = require('../controllers/movieSession/deleteSession.js');
 const {checkModerator} = require('../middlewares/checkAuth');
 
-router.post('/', checkModerator, escapeData, validateAndFormatData , addSession);
+router.post('/', checkModerator, validateAndFormatData, escapeData, addSession);
 router.get('/:movieId', getSession);
 router.delete('/:id', checkModerator, deleteSession);
 router.delete('/all/:movieId', checkModerator, deleteMovieSessions)
