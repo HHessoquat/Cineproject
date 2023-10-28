@@ -36,39 +36,39 @@ function Home() {
     useEffect(() => {
         fetchMoviesAndFormatDate()
     }, []);
-    
+    console.log(movies)
     return (
         <main>
         
         {Object.keys(movies).length > 0 && <EventsSlider movies={movies} />}
-        {Object.keys(movies).length > 0 && movies.regularSessions && (
+        {Object.keys(movies).length > 0 && movies.regularSessions.length > 0 && (
             <>
                 <h2>A l'affiche</h2>
                 <MovieSlider movieRow={movies.regularSessions} />
             </>
         )}
-        {Object.keys(movies).length > 0 && movies.movieToCome && (
+        {Object.keys(movies).length > 0 && movies.movieToCome.length > 0 && (
             <>
                 <h2>A venir</h2>
                 <MovieSlider movieRow={movies.movieToCome} />
             </>
         )}
-        {Object.keys(movies).length > 0 && movies.premiereSessions && (
+        {Object.keys(movies).length > 0 && movies.premiereSessions.length > 0 && (
             <>
                 <h2>Les avants-premières</h2>
                 <MovieSlider movieRow={movies.premiereSessions} />
             </>
         )}
-        {Object.keys(movies).length > 0 && movies.wednesdaySessions && (
+        {Object.keys(movies).length > 0 && movies.wednesdaySessions.length > 0 && (
             <>
                 <h2>Le mercredi des enfants</h2>
                 <MovieSlider movieRow={movies.wednesdaySessions} />
             </>
         )}
-        {Object.keys(movies).length > 0 && movies.friday && (
+        {Object.keys(movies).length > 0 && movies.fridaySessions.length > 0 && (
             <>
                 <h2>Les vendredi cultes</h2>
-                <MovieSlider movieRow={movies.friday} />
+                <MovieSlider movieRow={movies.fridaySessions} />
             </>
         )}
         </main>

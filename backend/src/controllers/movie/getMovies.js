@@ -33,7 +33,7 @@ exports.getOnlineMovies = async (req, res) => {
         const moviesResult = await retrieveOnlineMovies();
         
         const movieToCome = moviesResult.filter((c) => !c.sessions);
-        const regularSessions = moviesResult.filter((c) => !c.event);
+        const regularSessions = moviesResult.filter((c) => !c.event && c.sessions);
         const premiereSessions = moviesResult.filter((c) => c.event === 'premiere');
         const wednesdaySessions = moviesResult.filter((c) => c.event === "wednesday");
         const fridaySessions = moviesResult.filter((c) => c.event === 'friday');

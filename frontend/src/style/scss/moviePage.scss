@@ -1,8 +1,34 @@
+.movieCover{
+        position: absolute;
+        top:0;
+        left:0;
+        z-index: -100;
+        min-height: 40%;
+        max-height: 70%;
+        mask-image: linear-gradient(to top, transparent 0, black 30%);
+        object-position: top;
+    }
+
 #eventPageMain{
     display: grid;
     grid-template-rows: 0.9fr 1fr;
+    max-width: 100vw;
+    
+    #eventDescription{
+            text-align: center;
+
+            h2{
+                margin: 10px 0;
+                font-size: 1.8em;
+                max-width: 100%;
+            }
+            p{
+                margin: 0;
+                max-width: 100%;
+            }
+        }
 }
-.reservationModalContainer{
+.modalContainer{
     position: fixed;
     top: 0;
     left: 0;
@@ -11,8 +37,22 @@
     background: #0000008a; 
     z-index: 5;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+        
+    .closeTrailerBtn{
+        align-self: flex-end;
+        font-family: Allura;
+        font-size: 4em;
+        line-height: 0.8em;
+        margin-right: 10px;
+        background-color: #C000001c;
+        color: #fff;
+        border: #FFF solid 3px;
+        padding: 0 5px;
+    }
+    
 }
 .reservationModal{
     display: flex;
@@ -29,24 +69,32 @@
     grid-row: 1/2;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    background: #0a0a0a9F;
     
-    .movieCover{
-        position: absolute;
-        top:0;
-        left:0;
-        z-index: -100;
-        min-height: 40%;
-        max-height: 70%;
-        mask-image: linear-gradient(to top, transparent 0, black 30%);
-        object-position: top;
-    }
     #movie_info{
-        padding-top: 20%;
-        width: 100%;
-        background: #0a0a0a9F;
-        
+        display: flex;
+        flex-direction: column;
+        padding-top: 10%;
+        width: 90%;
+        margin-left: 15px;
     }
-    #movieDetail{
+    
+    #trailerButton {
+        background: #000000;
+        border: white solid 2px;
+        border-radius: 8px;
+        opacity: 0.3;
+        padding: 3%;
+        align-self: center;
+        transition: transform 1s ease-out, opacity 2s ease-in;
+    }
+    #trailerButton:hover {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    #movieDetail {
         display: flex;
         padding: 0 20px;
         .moviePoster{
@@ -155,6 +203,7 @@
 }
 
 @media screen AND (min-width: 1199px) {
+    
     .movieDescription{ 
         #movie_info {
             display: flex;
@@ -188,6 +237,14 @@
             }
         }
         
+    }
+    #eventPageMain{
+        
+        .movieDescription{
+            #movie_info{
+                padding-top: 5%;
+            }
+        }
     }
     
 }

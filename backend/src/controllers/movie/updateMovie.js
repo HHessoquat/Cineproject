@@ -36,7 +36,7 @@ exports.updateMovie = async (req, res, next) => {
     }
     
     if (req.files && req.files.trailerFile) {
-        movie.trailerUrl = `${req.protocol}://${req.get('host')}/images/${req.files.trailerFile[0].filename}`;
+        movie.trailerUrl = `${req.protocol}://${req.get('host')}/videos/${req.files.trailerFile[0].filename}`;
     }
     
     try {

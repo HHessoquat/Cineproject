@@ -1,15 +1,9 @@
-function Trailer({trailer}) {
+function Trailer({trailer, closeLecter}) {
     return(
-        <iframe 
-            width="560" 
-            height="315" 
-            src={trailer}
-            title="YouTube video player" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen
-        >
-        </iframe>
+        <>
+            <button type="button" className="closeTrailerBtn" onClick={closeLecter}>x</button>
+           <video id="trailerReader" controls={true} autoPlay={true} src={trailer} onBlur={closeLecter} ></video>
+       </>
         )
 }
 

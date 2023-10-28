@@ -2,10 +2,9 @@ import { useState } from 'react';
 import EventSlide from './EventSlide';
 
 function EventsSlider({ movies }) {
-    const events =  [
-        movies.wednesdaySessions[0],
-        movies.fridaySessions[0],
-        ];
+    const events =  [];
+    movies.wednesdaySessions[0] && events.push(movies.wednesdaySessions[0]);
+    movies.fridaySessions[0] && events.push(movies.fridaySessions[0]);
     movies.premiereSessions[0] && events.push(movies.premiereSessions[0]);
     const [activeSlide, setActiveSlide] = useState(0);
     
@@ -25,14 +24,14 @@ function EventsSlider({ movies }) {
     return(
         <>
             
-            <EventSlide
+            {events[0] && <EventSlide
                 events={events}
                 movie={events[activeSlide]}
                 activeSlide={activeSlide}
                 setActiveSlide={setActiveSlide}
                 timeoutId={timeoutId}
 
-            />
+            />}
 
         </>
         )

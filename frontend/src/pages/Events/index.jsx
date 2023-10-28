@@ -56,29 +56,29 @@ function Events() {
     useEffect(()=>{
         getMovie()
     }, [])
-    console.log(pageContent)
+    console.log(movie)
     return(
         <main id="eventPageMain">
-        
-            <section id="eventDescription" >
-                <h2>{pageContent.header}</h2>
-                <p>{pageContent.eventDescription}</p>
-            </section>
-            
+            <img className="movieCover" src={movie.coverImgUrl} alt={movie.coverImgAlt}  />
             <section className="movieDescription">
-            
-                <img className="movieCover" src={movie.coverImgUrl} alt={movie.coverImgAlt}  />
+                <section id="eventDescription" >
+                    <h2>{pageContent.header}</h2>
+                    <p>{pageContent.eventDescription}</p>
+                </section>
+                
+                
  
                 <section id="movie_info">
                     <h3 id="moviePage_title">{movie.title}</h3>
-                    <aside id="movieDetail">        
+                    <aside id="movieDetail">  
+                        <img class='moviePoster' src={movie.poster} alt={movie.posterAlt} />
                         <ul>
                             <li><span className="movieFeatureHeader">Durée : </span><span className="movieFeature"> {movie.length} minutes</span></li>
                             <li><span className="movieFeatureHeader">De : </span><span className="movieFeature">{movie.directors && movie.directors.replace(/,/g, ', ')}</span></li>
                             <li><span className="movieFeatureHeader">Avec : </span><span className="movieFeature">{movie.actors && movie.actors.replace(/,/g, ', ')}</span></li>
                             <li><span className="movieFeatureHeader">Date de sortie : </span><span className="movieFeature">{movie.releaseDate}</span></li>
                             {movie.pg && <li><span className="movieFeatureHeader">public : </span><span className="movieFeature">{movie.pg}</span></li>}
-                            {movie.warnings && <li><span className="movieFeatureHeader">avertissements : </span><span className="movieFeature">{movie.warnings}</span></li>}
+                            {movie.warning && <li><span className="movieFeatureHeader">avertissements : </span><span className="movieFeature">{movie.warning.replace(/,/g, ', ')}</span></li>}
                         </ul>
                     </aside>
                     {movie.date && (

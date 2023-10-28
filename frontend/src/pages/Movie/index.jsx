@@ -7,6 +7,8 @@ import {parseDate} from '../../utils/dateFormat/parseDate.js';
 import { fetchSession } from '../../features/movieSession/api.js';
 import RoomGenerator from '../../components/Rooms/RoomGenerator';
 import Trailer from '../../components/Movies/Trailer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
 
 function Movie() {
     const {idMovie} = useParams();
@@ -15,6 +17,7 @@ function Movie() {
     const [showFullSynopsis, setShowFullSynopsis] = useState(false);
     const printSynopsis = movie.synopsis ? (showFullSynopsis ? movie.synopsis : `${movie.synopsis.slice(0, 100)}...`) : "";
     const [showSessionTime, setShowSessionTime] = useState(null);
+    const [showTrailer, setShowTrailer] = useState(false);
     const [isReservationOpen, setIsReservationOpen] = useState(false);
     const [room, setRoom] = useState({});
     
@@ -87,24 +90,29 @@ function Movie() {
     return (
         <main>
             {isReservationOpen && (
-            <div className="reservationModalContainer">
+            <div className="modalContainer">
                 <div className="reservationModal">
                     <p className="reservationHeader"> Choisissez votre place </p>
                         <RoomGenerator roomSettings={room} isInFrontOffice={true} />
                    <button type="button" className='sendReservationBtn'>Réserver ma place</button>
-               </div>
+                </div>
+                
             </div>
                 )}
-                
+                {showTrailer && (
+                    <div className="modalContainer">
+                        <Trailer trailer={movie.trailer} closeLecter={() => setShowTrailer(false)} />
+                    </div>
+                )}
             <article className="movieDescription">
-            {/* <Trailer trailer={movie.trailer} />*/}
+            
                 <img
                     className="movieCover"
                     src={movie.coverImgUrl}
                     alt={movie.coverImgAlt}
                 />
                 <section id="movie_info">
-                    
+                    <button id="trailerButton" type="button" onClick={() => setShowTrailer(true)}><FontAwesomeIcon icon={faPlay} style={{color: "#ffffff", fontSize: '6em'}} /></button>
                     <main id="movieDetail">
                         <img className="moviePoster" src={movie.poster} alt={movie.posterAlt} />
                         <ul>

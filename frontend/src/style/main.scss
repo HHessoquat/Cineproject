@@ -40,21 +40,26 @@ ul {
 li {
     list-style: none;
 }
-img{
+img {
     width: 100%;
     height: auto;
     object-fit: cover;
     object-position: center;
 }
+
+video {
+    width: 100%;
+    height: auto;
+}
 a{
     text-decoration: none;
     color: #fff;
 }
-a:visited{
+a:visited {
     color: #fff;
 }
 
-button{
+button {
     cursor: pointer;
 }
 

@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
         if (file.mimetype) {
             if (file.mimetype.startsWith('image')) {
                 destinationFolder = 'uploads/images';
-            } else if (MYME_TYPES[file.mimetype].startsWith('video')) {
+            } else if (file.mimetype.startsWith('video')) {
                 destinationFolder = 'uploads/videos';
             }
         }
