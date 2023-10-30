@@ -28,7 +28,7 @@ function BackOfficeLanding() {
         {isLogged && user && (
           <>
             {user.role !== 'admin' && user.role !== 'moderator' ? <Forbidden /> : (
-            <>
+            <div id="backOfficeContentWrapper">
                 <nav id="backOfficeNavBar">
                   <button className="backOfficeNavBtn" type="button" onClick={() => setLoadedPage(0)}>Gérer les films</button>
                   {user.role === 'admin' && (
@@ -41,7 +41,7 @@ function BackOfficeLanding() {
                 {loadedPage === 0 && <MoviesManagement />}
                 {loadedPage === 1 && <RoomsManagement />}
                 {loadedPage === 2 && <UserManagement />}
-            </>
+            </div>
             )}
           </>
         )}

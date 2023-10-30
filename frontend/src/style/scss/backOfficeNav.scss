@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-evenly;
     background-color: #111;
-    height: 100%;
+    border-bottom: #FFF 2px solid;
     
     .backOfficeNavBtn{
         background-color: transparent;
@@ -15,5 +15,29 @@
     }
     .backOfficeNavBtn:not(:last-child){
         border-right: 2px solid #FFF;
+    }
+}
+
+@media screen AND (min-width: 1199px) {
+    
+    
+    #backOfficeNavBar {
+        grid-row: 2/3;
+        flex-direction: column;
+        justify-content: flex-start;
+        width : 30%;
+        height: 100%;
+        
+        .backOfficeNavBtn{
+            text-align: center;
+            width: 100%;
+            max-height: 40px;
+            margin: 10px 0;
+            border-bottom: 2px solid #FFF;
+        }
+        
+        .backOfficeNavBtn:not(:last-child){
+            border-right: none;
+        }
     }
 }
