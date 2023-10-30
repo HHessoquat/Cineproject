@@ -43,9 +43,10 @@ function DisplayMovie({movie, sessions}) {
         }
         setIsReservationOpen(!isReservationOpen);
     }
+
+    console.log('sessions : ', sessions);
     console.log('movie : ', movie)
-    console.log('sessions : ', sessions)
-    console.log('datesToPrint : ', datesToPrint)
+
     return(
         <>
             {isReservationOpen && (

@@ -141,8 +141,8 @@
   color: #bbddff;
 }
 #movieDescription .movieMainFeatureDivider {
-  margin: 0 1em;
-  font-size: 12em;
+  margin: 0 0.5em;
+  font-size: 2em;
 }
 #movieDescription .movieFeature {
   font-size: 0.8em;
@@ -499,8 +499,8 @@
 }
 
 .sliderTransition {
-  animation: printSlide 6.5s ease-in-out;
   opacity: 0;
+  animation: printSlide 6.5s ease-in-out infinite;
 }
 
 @keyframes printSlide {
@@ -524,18 +524,17 @@
     height: 500px;
     background: #000;
   }
-  .eventSliderWrapper .sliderTransition {
+  .eventSliderWrapper .eventSlide {
+    display: flex;
+    flex-direction: row-reverse;
     padding: 0;
     margin: 0;
   }
   .eventSliderWrapper .sliderEventLink {
-    display: flex;
-    flex-direction: row-reverse;
     justify-content: space-around;
     width: 100%;
   }
   .eventSliderWrapper .sliderEventLink #eventSliderCover {
-    display: block;
     position: static;
     width: 70%;
     object-position: bottom;

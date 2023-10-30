@@ -66,8 +66,8 @@
 }
 
 .sliderTransition {
-  animation: printSlide 6.5s ease-in-out;
-  opacity: 0;
+    opacity: 0;
+    animation: printSlide 6.5s ease-in-out infinite;
 }
 
 @keyframes printSlide {
@@ -93,19 +93,19 @@
             height: 500px;
             background: #000;
             
-            .sliderTransition{
+            .eventSlide{
+                display: flex;
+                flex-direction: row-reverse;
                 padding : 0;
                 margin: 0;
             }
             .sliderEventLink{
-                display: flex;
-                flex-direction: row-reverse;
+                
                 justify-content: space-around;
                 width: 100%;
                 
             
             #eventSliderCover{
-                display: block;
                 position: static;
                 width: 70%;
                 object-position: bottom;

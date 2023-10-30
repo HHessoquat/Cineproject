@@ -10,7 +10,8 @@ function EventSlide({events, movie, activeSlide, setActiveSlide, timeoutId}) {
     return(
         <section  className="eventSliderWrapper">
             <Link to={`/evenements/${movie.event}`} className='sliderEventLink'>
-                <figure key={Math.random()*100} className="sliderTransition">
+
+                <figure className={`eventSlide ${events.length > 1 ? 'sliderTransition' : ''}`}>
                     
                         <img id="eventSliderCover" src={movie.coverImgUrl} alt={movie.coverImgAlt} />
                         <figcaption >
