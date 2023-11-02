@@ -65,6 +65,16 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
         }));
     }
     
+    function removeInputBtn(e) {
+        const { name } = e.target;
+        const newArray = movieData[name];
+        newArray.pop();
+        setmovieData((prevmovieData) => ({
+            ...prevmovieData,
+            [name]: newArray,
+        }));
+    }
+    
     function addSession() {
         const newSession = [...movieSessions];
         newSession.push({});
@@ -116,7 +126,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
     console.log(movieSessions);
     return (
         <>
-            <form className="backOfficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>
+            <form className="backofficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>
                 {errorMsg.length > 0 && (
                     <div className="userMessageContainer">
                         <p>le ou les champs suivant ne sont pas valide(s) : </p>
@@ -209,6 +219,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             inputName="director"
                             handleChangeArray={handleChangeArray}
                             addInputBtn={addInputBtn}
+                            removeInputBtn= {removeInputBtn}
                         />
                     </div>
                     <div className="inputContainer">
@@ -218,6 +229,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             inputName="mainActors"
                             handleChangeArray={handleChangeArray}
                             addInputBtn={addInputBtn}
+                            removeInputBtn= {removeInputBtn}
                         />
                     </div>
                     <div className="inputContainer">
@@ -227,6 +239,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             inputName="categories"
                             handleChangeArray={handleChangeArray}
                             addInputBtn={addInputBtn}
+                            removeInputBtn= {removeInputBtn}
                         />
                     </div>
                     <div className="inputContainer">
@@ -273,6 +286,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             inputName="warnings"
                             handleChangeArray={handleChangeArray}
                             addInputBtn={addInputBtn}
+                            removeInputBtn= {removeInputBtn}
                         />
                     </div>
                     <p className="inputContainer">
@@ -302,9 +316,9 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                         
                     </p>
                 </fieldset>
-                <button type="Button" onClick={addSession}>Ajouter une séance</button>
+                <button className="backofficeFormBtn" type="Button" onClick={addSession}>Ajouter une séance</button>
                 {movieSessions.map((c, i) => <CreateSession key={i+99*222} update={update} movieSessions={movieSessions} setErrorMsg={setErrorMsg} setMovieSessions={setMovieSessions} index={i} />)}
-                <input type="submit" value="valider" />
+                <input className="backofficeFormBtn" type="submit" value="valider" />
             </form>
         </>
     );

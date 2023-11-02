@@ -1,8 +1,144 @@
-.backOfficeMain{
-    grid-row: 2/3;
-    margin-top: 15px;
-}
+/***********************************************************************************************************************************
+                                                        BACKOFFICE
+***********************************************************************************************************************************/
 
+/*************************************************** mangement navbar *************************************************************/
+#backOfficeNavBar{
+    grid-row: 1/2;
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #111;
+    border-bottom: #FFF 2px solid;
+    
+    .backOfficeNavBtn{
+        background-color: transparent;
+        border: none;
+        color: #FFF;
+        margin: 10px;
+        width: 30%;
+        flex: 1;
+    }
+    .backOfficeNavBtn:not(:last-child){
+        border-right: 2px solid #FFF;
+    }
+}
+/*************************************************** main content *************************************************************/
 #backOfficeContentWrapper{
         display: flex;
+        flex-direction: column;
     }
+
+.backOfficeMain{
+    grid-row: 2/3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 15px;
+    flex: 1;
+}
+/************************************************ data management selection **********************************************************/
+.actionSelectionForm{
+    display : flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding: 20px 10px;
+    text-align: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid #353fab;
+    
+    label{
+        text-align: center;
+    }
+}
+/***************************************************** data management ******************************************************************/
+.backofficeForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #353fab;
+    border-radius: 8px;
+    padding: 10%;
+    label {
+        margin-top: 20px;
+    }
+    input{
+        
+        &[type="text"], &[type="number"], &[type='date'] {
+            background-color: #FFFFFFCC;
+            border: none;
+            border-radius: 8px;
+            height: 1.8em;
+        }
+    }
+    .inputContainer, .searchInput{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    fieldset{
+        border: none;
+    }
+    
+}
+.backofficeFormBtn {
+        background: transparent;
+        border : 2px solid #FFF;
+        border-radius: 8px;
+        color: #CCC;
+        padding: 15px 25px;
+        &:hover{
+            font-weight: bold;
+            color: #FFF;
+            box-shadow: 0px 0px 10px #FFF;
+        }
+    }
+.addInputBtn{
+    width: 1.5em;
+    background-color: transparent;
+    border: 2px solid #FFF;
+    color: #CCC;
+    border-radius: 20%;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 5px;
+    font-weight: bold;
+    
+    &:hover{
+        box-shadow: 0px 0px 5px #FFF;
+    }
+}
+    
+@media screen AND (min-width: 1199px) {
+    #backOfficeNavBar {
+        grid-row: 2/3;
+        flex-direction: column;
+        justify-content: flex-start;
+        width : 200px;
+        height: 100%;
+        
+        .backOfficeNavBtn{
+            text-align: center;
+            width: 100%;
+            max-height: 40px;
+            margin: 10px 0;
+            border-bottom: 2px solid #FFF;
+        }
+        
+        .backOfficeNavBtn:not(:last-child){
+            border-right: none;
+        }
+    }
+    #backOfficeContentWrapper {
+        flex-direction: row;
+    }
+    
+/***************************************************** data management ******************************************************************/
+    .backofficeForm{
+        padding: 3%;
+        width: 90%;
+    }
+}

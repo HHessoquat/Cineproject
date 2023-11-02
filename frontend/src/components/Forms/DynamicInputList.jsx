@@ -4,6 +4,7 @@ function DynamicInputList({
     inputName,
     handleChangeArray,
     addInputBtn,
+    removeInputBtn
 }) {
     return (
         <>
@@ -17,9 +18,14 @@ function DynamicInputList({
                     onChange={(e) => handleChangeArray(e, i)}
                 />
             ))}
-            <button type="button" name={inputName} onClick={addInputBtn}>
-                +
-            </button>
+            <div>
+                <button className="addInputBtn" type="button" name={inputName} onClick={addInputBtn}>
+                    +
+                </button>
+                <button className="addInputBtn" type="button" name={inputName} onClick={removeInputBtn}>
+                    -
+                </button>
+            </div>
         </>
     );
 }

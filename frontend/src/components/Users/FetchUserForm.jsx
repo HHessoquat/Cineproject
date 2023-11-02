@@ -44,17 +44,18 @@ function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
     }
     return (
         <>
-            <form onSubmit={handleSubmit}>
+            <form className="backofficeForm" onSubmit={handleSubmit}>
                 <div className="inputContainer">
-                    <label>
-                        pseudo :
+                    <label className="searchInput">
+                        pseudo
                         <input type="text" id="pseudonyme" name="pseudo" value={userSeeked.named} onChange={(e) => handleChange(e, setUserSeeked, setErrorMsg)} />
                     </label>
                 </div>
 
-                <input type="submit" value="chercher" />
+                <input className="backofficeFormBtn" type="submit" value="chercher" />
+                <button className="backofficeFormBtn" type="button" onClick={getAll}> afficher tout les utilisateurs </button>
             </form>
-            <button type="button" onClick={getAll}> afficher tout les utilisateurs </button>
+            
             
             {noUser && <p>aucun utilisateur n'a été trouvé</p>}
             

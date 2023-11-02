@@ -63,17 +63,17 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
     console.log(allMovies)
     return (
         <>
-            <form onSubmit={(e) => handleSubmit(e, movieSeeked.title)}>
+            <form className="backofficeForm" onSubmit={(e) => handleSubmit(e, movieSeeked.title)}>
                 <div className="inputContainer">
-                    <label>
-                        title :
+                    <label className="searchInput">
+                        titre
                         <input type="text" id="title" name="title" value={movieSeeked.named} onChange={(e) => handleChange(e, setMovieSeeked, setErrorMsg)} />
                     </label>
                 </div>
 
-                <input type="submit" value="chercher" />
+                <input className="backofficeFormBtn" type="submit" value="chercher" />
+                <button className="backofficeFormBtn" type="button" onClick={getAll}> afficher tout les films </button>
             </form>
-            <button type="button" onClick={getAll}> afficher tout les films </button>
             
             {noMovie && <p>aucun film n'a été trouvé</p>}
             
@@ -92,7 +92,7 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
                             isInBackOffice={true}
                             handleDelete= {handleDelete}
                         />
-                    <button type="button" onClick={() => setUpdate(true)}>Modifier</button>
+                    <button className="backofficeFormBtn" type="button" onClick={() => setUpdate(true)}>Modifier</button>
                     
                 </>
             )
