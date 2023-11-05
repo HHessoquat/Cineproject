@@ -4,6 +4,7 @@ import { getAllUsers, getUserByPseudo} from '../../features/user/api.js';
 import PrintUserModal from './PrintUserModal.jsx';
 import PrintAllUsers from './PrintAllUsers.jsx';
 import { deleteUser } from '../../features/user/api.js';
+import { validateFetchUser } from '../../features/user/validateUserForm.js';
 
 function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
     const [userSeeked, setUserSeeked] = useState({
@@ -33,6 +34,13 @@ function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
         setNoUser(false);
         setAllUsers([]);
         e.preventDefault();
+        
+        const errors = validateFetchUser(userSeeked.pseudo);
+        if (errors.length > 0) {
+            console.log(errors)
+            setErrorMsg(errors);
+            return;
+        }
 
         const retrievedUser = await getUserByPseudo(userSeeked.pseudo);
         if (retrievedUser === null) {
@@ -42,8 +50,12 @@ function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
         
         setUser(retrievedUser[0]);
     }
+
     return (
         <>
+            {errorMsg && errorMsg.map((c, i) => {
+               return <p key={i}> {c} </p>
+            })}
             <form className="backofficeForm" onSubmit={handleSubmit}>
                 <div className="inputContainer">
                     <label className="searchInput">

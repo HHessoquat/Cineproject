@@ -4,6 +4,7 @@ import PrintAllMovies from './PrintAllMovies.jsx';
 import MovieCard from './MovieCard';
 import MovieManagerForm from './MovieManagerForm';
 import { fetchMoviesData, deleteMovie, getMovieByTitle } from '../../features/moviesManagement/api.js';
+import { validateSearchForm } from '../../features/moviesManagement/validateMovieForm.js';
 import { fetchSession } from '../../features/movieSession/api.js';
 
 function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
@@ -58,6 +59,12 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
         setNoMovie(false);
         setAllMovies([]);
         
+        const errors = validateSearchForm(title);
+        if (errors.length > 0) {
+            setErrorMsg(errors);
+            return;
+        }
+        
         await getOne(e, title);   
     }
     console.log(allMovies)
@@ -76,8 +83,9 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
             </form>
             
             {noMovie && <p>aucun film n'a été trouvé</p>}
+            {errorMsg && errorMsg.map((c) => (<p>{c}</p>))}
             
-            {!noMovie && !movie.title && allMovies[0] 
+            {!noMovie && !errorMsg && !movie.title && allMovies[0] 
                 && <PrintAllMovies 
                         movies={allMovies}
                         getOne={getOne} 

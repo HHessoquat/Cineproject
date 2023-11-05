@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import handleChange from '../../utils/formsManagement/handleChange.js';
 import {AuthentificationContext} from '../../utils/context';
 import { login } from '../../features/user/api.js';
+import { validateLogin } from '../../features/user/validateUserForm.js';
 function LoginForm({closeModal}) {
     
     const [identifier, setIdentifier] = useState({
@@ -12,16 +13,30 @@ function LoginForm({closeModal}) {
     
     const {setIsLogged, setConnectedUser, setRole} = useContext(AuthentificationContext); 
     
+    
+    
     async function handleSubmit(e) {
         e.preventDefault();
+        
+        const errors = validateLogin(identifier);
+        
+        if (errors.length > 0) {
+            setErrorMsg(errors);
+            return;
+        }
+        
         const loginResult = await login(identifier);
+        
         if (loginResult.isLogged === true) {
             setErrorMsg([]);
             setIsLogged(true);
             setConnectedUser(loginResult.content.id);
             setRole(loginResult.content.role);
+            
             sessionStorage.setItem('isLogged', JSON.stringify(true));
-            sessionStorage.setItem('userId', loginResult.content);
+            sessionStorage.setItem('userId', loginResult.content.id);
+            sessionStorage.setItem('userRole', loginResult.content.role);
+            
 
             closeModal();
         }else if (loginResult.isLogged === null) {

@@ -1,4 +1,4 @@
-function validateForm(formData, update) {
+export function validateForm(formData, update) {
     let updateErrorMsg = [];
     console.log(formData)
     if (!formData.movieTitle) {
@@ -33,4 +33,9 @@ function validateForm(formData, update) {
     return updateErrorMsg;
 }
 
-export default validateForm;
+export function validateSearchForm(title) {
+    if (!title) {
+        return ["vous devez indiquer le nom d'un film"];
+    }
+    return [];
+}

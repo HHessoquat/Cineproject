@@ -1,6 +1,7 @@
 import {useState, useEffect } from 'react';
 import handleChange from '../../utils/formsManagement/handleChange.js';
 import { postUser, updateUser } from '../../features/user/api.js';
+import { validateSignIn } from '../../features/user/validateUserForm.js';
 
 function UserManagementForm ({update, id, currentUser, isInFrontOffice, closeModal}) {
     const [user, setUser] = useState({
@@ -21,6 +22,14 @@ function UserManagementForm ({update, id, currentUser, isInFrontOffice, closeMod
     
     function handleSubmit(e) {
         e.preventDefault();
+        
+        const errors = validateSignIn(user);
+        
+        if (errors.length > 0) {
+            setErrorMsg(errors);
+            return;
+        }
+        
         if (update) {
             updateUser(id, user);
             closeModal();
@@ -32,7 +41,7 @@ function UserManagementForm ({update, id, currentUser, isInFrontOffice, closeMod
     
     return(
         <form 
-            className="backOfficeForm"
+            className={isInFrontOffice ? "" : "backofficeForm"}
             onSubmit={handleSubmit}
 
         >

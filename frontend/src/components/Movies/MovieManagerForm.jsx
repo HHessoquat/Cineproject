@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import DynamicInputList from '../Forms/DynamicInputList';
-import validateForm from '../../features/moviesManagement/validateMovieForm.js';
+import { validateForm } from '../../features/moviesManagement/validateMovieForm.js';
 import { createMovie, updateMovie } from '../../features/moviesManagement/api.js';
 import { postSession, deleteSessions } from '../../features/movieSession/api.js';
 import handleChange from '../../utils/formsManagement/handleChange.js';
@@ -137,7 +137,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                         </ul>
                     </div>
                 )}
-                <fieldset>
+                <fieldset id="mainFieldSet">
                     <div className="inputContainer">
                         <label htmlFor="movieTitle">Titre</label>
                         <input
@@ -263,13 +263,17 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             onChange={handleFileChange}
                         />
                     </div>
-                    <label htmlFor="synopsis">synopsis</label>
-                    <textarea
-                        name="synopsis"
-                        required
-                        value={movieData.synopsis}
-                        onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
-                    />
+                    <div className="inputContainer">
+                        <label htmlFor="synopsis">synopsis</label>
+                        <textarea
+                            className="backofficeTextArea"
+                            name="synopsis"
+                            style={{minHeight: '6em'}}
+                            required
+                            value={movieData.synopsis}
+                            onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
+                        />
+                    </div>
                     <div className="inputContainer">
                         <label htmlFor="pg">public authorisé</label>
                         <input
@@ -291,29 +295,30 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                     </div>
                     <p className="inputContainer">
                         Mettre le site en ligne ?
-                       <label >
-                            <input
-                                type="radio"
-                                id="isOnline"
-                                name="isOnline"
-                                value={1}
-                                checked={movieData.isOnline == '1'}
-                                onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
-                            />
-                            Oui
-                        </label>
-                         <label htmlFor="isOnline">
-                              <input
-                                type="radio"
-                                id="isNotOnline"
-                                name="isOnline"
-                                value={0}
-                                checked={movieData.isOnline == '0'}
-                                onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
-                            />
-                            non
-                        </label>
-                        
+                        <div className="radioInputContainer">
+                            <label >
+                                <input
+                                    type="radio"
+                                    id="isOnline"
+                                    name="isOnline"
+                                    value={1}
+                                    checked={movieData.isOnline == '1'}
+                                    onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
+                                />
+                                Oui
+                            </label>
+                            <label htmlFor="isOnline">
+                                <input
+                                    type="radio"
+                                    id="isNotOnline"
+                                    name="isOnline"
+                                    value={0}
+                                    checked={movieData.isOnline == '0'}
+                                    onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
+                                />
+                                Non
+                            </label>
+                        </div>
                     </p>
                 </fieldset>
                 <button className="backofficeFormBtn" type="Button" onClick={addSession}>Ajouter une séance</button>
