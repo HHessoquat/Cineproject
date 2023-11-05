@@ -6,6 +6,7 @@ const { addOneMA } = require('../../repository/movie_actor/addOneMA.js');
 const { addOneMD } = require('../../repository/movie_director/addOneMD.js');
 
 exports.addMovie = async (req, res) => {
+    
     const movie = {
         ...req.body,
         posterUrl: `${req.protocol}://${req.get('host')}/images/${req.files.posterFile[0].filename}`,
@@ -13,11 +14,13 @@ exports.addMovie = async (req, res) => {
     };
     
     if (req.files.trailerFile) {
-        movie.coverImgUrl = `${req.protocol}://${req.get('host')}/images/${req.files.trailerFile[0].filename}`;
+        movie.trailerUrl = `${req.protocol}://${req.get('host')}/videos/${req.files.trailerFile[0].filename}`;
     }
     
     const movieId = v4();
-    
+    console.log('body', req.body);
+     console.log('files', req.files);
+      console.log('movie', movie);
     try{
         
         await insertMovie(movieId, movie);
