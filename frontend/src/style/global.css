@@ -155,18 +155,6 @@
 #movieDescription .movieSessionContainer .movieSessionInfo:not(:last-child) {
   margin-right: 20px;
 }
-#movieDescription .movieSessionContainer .multi-line-Button {
-  background: transparent;
-  color: white;
-  border: none;
-  resize: none;
-  text-align: center;
-  width: 100%;
-  cursor: pointer;
-}
-#movieDescription .movieSessionContainer .multi-line-Button:focus {
-  outline: none;
-}
 #movieDescription .movieSessionContainer .sessionTimeContainer {
   display: flex;
   justify-content: center;

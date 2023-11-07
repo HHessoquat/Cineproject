@@ -24,7 +24,8 @@ function DisplayMovie({movie, sessions}) {
             }, []);
 
     
-    function printTime(date){
+    function printTime(e, date){
+        e.preventDefault()
         if(showSessionTime === date){
             setShowSessionTime(null);
             return
@@ -111,8 +112,15 @@ function DisplayMovie({movie, sessions}) {
                                 return (
                                     <div className='movieSessionInfo' key={i}>
                                     
-                                        <button className={`movieSessionBtn ${c === showSessionTime ? "selected" : ''}` } onClick={() => printTime(c)}>
-                                            <textarea className="multi-line-Button" readOnly rows="3" value={c.replace(/ /g, '\n')} />
+                                        <button type="button" className={`movieSessionBtn ${c === showSessionTime ? "selected" : ''}` } onClick={(e) => printTime(e, c)}>
+                                            {c.split(' ').map((word, index) => (
+                                                <>
+                                                    <span key={-index}>
+                                                        {word}
+                                                    </span> 
+                                                    <br />
+                                                </>
+                                            ))} 
                                         </button>
                                     </div>
                                 )
