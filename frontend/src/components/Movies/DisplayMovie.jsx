@@ -45,7 +45,6 @@ function DisplayMovie({movie, sessions}) {
         setIsReservationOpen(!isReservationOpen);
     }
 
-
     return(
         <>
             {isReservationOpen && (
@@ -88,9 +87,9 @@ function DisplayMovie({movie, sessions}) {
                                 <li><span className="movieFeatureHeader">Date de sortie : </span><span className="movieFeature">{movie.releaseDate}</span></li>
                                 {movie.pg && <li><span className="movieFeatureHeader">public : </span><span className="movieFeature">{movie.pg}</span></li>}
                                 {movie.warning && 
-                                        <li>
-                                            <span className="movieFeatureHeader">avertissements : </span>
-                                            <span className="movieFeature">{movie.warning.replace(/,/g, ', ')}</span> 
+                                    <li>
+                                        <span className="movieFeatureHeader">avertissements : </span>
+                                        <span className="movieFeature">{movie.warning.replace(/,/g, ', ')}</span> 
                                     </li>
                                 }
                                 <li id="synopsis">{printSynopsis} <br/>
@@ -115,28 +114,30 @@ function DisplayMovie({movie, sessions}) {
                                         <button className={`movieSessionBtn ${c === showSessionTime ? "selected" : ''}` } onClick={() => printTime(c)}>
                                             <textarea className="multi-line-Button" readOnly rows="3" value={c.replace(/ /g, '\n')} />
                                         </button>
-                                        
-                                        {showSessionTime && ( 
-                                            <div className="sessionTimeContainer">
-                                                {sessions.map((c, i) => {
-                                                    if (c.date === showSessionTime) {
-                                                        return (
-                                                            <button 
-                                                            key={-2-i*5*3*11*43}
-                                                                className="movieSessionBtn sessionTime" 
-                                                                onClick={() => handleReservationClick(c.idRoom, c.seatMap)}
-                                                            >
-                                                                {c.time}
-                                                            </button>
-                                                        );
-                                                    }
-                                                })}
-                                            </div>
-                                        )}
                                     </div>
                                 )
                             })}
+                            
                         </div>
+                        {showSessionTime && ( 
+                            <div className="sessionTimeContainer">
+                                {sessions.map((c, i) => {
+                                    if (c.date === showSessionTime) {
+                                        
+                                        
+                                        return (
+                                            <button 
+                                            key={-2-i*5*3*11*43}
+                                                className="movieSessionBtn sessionTime" 
+                                                onClick={() => handleReservationClick(c.idRoom, c.seatMap)}
+                                            >
+                                                {c.time}
+                                            </button>
+                                        );
+                                    } else return '';
+                                })}
+                            </div>
+                        )}
                     </aside>
                     
                 </section>

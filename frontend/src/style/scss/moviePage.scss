@@ -142,23 +142,7 @@
         .movieSessionInfo:not(:last-child) {
             margin-right: 20px;
         }
-        .movieSessionBtn{
-            margin-bottom: 10px;
-            background: transparent;
-            border: #FFF solid 2px;
-            border-radius: 8px;
-            color: white;
-            transform: scale(1);
-            transition : transform 0.5s ease-out;
-        }
-        .movieSessionBtn:hover{
-            background-color: #6e6e6e;
-            transform: scale(1.1);
-        }
-        .movieSessionBtn.selected{
-            background-color: #444;
-            border: 2px solid #2070EE;
-        }
+        
         .multi-line-Button{
         background: transparent;
         color: white;
@@ -183,6 +167,36 @@
         .sessionTime:not(:last-child){
             margin-right: 10px;
         }
+    }
+    .movieSessionBtn{
+            margin-bottom: 10px;
+            background: transparent;
+            border: #FFF solid 2px;
+            border-radius: 8px;
+            color: white;
+            transform: scale(1);
+            transition : transform 0.5s ease-out;
+        }
+    .movieSessionBtn:hover{
+        background-color: #6e6e6e;
+        transform: scale(1.1);
+    }
+    .movieSessionBtn.selected{
+        background-color: #444;
+        border: 2px solid #2070EE;
+        transform: scale(1.1);
+    }
+    
+    .sessionTimeContainer{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    .sessionTime{
+        padding:8px;
+        font-weight:bold;
+        font-size: 1.2em;
     }
     .eventSessionContainer{
         display: flex;

@@ -155,23 +155,6 @@
 #movieDescription .movieSessionContainer .movieSessionInfo:not(:last-child) {
   margin-right: 20px;
 }
-#movieDescription .movieSessionContainer .movieSessionBtn {
-  margin-bottom: 10px;
-  background: transparent;
-  border: #FFF solid 2px;
-  border-radius: 8px;
-  color: white;
-  transform: scale(1);
-  transition: transform 0.5s ease-out;
-}
-#movieDescription .movieSessionContainer .movieSessionBtn:hover {
-  background-color: #6e6e6e;
-  transform: scale(1.1);
-}
-#movieDescription .movieSessionContainer .movieSessionBtn.selected {
-  background-color: #444;
-  border: 2px solid #2070EE;
-}
 #movieDescription .movieSessionContainer .multi-line-Button {
   background: transparent;
   color: white;
@@ -195,6 +178,35 @@
 }
 #movieDescription .movieSessionContainer .sessionTime:not(:last-child) {
   margin-right: 10px;
+}
+#movieDescription .movieSessionBtn {
+  margin-bottom: 10px;
+  background: transparent;
+  border: #FFF solid 2px;
+  border-radius: 8px;
+  color: white;
+  transform: scale(1);
+  transition: transform 0.5s ease-out;
+}
+#movieDescription .movieSessionBtn:hover {
+  background-color: #6e6e6e;
+  transform: scale(1.1);
+}
+#movieDescription .movieSessionBtn.selected {
+  background-color: #444;
+  border: 2px solid #2070EE;
+  transform: scale(1.1);
+}
+#movieDescription .sessionTimeContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+#movieDescription .sessionTime {
+  padding: 8px;
+  font-weight: bold;
+  font-size: 1.2em;
 }
 #movieDescription .eventSessionContainer {
   display: flex;
