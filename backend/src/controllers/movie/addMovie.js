@@ -18,9 +18,7 @@ exports.addMovie = async (req, res) => {
     }
     
     const movieId = v4();
-    console.log('body', req.body);
-     console.log('files', req.files);
-      console.log('movie', movie);
+
     try{
         
         await insertMovie(movieId, movie);

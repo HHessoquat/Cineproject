@@ -64,7 +64,25 @@ a:visited {
 button {
     cursor: pointer;
 }
-
+.modalContainer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0000008a; 
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.modal {
+    background-color: #000000;
+    max-height: 100 vh;
+    max-width: 80vw;
+    overflow: scroll;
+}
 @media screen AND (min-width: 1199px) {
     main{
         grid-row: 2/3;

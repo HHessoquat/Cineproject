@@ -49,7 +49,7 @@ function Events() {
     
     useEffect(()=>{
         getMovie()
-    }, []);
+    }, [event]);
 
     return(
         <main id="eventPageMain">

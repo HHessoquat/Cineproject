@@ -4,6 +4,7 @@ import { AuthentificationContext } from '../../utils/context';
 import { logout as logUserOut } from '../../features/user/api.js';
 import LoginForm from '../Forms/LoginForm.jsx';
 import SigninForm from '../Users/UserManagementForm.jsx';
+import ModalContainer from '../Modals/ModalContainer';
 
 function LogIn() {
     
@@ -32,11 +33,11 @@ function LogIn() {
                     />
                 </button>
                 {isLoginOpen && !isLogged &&  (
-                <div className="userConnectionForm">
-                    <LoginForm closeModal={() => setIsLoginOpen(false)} />
-                    <SigninForm closeModal={() => setIsLoginOpen(false)} isInFrontOffice={true} />
-                    <button type="button" onClick={() => setIsLoginOpen(false)} >Annuler</button>
-                </div>
+                    <ModalContainer close={() => setIsLoginOpen(false)}>
+                        <LoginForm closeModal={() => setIsLoginOpen(false)} />
+                        <SigninForm closeModal={() => setIsLoginOpen(false)} isInFrontOffice={true} />
+                        <button type="button" onClick={() => setIsLoginOpen(false)} >Annuler</button>
+                    </ModalContainer>
                 )}
                 {isLoginOpen && isLogged && (
                     <div className='navDropdownLinks' onBlur={() => setIsLoginOpen(false)}>

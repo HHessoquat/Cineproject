@@ -9,7 +9,6 @@ export const AuthentificationProvider = ({children}) => {
     useEffect(() => {
         
         if(sessionStorage.getItem('isLogged') && sessionStorage.getItem('userId') && sessionStorage.getItem('userRole') ) {
-            console.log('passe');
         setIsLogged(sessionStorage.getItem('isLogged'));
         setConnectedUser(sessionStorage.getItem('userId'));
         setRole(sessionStorage.getItem('userRole'));

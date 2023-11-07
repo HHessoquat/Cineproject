@@ -123,7 +123,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
             });
         }
     }
-    console.log(movieSessions);
+
     return (
         <>
             <form className="backofficeForm" encType="multipart/form-data" onSubmit={handleSubmit}>
@@ -321,9 +321,9 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                         </div>
                     </p>
                 </fieldset>
-                <button className="backofficeFormBtn" type="Button" onClick={addSession}>Ajouter une séance</button>
+                <button className="backofficeBtn backofficeFormBtn" type="Button" onClick={addSession}>Ajouter une séance</button>
                 {movieSessions.map((c, i) => <CreateSession key={i+99*222} update={update} movieSessions={movieSessions} setErrorMsg={setErrorMsg} setMovieSessions={setMovieSessions} index={i} />)}
-                <input className="backofficeFormBtn" type="submit" value="valider" />
+                <input className="backofficeBtn backofficeFormBtn" type="submit" value="valider" />
             </form>
         </>
     );

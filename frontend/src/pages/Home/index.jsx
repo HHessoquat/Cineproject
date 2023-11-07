@@ -36,7 +36,7 @@ function Home() {
     useEffect(() => {
         fetchMoviesAndFormatDate()
     }, []);
-    console.log(movies)
+
     return (
         <main>
         

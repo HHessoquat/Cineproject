@@ -1,11 +1,14 @@
+import { Link } from 'react-router-dom';
 import MovieCard from './MovieCard';
-function PrintAllMovies({movies, getOne}) {
+function PrintAllMovies({movies, getOne, handleDelete}) {
+
     return (
         <>
             {movies.map(movie => (
-                <article>
-                    <MovieCard key={movie.id} movie={movie} isInBackOffice={true} />
-                    <button type="button" onClick={(e) => getOne(e, movie.title)}>Détail</button>
+                <article key={movie.id}>
+                    <MovieCard  movie={movie} isInBackOffice={true} />
+                    <Link to={`/admin/movie/${movie.id}`} className="backofficeBtn">Détail</Link>
+                    <button className="backofficeBtn" type="button" onClick={() => handleDelete(movie.id)} >Supprimer</button>
                 </article>
                 ))}
 

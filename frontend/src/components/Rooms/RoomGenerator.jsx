@@ -135,7 +135,7 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
             setAction(0);
         }
     }
-    console.log(room)
+
     let verticalBlockIterator = 0;
     return (
         <>

@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
+
 function MovieCard({movie, isInBackOffice, handleDelete}) {
+    
     function content() {
         return (
             <>
@@ -17,7 +19,8 @@ function MovieCard({movie, isInBackOffice, handleDelete}) {
             <article className="movieCard">
                 {!isInBackOffice ? (
                     <Link to={`/film/${movie.id}`} style={{textDecoration: 'none'}}> 
-                        {content()}
+                        {content()
+                            }
                     </Link>)
                     : content()}
             </article>

@@ -1,6 +1,7 @@
 import { deleteRoom, fetchOneRoom } from '../../features/room/api.js';
 
 function PrintAllRooms({ fetchData, rooms, setRoomToUpdate }) {
+    
     async function getRoom(id) {
         const result = await fetchOneRoom(id);
         setRoomToUpdate(result);

@@ -156,15 +156,21 @@ export async  function createMovie(formData) {
         
     }
     
-export function deleteMovie(idMovie) {
-        fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`,{
+export async function deleteMovie(idMovie) {
+    try {
+         const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`,{
             method: 'DELETE',
             credentials: 'include',
             headers: {
                 accept: 'application/json',
             }
-            
-        }).then((response) => {
-            response.json()
-        }).then((data) => console.log(data.message));
+        });
+        const data = await response.json();
+        console.log(data.message);
+        if (data.content) {
+            return data.content;
+        }
+    }catch (err) {
+        console.log(err);
     }
+}

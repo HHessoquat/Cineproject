@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import createRoom from '../../features/room/createRoom.js';
 import { fetchOneRoom } from '../../features/room/api.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ModalContainer from '../Modals/ModalContainer';
 import Trailer from './Trailer';
 import RoomGenerator from '../Rooms/RoomGenerator';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -44,20 +45,15 @@ function DisplayMovie({movie, sessions}) {
         setIsReservationOpen(!isReservationOpen);
     }
 
-    console.log('sessions : ', sessions);
-    console.log('movie : ', movie)
 
     return(
         <>
             {isReservationOpen && (
-            <div className="modalContainer" >
-                <div className="reservationModal" onBlur={handleReservationClick}>
+                <ModalContainer close={handleReservationClick} >
                     <p className="reservationHeader"> Choisissez votre place </p>
                         <RoomGenerator roomSettings={room} isInFrontOffice={true} />
                         <button type="button" onClick={handleReservationClick} > annuler </button>
-                </div>
-                
-            </div>
+                </ModalContainer>        
             )}
             
              {showTrailer && (
