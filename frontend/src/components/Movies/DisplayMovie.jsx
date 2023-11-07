@@ -61,7 +61,7 @@ function DisplayMovie({movie, sessions}) {
                 </div>
             )}
             
-            <article id="movieDescription">
+            <div id="movieDescription">
             
                 <button id="trailerButton" type="button" onClick={() => setShowTrailer(true)}><FontAwesomeIcon icon={faPlay} style={{color: "#ffffff", fontSize: '6em'}} /></button>
                 <img
@@ -70,10 +70,10 @@ function DisplayMovie({movie, sessions}) {
                     alt={movie.coverImgAlt}
                 />
                 <section id="movie_info">
-                   
+                    
                     <div id="movieDetail">
                         <img className="moviePoster" src={movie.poster} alt={movie.posterAlt} />
-                        <section className="movieFeaturesContainer">
+                        <div className="movieFeaturesContainer">
                             <h2 id="moviePage_title">{movie.title}</h2>
                             <ul>
                                 
@@ -99,7 +99,7 @@ function DisplayMovie({movie, sessions}) {
                                     </button>
                                 }</li>
                             </ul>
-                        </section>
+                        </div>
                     </div>
                     
                     
@@ -141,7 +141,7 @@ function DisplayMovie({movie, sessions}) {
                     </aside>
                     
                 </section>
-            </article>
+            </div>
             
         </>
         )

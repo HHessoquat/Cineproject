@@ -1,26 +1,27 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import closeDropDown from '../../utils/dropdowns/close.js';
 
 function Events() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
-    function toggleDropdown() {
-        isDropdownOpen ? setIsDropdownOpen(false) : setIsDropdownOpen(true);
+    const eventMenu = useRef(null);
+    
+    function openDropdown() {
+        setIsDropdownOpen(true);
+        closeDropDown(eventMenu, () => setIsDropdownOpen(false));
     }
-    function handleBlur() {
-        setIsDropdownOpen(false);
-    }
+    
     return (
         <div className="navDropdown">
             <button
                 className="NavBarDropDownButton"
-                onClick={toggleDropdown}
+                onClick={openDropdown}
             >
                 <img className='navPicto' src="/img/picto/Event.png" alt="liens vers la page événement"/>
                 <span className="navText">Evénements</span>
             </button>
             {isDropdownOpen && (
-                <ul className="navDropdownLinks">
+                <ul ref={eventMenu} className="navDropdownLinks">
                     <li>
                         <Link to="/evenements/premiere">Avant-premières</Link>
                     </li>
