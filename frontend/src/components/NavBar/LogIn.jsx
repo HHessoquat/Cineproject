@@ -50,7 +50,7 @@ function LogIn() {
                     </ModalContainer>
                 )}
                 {isLoginOpen && isLogged && (
-                    <div ref={loggedMenu} className='navDropdownLinks' onBlur={() => setIsLoginOpen(false)}>
+                    <div ref={loggedMenu} className='navDropdownLinks loginDropdown' onBlur={() => setIsLoginOpen(false)}>
                         {(role === 'admin' || role === "moderator") && <Link to='/admin/home'>Espace administrateur</Link>}
                         <button type="button" onClick={logout}>Deconnexion</button>
                     </div>

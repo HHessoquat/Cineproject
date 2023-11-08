@@ -28,10 +28,12 @@
         margin: 4px;
         width : 100%;
         max-height: 50px;
+        
+        > li{
+            width: 10%;
+        }
     }
-    li{
-        width: 10%;
-    }
+    
     .navText{
         display: none;
     }
@@ -67,7 +69,6 @@
         .navDropdownLinks {
             position: absolute;
             bottom: 100%;
-            right: 10px;
             background-color: #eee;
             border-radius: 6px;
             box-shadow: 5px 5px 8px #000;
@@ -76,6 +77,9 @@
             a {
                 color: #101010;
             }
+        }
+        .loginDropdown{
+            right: 0;
         }
     }
 }
@@ -103,7 +107,7 @@
             }
             .navDropdownLinks {
                 bottom: auto;
-                top: 1em;
+                top: 110%;
             }
         }
     }

@@ -1,18 +1,22 @@
-import { useParams } from 'react-router-dom';
-import {useState, useEffect} from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import {useState, useEffect, useContext} from 'react';
+import { AuthentificationContext } from '../../utils/context';
 import DisplayMovie from '../../components/Movies/DisplayMovie';
-import { fetchMovieData } from '../../features/moviesManagement/api';
-import { fetchSession } from '../../features/movieSession/api';
 import MovieForm from '../../components/Movies/MovieManagerForm';
 import ModalContainer from '../../components/Modals/ModalContainer';
+import Unauthorized from '../Errors/Unauthorized';
+import Forbidden from '../Errors/Forbidden';
+import { fetchMovieData, deleteMovie } from '../../features/moviesManagement/api';
+import { fetchSession } from '../../features/movieSession/api';
 
 function MovieDetail() {
     const movieId= useParams().id;
-    
+    const {isLogged, role} = useContext(AuthentificationContext);
     const [movie, setMovie] = useState({});
     const [movieSessions, setMovieSessions] = useState([]);
     const [isUpdating, setIsUpdating] = useState(false);
     const [errorMsg, setErrorMsg] = useState([]);
+    const navigate = useNavigate();
     
     async function getMovieAndSessions() {
         const retrievedMovie = await fetchMovieData(movieId);
@@ -26,33 +30,52 @@ function MovieDetail() {
         const retrievedSessions = await fetchSession(movieId);
         setMovieSessions(retrievedSessions);
     }
+    
     useEffect(() => {
         getMovieAndSessions();
     }, [])
-    console.log(movie)
+
+
+    async function handleDelete() {
+        const hasError = await deleteMovie(movieId);
+        if (hasError) {
+            setErrorMsg(hasError);
+            return;
+        }
+        navigate("/admin/home")
+    }
+    
+    
     return(
-        <main className="backOfficeMain">
-            {errorMsg.length > 0 && errorMsg.map((c, i) => {
-                return (<p key={i}>{c}</p>);
-            })}
+        <>
+            {!isLogged && <Unauthorized />}
+            {isLogged && role !== "admin" && role !== "moderator" && <Forbidden />}
             
-            
-            {errorMsg.length === 0 && Object.keys(movie).length > 0 && (
-                <>
-                    <div className="managementBtnContainer">
-                        <button className="backofficeBtn" type="button" onClick={() => setIsUpdating(true)}>Modifier</button>
-                        <button className="backofficeBtn" type="button">Supprimer</button>
-                    </div>
-                    <DisplayMovie movie={movie} sessions={movieSessions} />
-                </>
-            )
-                
-            }
-            {isUpdating && (
-                <ModalContainer close={() => setIsUpdating(false)}>
-                        <MovieForm update={true} previousMovieData={movie} idMovie={movieId} previousSessionsData={movieSessions} />
-                </ModalContainer>)}
-        </main>
+            {(isLogged && (role === "admin" || role === "moderator")) && (
+                <main className="backOfficeMain">
+                    {errorMsg.length > 0 && errorMsg.map((c, i) => {
+                        return (<p key={i}>{c}</p>);
+                    })}
+                    
+                    
+                    {errorMsg.length === 0 && Object.keys(movie).length > 0 && (
+                        <>
+                            <div className="managementBtnContainer">
+                                <button className="backofficeBtn" type="button" onClick={() => setIsUpdating(true)}>Modifier</button>
+                                <button className="backofficeBtn" type="button" onClick={handleDelete}>Supprimer</button>
+                            </div>
+                            <DisplayMovie movie={movie} sessions={movieSessions} />
+                        </>
+                    )
+                        
+                    }
+                    {isUpdating && (
+                        <ModalContainer close={() => setIsUpdating(false)}>
+                                <MovieForm update={true} previousMovieData={movie} idMovie={movieId} previousSessionsData={movieSessions} />
+                        </ModalContainer>)}
+                </main>
+            )}
+        </>
         );
 }
 export default MovieDetail

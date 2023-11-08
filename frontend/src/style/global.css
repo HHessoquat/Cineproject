@@ -318,7 +318,7 @@
   width: 100%;
   max-height: 50px;
 }
-.navBarContainer li {
+.navBarContainer .navBar > li {
   width: 10%;
 }
 .navBarContainer .navText {
@@ -356,7 +356,6 @@
 .navBarContainer .navDropdown .navDropdownLinks {
   position: absolute;
   bottom: 100%;
-  right: 10px;
   background-color: #eee;
   border-radius: 6px;
   box-shadow: 5px 5px 8px #000;
@@ -365,6 +364,9 @@
 }
 .navBarContainer .navDropdown .navDropdownLinks a {
   color: #101010;
+}
+.navBarContainer .navDropdown .loginDropdown {
+  right: 0;
 }
 
 @media screen and (min-width: 1199px) {
@@ -389,7 +391,7 @@
   }
   .navBarContainer .navDropdown .navDropdownLinks {
     bottom: auto;
-    top: 1em;
+    top: 110%;
   }
 }
 .roomcontainer div span {

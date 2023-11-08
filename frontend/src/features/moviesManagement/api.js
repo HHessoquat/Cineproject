@@ -166,10 +166,12 @@ export async function deleteMovie(idMovie) {
             }
         });
         const data = await response.json();
+
         console.log(data.message);
         if (data.content) {
             return data.content;
         }
+        
     }catch (err) {
         console.log(err);
     }
