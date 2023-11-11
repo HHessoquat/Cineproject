@@ -6,7 +6,7 @@ import { postSession, deleteSessions } from '../../features/movieSession/api.js'
 import handleChange from '../../utils/formsManagement/handleChange.js';
 import CreateSession from '../Forms/addSessionForm.jsx';
 
-function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsData}) {
+function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsData, setAction}) {
     const [movieData, setmovieData] = useState({
         movieTitle: '',
         posterAlt: '',
@@ -20,7 +20,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
         trailerUrl: '',
         pg: '',
         warnings: [''],
-        isOnline: 0,
+        isOnline: '0',
     });
     const [movieSessions, setMovieSessions] = useState([]);
     const [errorMsg, setErrorMsg] = useState([]);
@@ -122,6 +122,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                 postSession(movieId, c);
             });
         }
+        setAction(0);
     }
 
     return (
@@ -132,7 +133,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                         <p>le ou les champs suivant ne sont pas valide(s) : </p>
                         <ul className="errorList">
                             {errorMsg.map((c, i) => {
-                                return <li key={(i * 965) / 36 + 5.25}>{c}</li>;
+                                return <li key={i}>{c}</li>;
                             })}
                         </ul>
                     </div>
@@ -141,6 +142,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                     <div className="inputContainer">
                         <label htmlFor="movieTitle">Titre</label>
                         <input
+                            id="movieTitle"
                             type="text"
                             name="movieTitle"
                             required
@@ -152,6 +154,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                     <div className="inputContainer">
                         <label htmlFor="posterFile">Télécharger une affiche</label>
                         <input
+                            id="posterFile"
                             type="file"
                             name="posterFile"
                             onChange={handleFileChange}
@@ -163,6 +166,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             Texte alternatif de l'affiche
                         </label>
                         <input
+                            id="posterAlt"
                             type="text"
                             name="posterAlt"
                             required
@@ -174,6 +178,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                     <div className="inputContainer">
                         <label htmlFor="coverImg">Télécharger une image de couverture</label>
                         <input
+                            id="coverImg"
                             type="file"
                             name="coverImgFile"
                             onChange={handleFileChange}
@@ -185,6 +190,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             Texte alternatif de l'image de couverture
                         </label>
                         <input
+                            id="coverImgAlt"
                             type="text"
                             name="coverImgAlt"
                             required={true}
@@ -195,6 +201,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                     <div className="inputContainer">
                         <label htmlFor="releaseDate">Date de sortie</label>
                         <input
+                            id="releaseDate"
                             type="date"
                             name="releaseDate"
                             value={movieData.releaseDate}
@@ -206,6 +213,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             Durée du film en minutes
                         </label>
                         <input
+                            id="movieLength"
                             type="number"
                             name="movieLength"
                             value={movieData.movieLength}
@@ -247,6 +255,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             lien vers la bande-annonce
                         </label>
                         <input
+                            id="trailerUrl"
                             type="text"
                             name="trailerUrl"
                             value={movieData.trailerUrl}
@@ -258,6 +267,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             Télécharger la bande-annonce
                         </label>
                         <input
+                            id="trailerFile"
                             type="file"
                             name="trailerFile"
                             onChange={handleFileChange}
@@ -266,6 +276,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                     <div className="inputContainer">
                         <label htmlFor="synopsis">synopsis</label>
                         <textarea
+                            id="synopsis"
                             className="backofficeTextArea"
                             name="synopsis"
                             style={{minHeight: '6em'}}
@@ -277,6 +288,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                     <div className="inputContainer">
                         <label htmlFor="pg">public authorisé</label>
                         <input
+                            id="pg"
                             type="text"
                             name="pg"
                             value={movieData.pg}
@@ -293,36 +305,37 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                             removeInputBtn= {removeInputBtn}
                         />
                     </div>
-                    <p className="inputContainer">
-                        Mettre le site en ligne ?
+                    <div className="inputContainer">
+                        <label>Mettre le site en ligne ?</label>
                         <div className="radioInputContainer">
-                            <label >
+                            <label htmlFor="isOnline">
                                 <input
+                                    id="isOnline"
                                     type="radio"
                                     id="isOnline"
                                     name="isOnline"
-                                    value={1}
+                                    value={'1'}
                                     checked={movieData.isOnline == '1'}
                                     onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
                                 />
                                 Oui
                             </label>
-                            <label htmlFor="isOnline">
+                            <label htmlFor="isNotOnline">
                                 <input
                                     type="radio"
                                     id="isNotOnline"
                                     name="isOnline"
-                                    value={0}
+                                    value={'0'}
                                     checked={movieData.isOnline == '0'}
                                     onChange={(e) => handleChange(e, setmovieData, setErrorMsg)}
                                 />
                                 Non
                             </label>
                         </div>
-                    </p>
+                    </div>
                 </fieldset>
                 <button className="backofficeBtn backofficeFormBtn" type="Button" onClick={addSession}>Ajouter une séance</button>
-                {movieSessions.map((c, i) => <CreateSession key={i+99*222} update={update} movieSessions={movieSessions} setErrorMsg={setErrorMsg} setMovieSessions={setMovieSessions} index={i} />)}
+                {movieSessions.map((c, i) => <CreateSession key={i} update={update} movieSessions={movieSessions} setErrorMsg={setErrorMsg} setMovieSessions={setMovieSessions} index={i} />)}
                 <input className="backofficeBtn backofficeFormBtn" type="submit" value="valider" />
             </form>
         </>

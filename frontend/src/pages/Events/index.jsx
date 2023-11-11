@@ -60,10 +60,9 @@ function Events() {
             
             <DisplayMovie movie={movie} sessions={allSessions} />
             
-            <section className="eventSessionSlider" >
-                <h3>La programation</h3>
-                <MovieSlider movieRow={allSessions} />
-            </section>
+            <div className="eventSessionSlider" >
+                <MovieSlider movieRow={allSessions} header={'La programmation'}/>
+            </div>
         </main>
     )
 }

@@ -11,6 +11,7 @@ function DynamicInputList({
             <label htmlFor={inputName}>{inputLabel}</label>
             {arrayOfDatas.map((c, i) => (
                 <input
+                    id={inputName}
                     key={i + inputLabel}
                     type="text"
                     name={inputName}

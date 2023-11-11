@@ -43,7 +43,7 @@ function MoviesManagement() {
                         movie={movie}
                         setMovie={setMovie}
                       />}
-      {action === 1 && <CreateMovieForm />}
+      {action === 1 && <CreateMovieForm setAction={setAction} />}
     </main>
   );
 }
