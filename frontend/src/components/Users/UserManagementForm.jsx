@@ -41,10 +41,11 @@ function UserManagementForm ({update, id, currentUser, isInFrontOffice, closeMod
     
     return(
         <form 
-            className={isInFrontOffice ? "" : "backofficeForm"}
+            className={isInFrontOffice ? "loginForm" : "backofficeForm"}
             onSubmit={handleSubmit}
 
         >
+        {isInFrontOffice && (<p className="loginHeader">Je n'ai pas de compte</p>)}
         {errorMsg.length > 0 && (
                     <div className="userMessageContainer">
                         <p>le ou les champs suivant ne sont pas valide(s) : </p>

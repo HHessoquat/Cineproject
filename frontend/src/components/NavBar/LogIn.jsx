@@ -5,7 +5,7 @@ import { logout as logUserOut } from '../../features/user/api';
 import LoginForm from '../Forms/LoginForm';
 import SigninForm from '../Users/UserManagementForm';
 import ModalContainer from '../Modals/ModalContainer';
-import closeDropDown from '../../utils/dropdowns/close';
+import closeDropDownOnBlur from '../../utils/dropdowns/close';
 
 function LogIn() {
     
@@ -24,8 +24,12 @@ function LogIn() {
     function openDropdown() {
         setIsLoginOpen(true);
         if (isLogged) {
-            closeDropDown(loggedMenu, () => setIsLoginOpen(false));
+            closeDropDownOnBlur(loggedMenu, () => setIsLoginOpen(false));
         }
+    }
+    
+    function closeMenu() {
+        setIsLoginOpen(false);
     }
     
     return (
@@ -43,15 +47,15 @@ function LogIn() {
                     />
                 </button>
                 {isLoginOpen && !isLogged &&  (
-                    <ModalContainer close={() => setIsLoginOpen(false)}>
+                    <ModalContainer close={() => setIsLoginOpen(false)} modalClass="loginComponent">
                         <LoginForm closeModal={() => setIsLoginOpen(false)} />
                         <SigninForm closeModal={() => setIsLoginOpen(false)} isInFrontOffice={true} />
-                        <button type="button" onClick={() => setIsLoginOpen(false)} >Annuler</button>
+                        <button type="button" className="closeLogin" onClick={() => setIsLoginOpen(false)} >X</button>
                     </ModalContainer>
                 )}
                 {isLoginOpen && isLogged && (
                     <div ref={loggedMenu} className='navDropdownLinks loginDropdown' onBlur={() => setIsLoginOpen(false)}>
-                        {(role === 'admin' || role === "moderator") && <Link to='/admin/home'>Espace administrateur</Link>}
+                        {(role === 'admin' || role === "moderator") && <Link to='/admin/home' onClick={closeMenu}>Espace administrateur</Link>}
                         <button type="button" onClick={logout}>Deconnexion</button>
                     </div>
                     )}

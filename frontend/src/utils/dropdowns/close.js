@@ -1,4 +1,4 @@
-function closeDropDown (ref, closeCallback) {
+function closeDropDownOnBlur (ref, closeCallback) {
     
     const closeDropDown = (e) => {
         if (ref.current && !ref.current.contains(e.target)) {
@@ -8,4 +8,4 @@ function closeDropDown (ref, closeCallback) {
     }
     document.addEventListener('mousedown',closeDropDown);
 }
-export default closeDropDown
+export default closeDropDownOnBlur

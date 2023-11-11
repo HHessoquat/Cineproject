@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import closeDropDown from '../../utils/dropdowns/close.js';
+import closeDropDownOnBlur from '../../utils/dropdowns/close.js';
 
 function Events() {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -8,7 +8,11 @@ function Events() {
     
     function openDropdown() {
         setIsDropdownOpen(true);
-        closeDropDown(eventMenu, () => setIsDropdownOpen(false));
+        closeDropDownOnBlur(eventMenu, () => setIsDropdownOpen(false));
+    }
+    
+    function closeMenu() {
+        setIsDropdownOpen(false);
     }
     
     return (
@@ -23,15 +27,15 @@ function Events() {
             {isDropdownOpen && (
                 <ul ref={eventMenu} className="navDropdownLinks">
                     <li>
-                        <Link to="/evenements/premiere">Avant-premières</Link>
+                        <Link to="/evenements/premiere" onClick={closeMenu}>Avant-premières</Link>
                     </li>
                     <li>
-                        <Link to="/evenements/friday">
+                        <Link to="/evenements/friday" onClick={closeMenu}>
                             Les vendredis cultes
                         </Link>
                     </li>
                     <li>
-                        <Link to="/evenements/wednesday">
+                        <Link to="/evenements/wednesday" onClick={closeMenu}>
                             Le mercredi des enfants
                         </Link>
                     </li>

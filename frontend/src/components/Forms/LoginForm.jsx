@@ -47,7 +47,7 @@ function LoginForm({closeModal}) {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="loginForm" onSubmit={handleSubmit}>
         {errorMsg && (
         <ul>
             {errorMsg.map((c,i) => {
@@ -60,6 +60,9 @@ function LoginForm({closeModal}) {
          </ul>
         )}
             <div className="inputContainer" >
+                <p class="loginHeader">
+                    J'ai déjà un compte
+                </p>
                 <label>
                 pseudo : 
                     <input
