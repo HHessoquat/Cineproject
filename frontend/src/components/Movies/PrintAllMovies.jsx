@@ -5,11 +5,14 @@ function PrintAllMovies({movies, getOne, handleDelete}) {
     return (
         <>
             {movies.map(movie => (
-                <article key={movie.id}>
+                <div key={movie.id}>
                     <MovieCard  movie={movie} isInBackOffice={true} />
-                    <Link to={`/admin/movie/${movie.id}`} className="backofficeBtn">Détail</Link>
-                    <button className="backofficeBtn" type="button" onClick={() => handleDelete(movie.id)} >Supprimer</button>
-                </article>
+                    
+                    <div className="managementBtnContainer">
+                        <Link to={`/admin/movie/${movie.id}`} className="backofficeBtn">Détail</Link>
+                        <button className="backofficeBtn" type="button" onClick={() => handleDelete(movie.id)} >Supprimer</button>
+                    </div>
+                </div>
                 ))}
 
         </>

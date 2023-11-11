@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import handleChange from '../../utils/formsManagement/handleChange.js';
 import PrintAllMovies from './PrintAllMovies.jsx';
 import MovieCard from './MovieCard';
@@ -104,8 +105,10 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
                             isInBackOffice={true}
                             handleDelete= {handleDelete}
                         />
-                    <button className="backofficeBtn" type="button" onClick={() => setUpdate(true)}>Modifier</button>
-                    
+                    <div className="managementBtnContainer">
+                        <button className="backofficeBtn" type="button" onClick={() => setUpdate(true)}>Modifier</button>
+                        <Link to={`/admin/movie/${movie.id}`} className="backofficeBtn">Détail</Link>
+                    </div>
                 </>
             )
                 

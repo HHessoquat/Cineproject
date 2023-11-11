@@ -26,7 +26,7 @@ function App() {
                             <Route path="/evenements/:event" element={<Events />} />
                             <Route path="/pratique" element={<Practical />} />
                             <Route path='/admin/home' element={<BackOfficeLanding />} />
-                            <Route path='admin/movie/:id' element={<MovieDetail />} />
+                            <Route path='/admin/movie/:id' element={<MovieDetail />} />
                             <Route path="/401" element={<Error401 />} /> 
                             <Route path="/403" element={<Error403 />} />
                             <Route path="*" element={<Error404 />} /> 
