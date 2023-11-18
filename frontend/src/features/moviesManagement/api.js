@@ -154,7 +154,7 @@ export async  function createMovie(formData) {
         console.log(`erreur lors de l'envoi du formulaire : `, err)
     }
         
-    }
+}
     
 export async function deleteMovie(idMovie) {
     try {

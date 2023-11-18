@@ -13,7 +13,7 @@ function formatSessionData(req, res, next) {
             throw new Error("l'heure n'est pas valide");
         }
         
-        if (!req.body.seatMap && !checkSeatMap(req.body.seatMap)) {
+        if (!req.body.seatMap && !checkSeatMap(req.body.seatMap, 'boolean')) {
             throw new Error('une salle doit être associée à la séance');
         } else {
             req.body.seatMap = JSON.stringify(req.body.seatMap);

@@ -4,7 +4,6 @@
 
 /*************************************************** mangement navbar *************************************************************/
 #backOfficeNavBar{
-    grid-row: 1/2;
     display: flex;
     justify-content: space-evenly;
     background-color: #111;
@@ -111,6 +110,18 @@
     }
     
 }
+/************************************************* backoffice buttons ***************************************************************/
+.managementBtnContainer{
+    display: flex;
+    flex-flow: row wrap ;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background-color : #0a0a0a9F;
+    margin: 0;
+}
+
 .backofficeBtn{
     background: transparent;
     border : 2px solid #FFF;
@@ -124,6 +135,10 @@
         color: #FFF;
         box-shadow: 0px 0px 10px #FFF;
     }
+}
+.smallBtn{
+    padding: 10px 5px;
+    font-size: 0.8em;
 }
 .backofficeFormBtn {
         margin-top: 13px;
@@ -145,20 +160,54 @@
     }
 }
 
-.managementBtnContainer{
-    display: flex;
-    flex-flow: row wrap ;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    background-color : #0a0a0a9F;
-    margin: 0;
-}
+/************************************************* room management ***************************************************************/
+.roomListItem {
+    margin: 10px 0;
+    padding: 10px;
+    border: 2px solid #353fab;
+    border-radius: 8px;
+    font-size: 1.2em;
     
+    .managementBtnContainer{
+        margin-top: 15px;
+    }
+}
+
+.roomForm{
+    margin-top: 20px;
+    
+    label{
+        display: flex;
+        gap: 10px;
+        font-weight: bold;
+    }
+    input{
+        border-radius: 8px;
+        &:focus{
+        }
+    }
+}
+
+.roomManagementBtnContainer{
+    display : flex;
+    flex-flow: row wrap;
+    width: 80%;
+}
+.roomManagementBtn{
+    width: 40%;
+    max-width: none;
+}
+
+.addSeatBtn{
+    background-color: transparent;
+    border: 2px solid #FFF;
+    border-radius: 6px;
+    color: #FFF;
+    margin: 0 2px;
+}
+
 @media screen AND (min-width: 1199px) {
     #backOfficeNavBar {
-        grid-row: 2/3;
         flex-direction: column;
         justify-content: flex-start;
         width : 200px;
@@ -178,11 +227,9 @@
     }
     #backOfficeContentWrapper {
         flex-direction: row;
-    }
-    
-    .backOfficeMain {
         grid-row: 2/3;
     }
+    
     
 /***************************************************** data management ******************************************************************/
     .backofficeForm{
@@ -196,4 +243,8 @@
             width: 50%;
         }
     }
+}
+/************************************************* room management ***************************************************************/
+.roomManagementBtnContainer{
+    width: 50%;
 }

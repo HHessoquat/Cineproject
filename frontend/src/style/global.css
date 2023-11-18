@@ -478,24 +478,37 @@
     order: 1;
   }
 }
+.roomcontainer {
+  margin: 10px 0;
+}
 .roomcontainer div span {
   display: flex;
 }
 .roomcontainer div div p {
   display: flex;
   flex-wrap: nowrap;
+  align-items: flex-start;
+  height: 100%;
   margin: 0;
 }
 .roomcontainer div div p span {
   display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
 }
 
-.roomMapSeat {
-  width: 14px;
-  height: 14px;
+.rowKey {
+  min-width: 1.2em;
+}
+
+.corridor {
+  width: 7%;
+  min-width: 14px;
 }
 
 .roomMap_btn {
+  width: 7%;
+  min-width: 14px;
   background-color: rgba(255, 255, 255, 0);
   border: none;
   margin: 0;
@@ -505,6 +518,14 @@
   cursor: pointer;
 }
 
+@media screen and (min-width: 1199px) {
+  .roomMap_btn {
+    width: 25px;
+  }
+  .corridor {
+    width: 25px;
+  }
+}
 .eventSliderWrapper {
   position: relative;
   overflow: hidden;
@@ -694,7 +715,6 @@
 ***********************************************************************************************************************************/
 /*************************************************** mangement navbar *************************************************************/
 #backOfficeNavBar {
-  grid-row: 1/2;
   display: flex;
   justify-content: space-evenly;
   background-color: #111;
@@ -796,6 +816,18 @@
   border-radius: 4px;
 }
 
+/************************************************* backoffice buttons ***************************************************************/
+.managementBtnContainer {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background-color: rgba(10, 10, 10, 0.6235294118);
+  margin: 0;
+}
+
 .backofficeBtn {
   background: transparent;
   border: 2px solid #FFF;
@@ -809,6 +841,11 @@
   font-weight: bold;
   color: #FFF;
   box-shadow: 0px 0px 10px #FFF;
+}
+
+.smallBtn {
+  padding: 10px 5px;
+  font-size: 0.8em;
 }
 
 .backofficeFormBtn {
@@ -831,20 +868,50 @@
   box-shadow: 0px 0px 5px #FFF;
 }
 
-.managementBtnContainer {
+/************************************************* room management ***************************************************************/
+.roomListItem {
+  margin: 10px 0;
+  padding: 10px;
+  border: 2px solid #353fab;
+  border-radius: 8px;
+  font-size: 1.2em;
+}
+.roomListItem .managementBtnContainer {
+  margin-top: 15px;
+}
+
+.roomForm {
+  margin-top: 20px;
+}
+.roomForm label {
+  display: flex;
+  gap: 10px;
+  font-weight: bold;
+}
+.roomForm input {
+  border-radius: 8px;
+}
+.roomManagementBtnContainer {
   display: flex;
   flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  background-color: rgba(10, 10, 10, 0.6235294118);
-  margin: 0;
+  width: 80%;
+}
+
+.roomManagementBtn {
+  width: 40%;
+  max-width: none;
+}
+
+.addSeatBtn {
+  background-color: transparent;
+  border: 2px solid #FFF;
+  border-radius: 6px;
+  color: #FFF;
+  margin: 0 2px;
 }
 
 @media screen and (min-width: 1199px) {
   #backOfficeNavBar {
-    grid-row: 2/3;
     flex-direction: column;
     justify-content: flex-start;
     width: 200px;
@@ -862,8 +929,6 @@
   }
   #backOfficeContentWrapper {
     flex-direction: row;
-  }
-  .backOfficeMain {
     grid-row: 2/3;
   }
   /***************************************************** data management ******************************************************************/
@@ -878,6 +943,11 @@
     width: 50%;
   }
 }
+/************************************************* room management ***************************************************************/
+.roomManagementBtnContainer {
+  width: 50%;
+}
+
 * {
   box-sizing: border-box;
 }

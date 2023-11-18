@@ -3,11 +3,11 @@ function formatData(req, res, next) {
     try {
 
         req.body.nbSeats = Number(req.body.nbSeats);
-    
+
         if (!req.body.name) {
             throw new Error('La salle doit avoir un nom');
         }
-        if (!req.body.nbSeats || isNaN(req.body.nbSeats) || !req.body.seatsDisplay || !checkSeatMap(req.body.seatsDisplay)) {
+        if (!req.body.nbSeats || isNaN(req.body.nbSeats) || !req.body.seatsDisplay || !checkSeatMap(req.body.seatsDisplay, 'number')) {
             throw new Error('La salle doit avoir des sièges');
         }else {
             req.body.seatsDisplay = JSON.stringify(req.body.seatsDisplay);

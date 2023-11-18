@@ -16,10 +16,13 @@ function PrintAllRooms({ fetchData, rooms, setRoomToUpdate }) {
             <ul>
                 {rooms.map((c,i) => {
                     return (
-                    <li key={i}>
-                        {c.name} : {c.nbSeats}
-                        <button type="button" onClick={() => getRoom(c.name)}>Modifier</button>
-                        <button type="button" onClick={() => deleteOneRoom(c.name)}>Supprimer</button>
+                    <li className="roomListItem" key={i}>
+                        salle {c.name} <br />
+                        capacité : {c.nbSeats} <br />
+                        <div className="managementBtnContainer">
+                            <button className="backofficeBtn" type="button" onClick={() => getRoom(c.name)}>Modifier</button>
+                            <button className="backofficeBtn" type="button" onClick={() => deleteOneRoom(c.name)}>Supprimer</button>
+                        </div>
                     </li>
                     );
                 })}

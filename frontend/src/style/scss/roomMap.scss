@@ -1,4 +1,5 @@
 .roomcontainer{
+    margin: 10px 0;
     div{ 
         span {
             display:flex; 
@@ -7,24 +8,47 @@
         div p{
             display: flex;
             flex-wrap: nowrap;
+            align-items: flex-start;
+            height: 100%;
             margin: 0;
+            
             span {
                 display: flex;
+                align-items: flex-start;
+                flex-wrap: nowrap;
+                
             }
         }
     }
 }
 
-.roomMapSeat{
-    width: 14px;
-    height: 14px;
+.rowKey{
+   min-width: 1.2em;
 }
+
+.corridor{
+    width: 7%;
+    min-width: 14px;
+}
+
 .roomMap_btn{
+    width: 7%;
+    min-width: 14px;
     background-color: #ffffff00;
     border: none;
+    
     margin: 0;
     padding: 0;
     &:hover {
         cursor: pointer;
+    }
+}
+@media screen AND (min-width: 1199px) {
+    .roomMap_btn{
+        width: 25px;
+    }
+    
+    .corridor{
+        width: 25px;
     }
 }

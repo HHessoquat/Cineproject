@@ -140,21 +140,21 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
     return (
         <>
             {!isInFrontOffice && (
-                <form onSubmit={(e) => e.preventDefault()}>
+                <form className="roomForm" onSubmit={(e) => e.preventDefault()}>
                     <label>
                         Nom de la salle : 
                         <input type="text" onChange={handleChange} value={roomName} />
                     </label>
                 </form>
             )}
-            {!isInFrontOffice && errorMsg && errorMsg.map((c,i)=> {return <p key={i-123*(-12)}>{c}</p>})}
+            {!isInFrontOffice && errorMsg && errorMsg.map((c,i)=> {return <p key={i}>{c}</p>})}
             {!isInFrontOffice &&(
-            <>
-                <button type="button" onClick={addBlockH}>ajouter un block horizontal</button>
-                <button type="button" onClick={addBlockV}>ajouter un block vertical</button>
-                <button type="button" onClick={deleteBlockH}>supprimer un block horizontal</button>
-                <button type="button" onClick={deleteBlockV}>supprimer un block vertical</button>
-            </>
+                <div className="managementBtnContainer backofficeFormBtn roomManagementBtnContainer">
+                    <button className="backofficeBtn smallBtn roomManagementBtn" type="button" onClick={addBlockH}>Ajouter un block <br/> horizontal</button>
+                    <button className="backofficeBtn smallBtn roomManagementBtn" type="button" onClick={addBlockV}>Ajouter un block <br/>  vertical</button>
+                    <button className="backofficeBtn smallBtn roomManagementBtn" type="button" onClick={deleteBlockH}>Supprimer un block <br/>  horizontal</button>
+                    <button className="backofficeBtn smallBtn roomManagementBtn" type="button" onClick={deleteBlockV}>Supprimer un block <br/>  vertical</button>
+                </div>
             )}
             <div className='roomcontainer'>
                 {room.seats.map((c, i) => {
@@ -177,7 +177,7 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                         } else if (current === false) {
                             seatElement = (
                                 <button
-                                    key={i + ' ' + index * 1000}
+                                    key={i+index}
                                     onClick={() => handleSeatClick(i, index)}
                                     className="roomMap_btn"
                                 >
@@ -190,7 +190,7 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                             );
                         } else {
                             seatElement = (
-                                <button key={i + ' ' + index * 100} 
+                                <button key={i+index} 
                                     className="roomMap_btn" 
                                     onClick={() => handleSeatClick(i, index)}
                                 >
@@ -213,18 +213,18 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                             
                             const addSeatsButton = (
                                 <>
-                                    <button type="button" onClick={() => addSeatInColumn(currentHBlock)}>+</button>
-                                    <button type="button" onClick={() => removeSeatInColumn(currentHBlock)}>-</button>
+                                    <button className="addSeatBtn" type="button" onClick={() => addSeatInColumn(currentHBlock)}>+</button>
+                                    <button className="addSeatBtn" type="button" onClick={() => removeSeatInColumn(currentHBlock)}>-</button>
                                 </>
                             )
                             const seatAndButton = (
-                                <span key={i + ' ' + index * 2}>
+                                <span key={i+index}>
                                     {seatElement}
                                     {!isInFrontOffice && addSeatsButton}
                                     <img
                                         src='/img/room/emptySeat.png'
                                         alt="corridor"
-                                        className="roomMapSeat"
+                                        className="roomMapSeat corridor"
                                     />
                                 </span>
                             )
@@ -239,47 +239,31 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                     const seatRow = (
                         <div>
                             <p>
-                                {alphabet[i]} {seatImage}
+                                <span className="rowKey">{alphabet[i]}</span> {seatImage}
                             </p>
                         </div>
                     );
 
-                            //if this is first row of a block, we add an empty image Before
-                    if (i === room.vCorridorIndex[verticalBlockIterator]) {
-                    
-                        
-                        const rowAndCorridor = (
-                            
-                            <div key={i}>
-                                <img
-                                    src='/img/room/emptySeat.png' 
-                                    alt="corridor"
-                                    className="roomMapSeat"
-                                />
-                                
-                                {seatRow}
-                                
-                                
-                            </div>
-                        );
-                        
-                        return rowAndCorridor;
-                    }
-                            //if this is the last row of a block, we add un button to add a row
-                    else if (i === room.vCorridorIndex[verticalBlockIterator] -1 ) {
+                            //if this is the last row of a block, we add button to add a row
+                    if (i === room.vCorridorIndex[verticalBlockIterator] -1 ) {
 
-                    const currentvBlockIndex = verticalBlockIterator;
-                    const addRowButtons =(
-                                <>
-                                    <button type="button" onClick={() => addRowInBlock(currentvBlockIndex)}>Ajouter une rangée</button>
-                                    <button type="button" onClick={() => removeRowInBlock(currentvBlockIndex)}>enlever une rangée</button>
-                                </>
+                        const currentvBlockIndex = verticalBlockIterator;
+                        const addRowButtons =(
+                                <div className="managementBtnContainer">
+                                    <button className="addSeatBtn" type="button" onClick={() => addRowInBlock(currentvBlockIndex)}>Ajouter une rangée</button>
+                                    <button className="addSeatBtn" type="button" onClick={() => removeRowInBlock(currentvBlockIndex)}>enlever une rangée</button>
+                                </div>
                                 )
                         const rowAndButton = (
                             
                             <div key={i} >
                                 {seatRow}
                                 {!isInFrontOffice && addRowButtons}
+                                <img
+                                    src='/img/room/emptySeat.png' 
+                                    alt="corridor"
+                                    className="roomMapSeat corridor"
+                                />
                             </div>
                         );
                         
@@ -292,7 +276,8 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                 })}
             </div>
             {!isInFrontOffice && 
-                <button 
+                <button
+                    className="backofficeBtn"
                     type="button" 
                     onClick={handleCreateClick}
                 > 
