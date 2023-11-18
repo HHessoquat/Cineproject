@@ -75,17 +75,21 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
     }
     function deleteBlockH() {
         const previousDisplay = [...room.seatsSetting[0]];
-        previousDisplay.pop();
-        room.seatsSetting[0] = previousDisplay;
-        setRoom(createRoom(room.seatsSetting));
-        setErrorMsg([]);
+        if (previousDisplay.length > 1 ) {
+            previousDisplay.pop();
+            room.seatsSetting[0] = previousDisplay;
+            setRoom(createRoom(room.seatsSetting));
+            setErrorMsg([]);
+        }
     }
     function deleteBlockV() {
         const previousDisplay = [...room.seatsSetting[1]];
-        previousDisplay.pop();
-        room.seatsSetting[1] = previousDisplay;
-        setRoom(createRoom(room.seatsSetting));
-        setErrorMsg([]);
+        if (previousDisplay.length > 1 ) {
+            previousDisplay.pop();
+            room.seatsSetting[1] = previousDisplay;
+            setRoom(createRoom(room.seatsSetting));
+            setErrorMsg([]);
+        }
     }
     
     function addSeatInColumn(blockIndex) {
@@ -97,9 +101,11 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
     
     function removeSeatInColumn(blockIndex) {
         const newNumberofRowInBlock = room.seatsSetting[0][blockIndex] - 1;
-        room.seatsSetting[0][blockIndex] = newNumberofRowInBlock;
-        setRoom(createRoom(room.seatsSetting));
-        setErrorMsg([]);
+        if (newNumberofRowInBlock > 0) {
+            room.seatsSetting[0][blockIndex] = newNumberofRowInBlock;
+            setRoom(createRoom(room.seatsSetting));
+            setErrorMsg([]);
+        }
     }
     
     function addRowInBlock(blockIndex) {
@@ -110,9 +116,11 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
     }
     function removeRowInBlock(blockIndex) {
         const newNumberofRowInBlock = room.seatsSetting[1][blockIndex] - 1;
-        room.seatsSetting[1][blockIndex] = newNumberofRowInBlock;
-        setRoom(createRoom(room.seatsSetting));
-        setErrorMsg([]);
+        if (newNumberofRowInBlock > 0) {
+            room.seatsSetting[1][blockIndex] = newNumberofRowInBlock;
+            setRoom(createRoom(room.seatsSetting));
+            setErrorMsg([]);
+        }
     }
     
 
