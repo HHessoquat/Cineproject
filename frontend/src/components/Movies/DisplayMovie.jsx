@@ -1,3 +1,4 @@
+import React from 'react';
 import {useState, useEffect} from 'react';
 import createRoom from '../../features/room/createRoom.js';
 import { fetchOneRoom } from '../../features/room/api.js';
@@ -114,12 +115,12 @@ function DisplayMovie({movie, sessions}) {
                                     
                                         <button type="button" className={`movieSessionBtn ${c === showSessionTime ? "selected" : ''}` } onClick={(e) => printTime(e, c)}>
                                             {c.split(' ').map((word, index) => (
-                                                <>
-                                                    <span key={-index}>
+                                                <React.Fragment key={index}>
+                                                    <span >
                                                         {word}
                                                     </span> 
                                                     <br />
-                                                </>
+                                                </React.Fragment>
                                             ))} 
                                         </button>
                                     </div>
@@ -131,11 +132,10 @@ function DisplayMovie({movie, sessions}) {
                             <div className="sessionTimeContainer">
                                 {sessions.map((c, i) => {
                                     if (c.date === showSessionTime) {
-                                        
-                                        
+
                                         return (
                                             <button 
-                                            key={-2-i*5*3*11*43}
+                                            key={i}
                                                 className="movieSessionBtn sessionTime" 
                                                 onClick={() => handleReservationClick(c.idRoom, c.seatMap)}
                                             >

@@ -38,6 +38,23 @@ exports.getOnlineMovies = async (req, res) => {
         const wednesdaySessions = moviesResult.filter((c) => c.event === "wednesday");
         const fridaySessions = moviesResult.filter((c) => c.event === 'friday');
         
+        premiereSessions.sort((a, b) => {
+            const dateA = a.sessions.split(', ')[0];
+            const dateB = b.sessions.split(', ')[0];
+            return new Date(dateA) - new Date(dateB);
+        })
+        wednesdaySessions.sort(function(a,b){
+            const dateA = a.sessions.split(', ')[0];
+            const dateB = b.sessions.split(', ')[0];
+            return new Date(dateA) - new Date(dateB);
+        });
+        fridaySessions.sort(function(a,b){
+            const dateA = a.sessions.split(', ')[0];
+            const dateB = b.sessions.split(', ')[0];
+            return new Date(dateA) - new Date(dateB);
+
+        });
+        
         const sortedMovie = {movieToCome, regularSessions, premiereSessions, wednesdaySessions, fridaySessions}
 
         res.status(200).json({ content: sortedMovie});

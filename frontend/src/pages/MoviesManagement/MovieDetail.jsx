@@ -14,7 +14,7 @@ function MovieDetail() {
     const {isLogged, role} = useContext(AuthentificationContext);
     const [movie, setMovie] = useState({});
     const [movieSessions, setMovieSessions] = useState([]);
-    const [isUpdating, setIsUpdating] = useState(false);
+    const [update, setUpdate] = useState(false);
     const [errorMsg, setErrorMsg] = useState([]);
     const navigate = useNavigate();
     
@@ -61,7 +61,7 @@ function MovieDetail() {
                     {errorMsg.length === 0 && Object.keys(movie).length > 0 && (
                         <>
                             <div className="managementBtnContainer">
-                                <button className="backofficeBtn" type="button" onClick={() => setIsUpdating(true)}>Modifier</button>
+                                <button className="backofficeBtn" type="button" onClick={() => setUpdate(true)}>Modifier</button>
                                 <button className="backofficeBtn" type="button" onClick={handleDelete}>Supprimer</button>
                             </div>
                             <DisplayMovie movie={movie} sessions={movieSessions} />
@@ -69,9 +69,14 @@ function MovieDetail() {
                     )
                         
                     }
-                    {isUpdating && (
-                        <ModalContainer close={() => setIsUpdating(false)}>
-                                <MovieForm update={true} previousMovieData={movie} idMovie={movieId} previousSessionsData={movieSessions} />
+                    {update && (
+                        <ModalContainer close={() => setUpdate(false)}>
+                                <MovieForm 
+                                    update={update}
+                                    setUpdate= {setUpdate}
+                                    previousMovieData={movie}
+                                    idMovie={movieId}
+                                    previousSessionsData={movieSessions} />
                         </ModalContainer>)}
                 </main>
             )}

@@ -6,7 +6,7 @@ import { postSession, deleteSessions } from '../../features/movieSession/api.js'
 import handleChange from '../../utils/formsManagement/handleChange.js';
 import CreateSession from '../Forms/addSessionForm.jsx';
 
-function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsData, setAction}) {
+function MovieManagerForm({update, setUpdate, previousMovieData, idMovie, previousSessionsData, setAction}) {
     const [movieData, setmovieData] = useState({
         movieTitle: '',
         posterAlt: '',
@@ -35,7 +35,6 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
                 synopsis: previousMovieData.synopsis,
                 trailerUrl: previousMovieData.trailer,
                 pg: previousMovieData.pg,
-                isOnline: previousMovieData.online,
                 posterUrl: previousMovieData.poster,
                 coverImgUrl: previousMovieData.coverImgUrl,
             };
@@ -43,6 +42,7 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
             formattedData.director = previousMovieData.directors.split(',');
             formattedData.categories = previousMovieData.category.split(',');
             formattedData.warnings = previousMovieData.warning.split(',');
+            formattedData.isOnline= previousMovieData.online.toString();
             
             const dateObj = new Date(previousMovieData.releaseDate);
             const formatDate = `${dateObj.getFullYear()}-${(dateObj.getMonth()+1).toString().padStart(2, "0")}-${dateObj.getDate().toString().padStart(2, "0")}`
@@ -121,6 +121,10 @@ function MovieManagerForm({update, previousMovieData, idMovie, previousSessionsD
             movieSessions.forEach((c) => {
                 postSession(movieId, c);
             });
+        }
+        if (update) {
+            setUpdate(false);
+            return;
         }
         setAction(0);
     }

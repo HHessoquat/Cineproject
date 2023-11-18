@@ -115,7 +115,13 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
             }
             {update && movie.title && (
             <ModalContainer close={() => setUpdate(false)} >
-                <MovieManagerForm update={update} previousMovieData={movie} idMovie={movie.id} previousSessionsData={sessionsData} />
+                <MovieManagerForm 
+                    update={update}
+                    setUpdate = {setUpdate}
+                    previousMovieData={movie} 
+                    idMovie={movie.id} 
+                    previousSessionsData={sessionsData} 
+                />
             </ModalContainer>
             )}
             
