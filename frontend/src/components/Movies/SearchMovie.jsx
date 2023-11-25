@@ -75,7 +75,7 @@ function SearchMovie({allMovies, setAllMovies, movie, setMovie}) {
 
     return (
         <>
-            <form className="backofficeForm" onSubmit={(e) => handleSubmit(e, movieSeeked.title)}>
+            <form className="backofficeForm searchForm" onSubmit={(e) => handleSubmit(e, movieSeeked.title)}>
                 <div className="inputContainer">
                     <label className="searchInput">
                         titre

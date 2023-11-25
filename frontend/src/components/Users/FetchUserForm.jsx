@@ -56,7 +56,7 @@ function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
             {errorMsg && errorMsg.map((c, i) => {
                return <p key={i}> {c} </p>
             })}
-            <form className="backofficeForm" onSubmit={handleSubmit}>
+            <form className="backofficeForm searchForm" onSubmit={handleSubmit}>
                 <div className="inputContainer">
                     <label className="searchInput">
                         pseudo
@@ -64,8 +64,8 @@ function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
                     </label>
                 </div>
 
-                <input className="backofficeFormBtn" type="submit" value="chercher" />
-                <button className="backofficeFormBtn" type="button" onClick={getAll}> afficher tout les utilisateurs </button>
+                <input className="backofficeBtn backofficeFormBtn" type="submit" value="chercher" />
+                <button className="backofficeBtn backofficeFormBtn" type="button" onClick={getAll}> afficher tout les utilisateurs </button>
             </form>
             
             

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import UserForm from './UserManagementForm.jsx';
+import ModalContainer from '../Modals/ModalContainer.jsx';
 
 function PrintAllUser({allUsers, setAllUsers, getAll, handleDelete}) {
     const [userUpdate, setUserUpdate] = useState('');
@@ -15,22 +16,29 @@ function PrintAllUser({allUsers, setAllUsers, getAll, handleDelete}) {
         <>
             {allUsers && allUsers.map((user, i) => {
                 return (
-                    <div key={i}>
-                        <p>
-                            {user.firstName} 
-                            <button onClick={() => handleUpdateButton(user.id)}>{userUpdate === user.id ? 'Annuler' : 'Modifier'}</button>
-                            <button type="button" onClick={() => handleDelete(user.id)} >Supprimer</button>
-                        </p>
+                    <>
+                        <div className="userContainer" key={i}>
+                            <p className="userNameText">
+                                {user.firstName} {user.name}
+                            </p>
+                                <div className="managementBtnContainer">
+                                    <button className="backofficeBtn" onClick={() => handleUpdateButton(user.id)}>{userUpdate === user.id ? 'Annuler' : 'Modifier'}</button>
+                                    <button className="backofficeBtn" type="button" onClick={() => handleDelete(user.id)} >Supprimer</button>
+                                </div>
+                        </div>
+                        
                         {user.id === userUpdate && 
-                            <UserForm 
-                                update={true} 
-                                id={user.id} 
-                                currentUser={user} 
-                                closeModal={() => setUserUpdate('')}
-                            />
+                            <ModalContainer close={() => setUserUpdate('')}>
+                                <UserForm 
+                                    update={true} 
+                                    id={user.id} 
+                                    currentUser={user} 
+                                />
+                            </ModalContainer>
                                 
                         }
-                    </div>
+                    </>
+                    
                     )
             })}
         </>)
