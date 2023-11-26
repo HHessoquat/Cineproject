@@ -34,11 +34,11 @@ function LogIn() {
     
     return (
         <>
-            <div className="navDropdown" >
+            <div className="navDropdown" role="button" aria-haspopup="true" aria-expanded={isLoginOpen ? 'true' : 'false'}>
                 <button
                     className="NavBarLoginButton"
                     onClick={openDropdown}
-                    
+                    aria-label="Connexion"
                 >
                     <img
                         id="userLogInPicto"
@@ -50,7 +50,7 @@ function LogIn() {
                     <ModalContainer close={() => setIsLoginOpen(false)} modalClass="loginComponent">
                         <LoginForm closeModal={() => setIsLoginOpen(false)} />
                         <SigninForm closeModal={() => setIsLoginOpen(false)} isInFrontOffice={true} />
-                        <button type="button" className="closeLogin" onClick={() => setIsLoginOpen(false)} >X</button>
+                        <button type="button" className="closeLogin" onClick={() => setIsLoginOpen(false)} aria-label="Fermer la fenêtre de connexion">X</button>
                     </ModalContainer>
                 )}
                 {isLoginOpen && isLogged && (

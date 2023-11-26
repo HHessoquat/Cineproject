@@ -43,7 +43,7 @@ function UserManagementForm ({update, id, currentUser, isInFrontOffice, closeMod
         <form 
             className={isInFrontOffice ? "loginForm" : "backofficeForm"}
             onSubmit={handleSubmit}
-
+            aria-label={`Formulaire de ${isInFrontOffice ? 'connexion' : 'gestion des utilisateurs'}`}
         >
         {isInFrontOffice && (<p className="loginHeader">Je n'ai pas de compte</p>)}
         {errorMsg.length > 0 && (

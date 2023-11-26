@@ -4,6 +4,7 @@ import { validateForm } from '../../features/moviesManagement/validateMovieForm.
 import { createMovie, updateMovie } from '../../features/moviesManagement/api.js';
 import { postSession, deleteSessions } from '../../features/movieSession/api.js';
 import handleChange from '../../utils/formsManagement/handleChange.js';
+import validateFileUpload from '../../utils/formsManagement/validateFileUpload.js';
 import CreateSession from '../Forms/addSessionForm.jsx';
 
 function MovieManagerForm({update, setUpdate, previousMovieData, idMovie, previousSessionsData, setAction}) {
@@ -90,9 +91,16 @@ function MovieManagerForm({update, setUpdate, previousMovieData, idMovie, previo
             return { ...prevmovieData, [name]: updatedValue };
         });
     }
-    const handleFileChange = (e) => {
-        const { name } = e.target;
+    function handleFileChange(e) {
+        
         const file = e.target.files[0];
+        const isFileCompliant = validateFileUpload(file, setErrorMsg);
+        console.log(isFileCompliant);
+        if (!isFileCompliant) {
+            return;
+        }
+        
+        const { name } = e.target;
         setmovieData((prevmovieData) => ({
             ...prevmovieData,
             [name]: file,

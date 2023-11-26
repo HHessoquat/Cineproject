@@ -47,15 +47,16 @@ function MovieSlider({movieRow, header}) {
   };
     
     return(
-        <section>
+        <section aria-label={header}>
             <h2>{header}</h2>
-                <div className='movieRow'>
+                <div className='movieRow' role="region" aria-live="polite">
                     <div className='movieSliderBtnContainer'>
                         {currentImage > 0 &&
                             <button 
                                 className={`movieSliderBtn sliderButtonLeft ${currentImage === 0 ? 'hiddenBtn' : ''} `}
                                 onClick={scrollLeft}
                                 disabled={currentImage === 0}
+                                aria-label="aller vers la gauche"
                             >
                                 &lt;
                                 </button>
@@ -65,6 +66,7 @@ function MovieSlider({movieRow, header}) {
                                 className={`movieSliderBtn sliderButtonRight ${isLastMovieOnScreen ? 'hiddenBtn' : ''}`}  
                                 onClick={scrollRight}
                                 disabled={isLastMovieOnScreen}
+                                aria-label="aller vers la droite"
                             >
                                 &gt;
             
@@ -72,10 +74,15 @@ function MovieSlider({movieRow, header}) {
                             
                     </div>
                     
-                    <div ref={movableContainerRef} className="movableContainer" style={{ transform: `translateX(-${currentImage * movieCardWidth}px)` }} >
+                    <div 
+                        ref={movableContainerRef} 
+                        className="movableContainer" 
+                        style={{ transform: `translateX(-${currentImage * movieCardWidth}px)` }}
+                        role="list"
+                    >
                         {movieRow.map((c, i) => {
                             return (
-                                <div key={i} className='movieInRow' ref={movieCardRef}>
+                                <div key={i} className='movieInRow' ref={movieCardRef} role="listitem">
                                     <MovieCard movie={c} />
                                 </div>
                             )

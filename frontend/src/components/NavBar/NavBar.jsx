@@ -4,10 +4,10 @@ import Events from './Events';
 
 function NavBar() {
     return (
-        <nav className="navBarContainer">
+        <nav className="navBarContainer" role="navigation" aria-label="Menu principal">
             <ul className="navBar">
                 <li>
-                    <Link to="/" id="homeLink">
+                    <Link to="/" id="homeLink" aria-label="Accueil">
                         <img className='logoPicto' src="/img/picto/logo_min_claire.png" alt='logo de cinéproject' />
                     </Link>
                 </li>
@@ -17,8 +17,8 @@ function NavBar() {
                 </li>
                 
                 <li>
-                    <Link to="/pratique" id="practicalLink">
-                    <img className='navPicto' src="/img/picto/Location.png" alt="Lien vers la page infos pratiques" />
+                    <Link to="/pratique" id="practicalLink" aria-label="Infos pratiques">
+                        <img className='navPicto' src="/img/picto/Location.png" alt="Lien vers la page infos pratiques" />
                         <span className="navText">Infos pratiques</span>
                     </Link>
                 </li>

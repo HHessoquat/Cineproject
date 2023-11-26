@@ -16,10 +16,11 @@ function Events() {
     }
     
     return (
-        <div className="navDropdown">
+        <div className="navDropdown" role="button" aria-haspopup="true" aria-expanded={isDropdownOpen ? 'true' : 'false'}>
             <button
                 className="NavBarDropDownButton"
                 onClick={openDropdown}
+                aria-label="Evénements"
             >
                 <img className='navPicto' src="/img/picto/Event.png" alt="liens vers la page événement"/>
                 <span className="navText">Evénements</span>

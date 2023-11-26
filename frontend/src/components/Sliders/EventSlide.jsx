@@ -5,9 +5,15 @@ function EventSlide({events, isActive, movie, activeSlide, setActiveSlide}) {
     function toggleSlide(index) {
         setActiveSlide(index);
     }
-
+    
     return(
-        <section  className={`eventSlide ${isActive ? 'activeSlide' : ''}`}>
+        <section  
+            className={`eventSlide ${isActive ? 'activeSlide' : ''}`} 
+            role="group" 
+            aria-roledescription="Événement"
+            aria-label={eventName}
+        >
+            
             <Link to={`/evenements/${movie.event}`} className='sliderEventLink'>
 
                 <figure>
@@ -31,14 +37,15 @@ function EventSlide({events, isActive, movie, activeSlide, setActiveSlide}) {
                     
                 </figure>
             </Link>
-            <div className='sliderBtn'>
+            <div className='sliderBtn' role="toolbar" aria-label="Navigation du slider">
                 {events.map((c, i) => {
                     return (
                         <button 
-                            key={i} 
+                            key={i}
                             type="button" 
                             className={`eventSliderBtn ${activeSlide === i ? 'active' : ''}`} 
                             onClick={() => toggleSlide(i)} 
+                            aria-label= {`slide ${i + 1}`}
                         > 
                         </button>
                     )}

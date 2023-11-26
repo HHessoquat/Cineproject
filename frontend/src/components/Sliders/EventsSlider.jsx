@@ -21,20 +21,8 @@ function EventsSlider({ movies }) {
         return () => clearInterval(interval);
       }, [activeSlide, events.length]);
 
-    function sliderAnimation() {
-
-        if (activeSlide === events.length -1) {
-            setActiveSlide(0);
-            return
-        } 
-        
-        setActiveSlide(activeSlide + 1);
-
-    }
-    // const intervalId = setInterval(sliderAnimation, 3000);
-    console.log(activeSlide);
     return(
-        <div className="eventsSlider">
+        <div className="eventsSlider" role="region" aria-label="Les prochains événements">
             
             {events.map((c, i)=> (
                 <EventSlide

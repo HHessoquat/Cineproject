@@ -47,7 +47,7 @@ function LoginForm({closeModal}) {
     }
 
     return (
-        <form className="loginForm" onSubmit={handleSubmit}>
+        <form className="loginForm" onSubmit={handleSubmit} aria-label="Formulaire de connexion">
         {errorMsg && (
         <ul>
             {errorMsg.map((c,i) => {
