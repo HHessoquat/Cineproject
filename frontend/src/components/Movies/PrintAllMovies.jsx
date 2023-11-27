@@ -3,7 +3,7 @@ import MovieCard from './MovieCard';
 function PrintAllMovies({movies, getOne, handleDelete}) {
 
     return (
-        <>
+        <div class="allMovieWrapper">
             {movies.map(movie => (
                 <div key={movie.id}>
                     <MovieCard  movie={movie} isInBackOffice={true} />
@@ -15,7 +15,7 @@ function PrintAllMovies({movies, getOne, handleDelete}) {
                 </div>
                 ))}
 
-        </>
+        </div>
         );
 }
 

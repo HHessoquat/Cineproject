@@ -8,9 +8,9 @@ export async function fetchMovieData(idMovie, setErrorMsg) {
                             accept: 'application/json'
                         }
                     })
-                    console.log(response)
+
                     if (!response.ok) {
-                        console.log('passe in :ok')
+
                         return {ok: false, message: response.message}
                     }
                     

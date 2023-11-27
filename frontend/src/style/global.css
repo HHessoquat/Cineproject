@@ -942,6 +942,9 @@
     flex-direction: row;
     grid-row: 2/3;
   }
+  .backOfficeMain .modal {
+    width: 70%;
+  }
   /************************************************ data management selection **********************************************************/
   .actionSelectionForm {
     width: 60%;
@@ -965,6 +968,13 @@
     width: 50%;
   }
 }
+/************************************************* movie management ***************************************************************/
+.allMovieWrapper {
+  display: flex;
+  gap: 15px;
+  flex-flow: row wrap;
+}
+
 * {
   box-sizing: border-box;
 }
