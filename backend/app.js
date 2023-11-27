@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const dotenv = require('dotenv');
-const session = require('express-session')
+const session = require('express-session');
 dotenv.config();
 
 const moviesRoutes = require('./src/routes/movie');
@@ -49,5 +49,6 @@ app.use('/api/movie', moviesRoutes);
 app.use('/api/room', roomsRoutes);
 app.use('/api/movieSession', movieSessionRoutes);
 app.use('/api/user', userRoutes);
+
 
 module.exports = app;

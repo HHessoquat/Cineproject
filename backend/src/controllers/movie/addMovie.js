@@ -47,7 +47,7 @@ exports.addMovie = async (req, res) => {
     }
     catch (err) {
         console.log(err);
-        res.status(500).json({message: 'server error'});
+        res.status(500).json({error: 'serverError', message: "Une erreur s'est produite côté server, veuillez réessayer plus tard"});
     }
     
 };

@@ -1,6 +1,6 @@
 export function validateForm(formData, update) {
     let updateErrorMsg = [];
-    console.log(formData)
+
     if (!formData.movieTitle) {
         updateErrorMsg.push(`Le titre du film est obligatoire`);
     }

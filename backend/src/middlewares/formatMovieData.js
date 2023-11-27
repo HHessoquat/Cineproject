@@ -1,12 +1,11 @@
 
 exports.validateAndFormatMovie = (req, res, next) => {
     try{
-        console.log('passe FormatMovie Data');
 
         req.body.movieLength = Number(req.body.movieLength);
 
     
-        console.log(req.body.releaseDate)
+
         if (!req.body.movieTitle) {
             throw new Error(`Le titre du film est obligatoire`);
         }
@@ -43,6 +42,6 @@ exports.validateAndFormatMovie = (req, res, next) => {
         next();
     }catch (error) {
         console.log(error);
-        res.status(400).json({error})
+        res.status(400).json({error: "invalid data", message: error.message});
     }
 }

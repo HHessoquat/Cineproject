@@ -92,15 +92,16 @@ function MovieManagerForm({update, setUpdate, previousMovieData, idMovie, previo
         });
     }
     function handleFileChange(e) {
-        
+        const { name } = e.target;
         const file = e.target.files[0];
-        const isFileCompliant = validateFileUpload(file, setErrorMsg);
-        console.log(isFileCompliant);
+        
+        
+        
+        const isFileCompliant = validateFileUpload(name, file, setErrorMsg);
         if (!isFileCompliant) {
             return;
         }
-        
-        const { name } = e.target;
+
         setmovieData((prevmovieData) => ({
             ...prevmovieData,
             [name]: file,
@@ -119,22 +120,25 @@ function MovieManagerForm({update, setUpdate, previousMovieData, idMovie, previo
         
         if (update) {
             await deleteSessions(idMovie);
-            updateMovie(movieData, idMovie);
+            updateMovie(movieData, idMovie, setErrorMsg);
+            
             movieSessions.forEach((c) => {
                 postSession(idMovie, c);
             });
-        }
-        else {
-            const movieId = await createMovie(movieData);
-            movieSessions.forEach((c) => {
-                postSession(movieId, c);
-            });
-        }
-        if (update) {
             setUpdate(false);
             return;
         }
-        setAction(0);
+
+        const movieId = await createMovie(movieData, setErrorMsg);
+        
+        movieSessions.forEach((c) => {
+            postSession(movieId, c);
+        });
+        
+        if (movieId) {
+            setAction(0);
+        }
+        
     }
 
     return (

@@ -67,6 +67,6 @@ exports.updateMovie = async (req, res, next) => {
         res.status(200).json({message: 'Movie up to date'});
     } catch (error) {
         console.log(error);
-        res.status(500).json({message : 'Server Error'});
+        res.status(500).json({error: 'serverError', message: "Une erreur s'est produite côté server, veuillez réessayer plus tard"});
     }
 };

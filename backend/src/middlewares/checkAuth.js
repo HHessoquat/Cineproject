@@ -8,7 +8,7 @@ exports.checkAuthentication = (req, res, next) => {
         return;
     }
     
-    res.status(401).json({message:'unauthorized request', content: ["Vous devez être connecté pour faire cette requête"]});
+    res.status(401).json({error:'unauthorized request', message: ["Vous devez être connecté pour faire cette requête"]});
     
 }
 
@@ -22,12 +22,12 @@ exports.checkAdmin = async (req, res, next) => {
             next();
             return;
         }else if (req.session.isLogged) {
-            res.status(403).json({message:'unauthorized request', content: ["Vous n'avez pas l'authorisation pour affectuer cette action"]});
+            res.status(403).json({error:'unauthorized request', message: "Vous n'avez pas l'authorisation pour affectuer cette action"});
             return;
         }
-        res.status(401).json({message:'unauthorized request', content: ["Vous ne pouvez pas effectuer cette action"]});
+        res.status(401).json({error:'unauthorized request', message: "Vous devez être connecté pour faire cette action"});
     }catch (err) {
-        res.status(500).json({message: 'server error', content: ["la requête n'a pas pu être menée à son terme"]});
+        res.status(500).json({error: 'server error', message: "la requête n'a pas pu être menée à son terme"});
     }
 }
 
@@ -41,11 +41,11 @@ exports.checkModerator = async (req, res, next) => {
             next();
             return;
         }else if (req.session.isLogged) {
-            res.status(401).json({message:'unauthorized request', content: ["Vous n'avez pas l'authorisation pour affectuer cette action"]});
+            res.status(401).json({error:'unauthorized request', message: "Vous n'avez pas l'authorisation pour affectuer cette action"});
             return;
         }
-        res.status(401).json({message:'unauthorized request', content: ["Vous ne pouvez pas effectuer cette action"]});
+        res.status(401).json({error:'unauthorized request', message: "Vous devez être connecté pour faire cette action"});
     }catch (err) {
-        res.status(500).json({message: 'server error', content: ["la requête n'a pas pu être menée à son terme"]});
+        res.status(500).json({error: 'server error', message: "la requête n'a pas pu être menée à son terme"});
     }
 }

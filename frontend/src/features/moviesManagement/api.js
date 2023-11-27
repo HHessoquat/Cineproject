@@ -1,4 +1,4 @@
-export async function fetchMovieData(idMovie) {
+export async function fetchMovieData(idMovie, setErrorMsg) {
                 try {
                  
                     const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`, {
@@ -8,10 +8,10 @@ export async function fetchMovieData(idMovie) {
                             accept: 'application/json'
                         }
                     })
-                    
+                    console.log(response)
                     if (!response.ok) {
-                        console.log(response);
-                        throw new Error('erreur lors de la récupération du film');
+                        console.log('passe in :ok')
+                        return {ok: false, message: response.message}
                     }
                     
                     const movieDatas = await response.json();
@@ -98,7 +98,8 @@ export async function fetchEventMovie(event) {
     }
 }
 
-export function updateMovie(formData, idMovie) {
+export async function updateMovie(formData, idMovie, setErrorMsg) {
+    try {
         const dataToSend = new FormData();
         for (const key in formData) {
             if (key !== 'releaseDate' && key !=='movieLength') {
@@ -109,7 +110,7 @@ export function updateMovie(formData, idMovie) {
         dataToSend.append('movieLength', Number(formData.movieLength));
         dataToSend.append('releaseDate', new Date(formData.releaseDate).toISOString().slice(0, 19).replace('T', ' '));
         
-        fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`,{
+        const response = await fetch(`http://jeremydequeant.ide.3wa.io:9000/api/movie/${idMovie}`,{
             method: 'PUT',
             credentials: 'include',
             headers: {
@@ -117,17 +118,21 @@ export function updateMovie(formData, idMovie) {
             },
             body: dataToSend
         })
-            .then((response) => response.json())
-            .then((data) =>
-                console.log("reponse de l'API : " + JSON.stringify(data))
-            )
-            .catch((error) =>
-                console.error(`erreur lors de l'envoi du formulaire : `, error)
-            );
+        
+        const data = await response.json();
+        console.log(data.message);
+        if (!response.ok) {
+            setErrorMsg([data.message])
+            return;
+        }
+        return data.movieId;
+    }catch (err) {
+        console.log(`erreur lors de l'envoi du formulaire : `, err)
     }
+}
     
     
-export async  function createMovie(formData) {
+export async  function createMovie(formData, setErrorMsg) {
     try {
         const dataToSend = new FormData();
         
@@ -140,16 +145,19 @@ export async  function createMovie(formData) {
         dataToSend.append('movieLength', Number(formData.movieLength));
         
         
-        const fetchResult = await fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
+        const response = await fetch('http://jeremydequeant.ide.3wa.io:9000/api/movie', {
             method: 'POST',
             credentials: 'include',
             body: dataToSend,
         })
-        
-        const response = await fetchResult.json();
-        console.log("reponse de l'API : " + response.message);
-        console.log(response)
-        return response.movieId;
+
+        const data = await response.json();
+        console.log(data.message);
+        if (!response.ok) {
+            setErrorMsg([data.message])
+            return;
+        }
+        return data.movieId;
     }catch (err) {
         console.log(`erreur lors de l'envoi du formulaire : `, err)
     }
