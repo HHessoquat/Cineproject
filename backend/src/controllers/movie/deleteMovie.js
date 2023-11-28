@@ -1,5 +1,6 @@
 const { removeMovie } = require('../../repository/movie/deleteMovie.js');
 const {retrieveOneMovie} = require('../../repository/movie/retrieveMovies.js');
+const path = require('path');
 const fs = require('fs');
 
 exports.deleteOneMovie = async (req, res, next) => {
@@ -11,11 +12,12 @@ exports.deleteOneMovie = async (req, res, next) => {
         
         fileToDelete.forEach((c) => {
 
-            const fileRepertoryIndex = c.lastIndexOf('/', c.lastIndexOf('/') - 1);
-            
-            if ( fileRepertoryIndex !== -1) {
-              const filePath = `../../../uploads/${c.substring(fileRepertoryIndex + 1)}`;
-              fs.unlink(filePath, (err) => {
+            const parsedUrl = new URL(c);
+            const pathname = parsedUrl.pathname;
+            const filePath = path.join(__dirname, '../../../uploads', pathname);
+            ;
+            console.log(filePath);
+            fs.unlink(filePath, (err) => {
                 if (err) {
                     console.log(err);
                     return;
@@ -23,11 +25,7 @@ exports.deleteOneMovie = async (req, res, next) => {
                 console.log('file has been successfully deleted');
                 
             });
-            } else {
-              console.log("url to delete is not valid");
-              res.status(400).json({error: "path to file is corrupted", message: "le film n'a pas pu être supprimé"});
-              return;
-            }
+
             
         })
         
