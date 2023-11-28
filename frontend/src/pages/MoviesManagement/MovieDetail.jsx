@@ -6,8 +6,8 @@ import MovieForm from '../../components/Movies/MovieManagerForm';
 import ModalContainer from '../../components/Modals/ModalContainer';
 import Unauthorized from '../Errors/Unauthorized';
 import Forbidden from '../Errors/Forbidden';
-import { fetchMovieData, deleteMovie } from '../../features/moviesManagement/api';
-import { fetchSession } from '../../features/movieSession/api';
+import { deleteMovie } from '../../features/moviesManagement/api';
+import fetchData from '../../features/moviesManagement/fetchAndFormat.js';
 
 function MovieDetail() {
     const movieId= useParams().id;
@@ -18,21 +18,8 @@ function MovieDetail() {
     const [errorMsg, setErrorMsg] = useState([]);
     const navigate = useNavigate();
     
-    async function getMovieAndSessions() {
-        const retrievedMovie = await fetchMovieData(movieId);
-        if (!retrievedMovie) {
-            setErrorMsg(['aucun film ne correspond à la recherche']);
-            console.error('no movie');
-            return;
-        }
-        setMovie(retrievedMovie);
-        
-        const retrievedSessions = await fetchSession(movieId);
-        setMovieSessions(retrievedSessions);
-    }
-    
     useEffect(() => {
-        getMovieAndSessions();
+        fetchData(movieId, setMovie, setMovieSessions, setErrorMsg);
     }, [])
 
 

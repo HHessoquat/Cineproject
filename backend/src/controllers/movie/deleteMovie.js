@@ -15,8 +15,7 @@ exports.deleteOneMovie = async (req, res, next) => {
             const parsedUrl = new URL(c);
             const pathname = parsedUrl.pathname;
             const filePath = path.join(__dirname, '../../../uploads', pathname);
-            ;
-            console.log(filePath);
+
             fs.unlink(filePath, (err) => {
                 if (err) {
                     console.log(err);
