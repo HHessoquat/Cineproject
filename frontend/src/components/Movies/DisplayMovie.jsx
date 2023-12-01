@@ -3,10 +3,10 @@ import {useState, useEffect} from 'react';
 import createRoom from '../../features/room/createRoom.js';
 import { fetchOneRoom } from '../../features/room/api.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import ModalContainer from '../Modals/ModalContainer';
 import Trailer from './Trailer';
 import RoomGenerator from '../Rooms/RoomGenerator';
-import { faPlay } from '@fortawesome/free-solid-svg-icons';
 
 function DisplayMovie({movie, sessions}) {
     
@@ -66,11 +66,13 @@ function DisplayMovie({movie, sessions}) {
             <div id="movieDescription">
             
                 <button id="trailerButton" type="button" onClick={() => setShowTrailer(true)}><FontAwesomeIcon icon={faPlay} style={{color: "#ffffff", fontSize: '6em'}} /></button>
-                <img
-                    className="movieCover"
-                    src={movie.coverImgUrl}
-                    alt={movie.coverImgAlt}
-                />
+                <figure className="movieCoverContainer">
+                    <img
+                        className="movieCover"
+                        src={movie.coverImgUrl}
+                        alt={movie.coverImgAlt}
+                    />
+                </figure>
                 <section id="movie_info">
                     
                     <div id="movieDetail">

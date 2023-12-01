@@ -3,13 +3,28 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
-    padding-top: 20px;
-    padding-bottom: 54px;
     background: linear-gradient(
         to bottom,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0.6) 20%,
-        rgba(0, 0, 0, 0.7) 100%
+        #00000000 0%,
+        #353fab9C 20%,
+        #353fabFF  60%
     );
+    padding-top: 1em;
     
+    #socialsMedia{
+        ul {
+            display: flex;
+            gap: 15px;
+        }
+        
+    }
+}
+@media screen AND (min-width: 1199px) {
+    #mainFooter {
+        align-items: center;
+
+        ul{
+            margin: 0;
+        }
+    }
 }

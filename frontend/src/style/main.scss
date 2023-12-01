@@ -84,6 +84,9 @@ button {
     overflow: scroll;
 }
 @media screen AND (min-width: 1199px) {
+    #root {
+        grid-template-rows : 4em 1fr 60px;
+    }
     main{
         grid-row: 2/3;
     }

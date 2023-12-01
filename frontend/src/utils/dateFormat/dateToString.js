@@ -1,4 +1,7 @@
-function dateTostring(date) {
+export function dateToStringWDM(date) {
     return new Date(date).toLocaleString('fr-FR', {  weekday: 'long', month: 'long', day: 'numeric', });
 }
-export default dateTostring;
+
+export function dateToStringDMY(date) {
+    return new Date(date).toLocaleString('fr-FR', { month: 'long', day: 'numeric', year: 'numeric' });
+}

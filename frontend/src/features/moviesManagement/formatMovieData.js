@@ -1,8 +1,8 @@
-import dateToString from '../../utils/dateFormat/dateToString.js';
+import { dateToStringDMY } from '../../utils/dateFormat/dateToString.js';
 
 function formatMovieData(data) {
     const dataCopy = {...data}
-    const releaseDate = dateToString(data.releaseDate);
+    const releaseDate = dateToStringDMY(data.releaseDate);
     dataCopy.releaseDate= releaseDate;
     
     return dataCopy;

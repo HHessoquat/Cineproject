@@ -19,7 +19,7 @@
   text-decoration: none;
 }
 
-.movieCover {
+.movieCoverContainer {
   position: absolute;
   top: 0;
   left: 0;
@@ -27,7 +27,12 @@
   min-height: 40%;
   width: 100%;
   max-height: 70%;
+  margin: 0;
+  display: flex;
   mask-image: linear-gradient(to top, transparent 0, black 30%);
+}
+
+.movieCover {
   object-position: top;
 }
 
@@ -64,6 +69,7 @@
 #movieDescription {
   grid-row: 1/2;
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   background: rgba(10, 10, 10, 0.6235294118);
@@ -242,8 +248,14 @@
 }
 
 @media screen and (min-width: 1199px) {
+  .movieCoverContainer {
+    justify-content: flex-end;
+    height: 90%;
+    max-height: none;
+  }
   .movieCover {
-    max-height: 100%;
+    mask-image: linear-gradient(to right, transparent 0, black 30%);
+    width: 60%;
   }
   #eventPageMain, #movieDescription {
     flex-direction: row-reverse;
@@ -257,7 +269,7 @@
     display: flex;
     flex-direction: column;
     padding: 15px 0;
-    padding-top: 10%;
+    padding-top: 7%;
     width: 70%;
   }
   #eventPageMain #movie_info #movieDetail, #movieDescription #movie_info #movieDetail {
@@ -265,14 +277,18 @@
   }
   #eventPageMain #movie_info .moviePoster, #movieDescription #movie_info .moviePoster {
     display: block;
-    width: 30%;
+    width: 25%;
     height: auto;
   }
-  #eventPageMain #movie_info ul, #movieDescription #movie_info ul {
+  #eventPageMain #movie_info #moviePage_title, #movieDescription #movie_info #moviePage_title {
     margin-left: 10px;
+  }
+  #eventPageMain #movie_info ul, #movieDescription #movie_info ul {
+    margin-left: 20px;
   }
   #eventPageMain #movie_info li, #movieDescription #movie_info li {
     margin-bottom: 1.2em;
+    line-height: 1.2em;
   }
   #eventPageMain #movie_info .movieFeatureHeader, #movieDescription #movie_info .movieFeatureHeader {
     font-size: 1em;
@@ -700,11 +716,22 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
-  padding-top: 20px;
-  padding-bottom: 54px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.6) 20%, rgba(0, 0, 0, 0.7) 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(53, 63, 171, 0.6117647059) 20%, #353fab 60%);
+  padding-top: 1em;
+}
+#mainFooter #socialsMedia ul {
+  display: flex;
+  gap: 15px;
 }
 
+@media screen and (min-width: 1199px) {
+  #mainFooter {
+    align-items: center;
+  }
+  #mainFooter ul {
+    margin: 0;
+  }
+}
 /***********************************************************************************************************************************
                                                         BACKOFFICE
 ***********************************************************************************************************************************/
@@ -1056,6 +1083,9 @@ button {
 }
 
 @media screen and (min-width: 1199px) {
+  #root {
+    grid-template-rows: 4em 1fr 60px;
+  }
   main {
     grid-row: 2/3;
   }
