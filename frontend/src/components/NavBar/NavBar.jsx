@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Login from './LogIn';
 import Events from './Events';
+import Accessibility from './Accessibility';
 
 function NavBar() {
     return (
@@ -21,6 +22,10 @@ function NavBar() {
                         <img className='navPicto' src="/img/picto/Location.png" alt="Lien vers la page infos pratiques" />
                         <span className="navText">Infos pratiques</span>
                     </Link>
+                </li>
+                
+                <li>
+                    <Accessibility />
                 </li>
                 
                 <li>

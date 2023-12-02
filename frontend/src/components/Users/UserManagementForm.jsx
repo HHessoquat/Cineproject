@@ -98,7 +98,7 @@ function UserManagementForm ({update, id, currentUser, isInFrontOffice, closeMod
                 </select>
                 </div>
             )}
-        <input type="submit" value="Envoyer" />
+        <input className="backofficeBtn" type="submit" value="Envoyer" />
         </form>
         )
 }

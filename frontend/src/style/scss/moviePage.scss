@@ -138,8 +138,6 @@
         margin-top: 2em;
         
         .movieSessionInfo{
-            width: 24%;
-            max-width: 100px;
             display: flex;
             flex-flow: column nowrap;
             justify-content : center;
@@ -303,9 +301,7 @@
             #synopsis{
                 width: 100%;
             }
-            .showSynopsisButton {
-                width: 150px;
-            }
+
         }
         
     }

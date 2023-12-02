@@ -10,6 +10,7 @@
         #353fabFF  60%
     );
     padding-top: 1em;
+    padding-bottom: 8em;
     
     #socialsMedia{
         ul {
@@ -22,7 +23,7 @@
 @media screen AND (min-width: 1199px) {
     #mainFooter {
         align-items: center;
-
+        padding-bottom: 1em;
         ul{
             margin: 0;
         }

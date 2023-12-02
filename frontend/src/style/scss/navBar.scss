@@ -12,9 +12,23 @@
     justify-content: space-around;
     align-items: center;
     max-height: 4em;
+    
+    .navBar {
+        display: flex;
+        justify-content: space-around;
+        align-items: flex-start;
+        margin: 4px;
+        width : 100%;
+        max-height: 50px;
+        
+        > li{
+            width: 10%;
+        }
+    }
     li {
         display: flex;
         align-items: center;
+        margin-bottom: 1em;
     }
     a,
     .NavBarDropDownButton {
@@ -26,17 +40,7 @@
         border: none;
         padding: 0;
     }
-    .navBar {
-        display: flex;
-        justify-content: space-around;
-        margin: 4px;
-        width : 100%;
-        max-height: 50px;
-        
-        > li{
-            width: 10%;
-        }
-    }
+    
     
     .navText{
         display: none;
@@ -65,7 +69,7 @@
             background-color: #eee;
             border-radius: 6px;
             box-shadow: 5px 5px 8px #000;
-            width: 200px;
+
             padding: 20px;
             a {
                 color: #101010;
@@ -179,6 +183,13 @@
         grid-row: 1/2;
         position: static;
         padding: 1px 0;
+        .navBar{
+            align-items: center;
+            
+            li{
+                margin: 0;
+            }
+        }
         a,
         .NavBarDropDownButton {
             font-size: 1.2em;
@@ -187,13 +198,19 @@
         .navText{
             display: block;
         }
+        .logoPicto {
+            width: auto;
+            height : 3em;
+            max-height: none;
+        }
         .navPicto{
             display: none;
         }
         .navDropdown {
             #userLogInPicto {
-                width: 30px;
-                height: auto;
+                width: auto;
+                height: 3em;
+                max-height: none;
             }
             .navDropdownLinks {
                 bottom: auto;
