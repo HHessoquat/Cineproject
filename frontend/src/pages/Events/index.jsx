@@ -17,7 +17,7 @@ function Events() {
         }else if (event === 'friday') {
             return {header : 'Les Vendredi cultes', eventDescription: "Tous les vendredis, retrouvez les films qui ont fait l'histoire du cinéma"};
         }else if (event === 'premiere') {
-            return {header: 'avant-première', eventDescription: "Le CinéProject propose régulièrement des films en avant-première"};
+            return {header: 'Avant-première', eventDescription: "Le CinéProject propose régulièrement des films en avant-première"};
         } else {
             return null;
         }
@@ -53,13 +53,14 @@ function Events() {
 
     return(
         <main id="eventPageMain">
-            <section id="eventDescription" >
-                <h2>{pageContent.header}</h2>
-                <p>{pageContent.eventDescription}</p>
-            </section>
-            
-            <DisplayMovie movie={movie} sessions={allSessions} />
-            
+            <div id="eventContent">
+                <section id="eventDescription" >
+                    <h2>{pageContent.header}</h2>
+                    <p>{pageContent.eventDescription}</p>
+                </section>
+                
+                <DisplayMovie movie={movie} sessions={allSessions} />
+            </div>
             <div className="eventSessionSlider" >
                 <MovieSlider movieRow={allSessions} header={'La programmation'}/>
             </div>

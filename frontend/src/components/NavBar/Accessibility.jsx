@@ -33,11 +33,11 @@ function Accessibility() {
             <>
                 <label>
                     <input type="checkbox" id="dyslexia" checked={isDyslexiaOn} onChange={() => setIsDyslexiaOn(!isDyslexiaOn)} />
-                    <div className="button">mettre une Police adapté à la dyslexie</div>
+                    <div className={`enableDyslexia accessibilityBtn ${isDyslexiaOn ? 'checked' : ""}`}>mettre une Police adapté à la dyslexie</div>
                 </label>
                 <label>
                     <input type="checkbox" id="bigFont" checked={isBigFontOn} onChange={() => setIsBigFontOn(!isBigFontOn)} />
-                    <div className="button">Agrandir les textes</div>
+                    <div className={`enableBigFont accessibilityBtn ${isBigFontOn ? 'checked' : ""}`}>Agrandir les textes</div>
                 </label>
             </>
         )
@@ -55,7 +55,7 @@ function Accessibility() {
             </button>
             
             {
-                isAccessibilityOpen ? <Modal close={displayAccessibility}> {modalContent()} </Modal> : ""
+                isAccessibilityOpen ? <Modal close={displayAccessibility} modalClass="accessibilityOptions"> {modalContent()} </Modal> : ""
             }
         </>
     )
