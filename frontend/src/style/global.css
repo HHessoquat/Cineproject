@@ -36,6 +36,18 @@
   object-position: top;
 }
 
+main .reservationModal {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8117647059);
+  width: 80%;
+  max-width: 90vw;
+  padding: 20px;
+  border-radius: 5px;
+}
+
 .closeTrailerBtn {
   align-self: flex-end;
   font-family: Allura;
@@ -50,20 +62,6 @@
 
 #trailerLecter {
   max-width: 780px;
-}
-
-.reservationModal {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.8117647059);
-  width: 80%;
-  max-width: 90vw;
-  padding: 20px;
-  border-radius: 5px;
-  z-index: 6;
-  overflow: scroll;
 }
 
 #movieDescription {
@@ -396,6 +394,7 @@
   color: #fff;
   text-decoration: none;
   font-weight: bold;
+  font-size: 17px;
   background-color: transparent;
   border: none;
   padding: 0;
@@ -618,9 +617,6 @@
 .eventSlide {
   grid-area: 1/1/2/2;
   opacity: 0;
-  position: relative;
-  top: 0;
-  left: 0;
   overflow: hidden;
   max-width: 100%;
   padding-top: 56.25%;
@@ -1002,6 +998,14 @@
   margin: 0 2px;
 }
 
+/************************************************* movie management ***************************************************************/
+.allMovieWrapper {
+  display: flex;
+  gap: 15px;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
 /************************************************* user management ***************************************************************/
 .userContainer {
   margin: 8px 0;
@@ -1065,13 +1069,6 @@
     width: 50%;
   }
 }
-/************************************************* movie management ***************************************************************/
-.allMovieWrapper {
-  display: flex;
-  gap: 15px;
-  flex-flow: row wrap;
-}
-
 @font-face {
   font-family: "OpenDyslexic";
   src: url("./fonts/OpenDyslexic/OpenDyslexic-Regular.woff2") format("woff2"), url("./fonts/OpenDyslexic/OpenDyslexic-Regular.woff") format("woff"), url("./fonts/OpenDyslexic/OpenDyslexic-Regular.eot") format("embedded-opentype");
@@ -1183,9 +1180,11 @@ input, select, textarea {
 
 .modal {
   background-color: #000000;
-  max-height: 100vh;
   max-width: 80vw;
   overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 /**********************************************    accessibility   ********************************************/
@@ -1221,6 +1220,9 @@ input, select, textarea {
   }
   main {
     grid-row: 2/3;
+  }
+  .modalContainer {
+    padding-top: 5em;
   }
 }
 

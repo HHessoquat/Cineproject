@@ -27,7 +27,7 @@ function Accessibility() {
         }
         localStorage.setItem('isBigFontOn', JSON.stringify(isBigFontOn));
     }, [isBigFontOn]);
-    console.log(isBigFontOn);
+
     const modalContent = () => {
         return (
             <>

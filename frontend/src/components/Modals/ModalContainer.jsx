@@ -1,7 +1,7 @@
 function ModalContainer({close, modalClass, children}) {
     return(
       <div className="modalContainer" onClick={close}>
-        <div className={`modal ${modalClass}`} onClick={e => e.stopPropagation()} role="dialog" >
+        <div className={`modal ${modalClass ? modalClass : ""}`} onClick={e => e.stopPropagation()} role="dialog" >
             {children}
         </div>
       </div>  

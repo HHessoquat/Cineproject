@@ -50,7 +50,7 @@ function DisplayMovie({movie, sessions}) {
     return(
         <>
             {isReservationOpen && (
-                <ModalContainer close={handleReservationClick} >
+                <ModalContainer close={handleReservationClick} modalClass="reservationModal">
                     <p className="reservationHeader"> Choisissez votre place </p>
                         <RoomGenerator roomSettings={room} isInFrontOffice={true} />
                         <button type="button" onClick={handleReservationClick} > annuler </button>

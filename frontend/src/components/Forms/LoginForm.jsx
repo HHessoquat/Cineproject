@@ -60,7 +60,7 @@ function LoginForm({closeModal}) {
          </ul>
         )}
             <div className="inputContainer" >
-                <p class="loginHeader">
+                <p className="loginHeader">
                     J'ai déjà un compte
                 </p>
                 <label>

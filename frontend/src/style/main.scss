@@ -121,9 +121,11 @@ input, select, textarea{
 }
 .modal {
     background-color: #000000;
-    max-height: 100vh;
     max-width: 80vw;
     overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 /**********************************************    accessibility   ********************************************/
     .accessibilityOptions{
@@ -157,5 +159,8 @@ input, select, textarea{
     }
     main{
         grid-row: 2/3;
+    }
+    .modalContainer{
+        padding-top: 5em;
     }
 }

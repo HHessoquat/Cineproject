@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import ModalContainer from '../Modals/ModalContainer';
+import UpdateUser from './UserManagementForm';
+
 function PrintUserModal({user, handleDelete}) {
     const [updating, setUpdating] = useState(false);
     
@@ -6,15 +9,29 @@ function PrintUserModal({user, handleDelete}) {
         setUpdating(!updating);
     }
     return(
-        <div className='userModal'>
-            <p>Nom : {user.name}</p>
-            <p>Prénom : {user.firstName}</p>
-            <p>E-mail : {user.email}</p>
-            <p>pseudo : {user.pseudo}</p>
-            <p>statut: {user.role}</p>
-            <button onClick={toggleUpdate}>{updating ? 'Annuler' : 'Modifier'}</button>
-            <button type="button" onClick={() => handleDelete(user.id)} >Supprimer</button>
-        </div>
+        <>
+            <div>
+                <p>Nom : {user.name}</p>
+                <p>Prénom : {user.firstName}</p>
+                <p>E-mail : {user.email}</p>
+                <p>pseudo : {user.pseudo}</p>
+                <p>statut: {user.role}</p>
+                <div className="managementBtnContainer">
+                    <button className="backofficeBtn" onClick={toggleUpdate}>Modifier</button>
+                    <button className="backofficeBtn" type="button" onClick={() => handleDelete(user.id)} >Supprimer</button>
+                </div>
+            </div>
+            {updating ? <ModalContainer close={() => setUpdating(false)}>
+                            <UpdateUser 
+                                update={updating}
+                                id={user.id}
+                                currentUser={user} 
+                                closeModal={() => setUpdating(false)}
+                                isInFrontOffice= {false}
+                                />
+                           </ModalContainer> 
+                           : ""}
+        </>
         )
 }
 

@@ -15,7 +15,19 @@
         
         object-position: top;
     }
-
+main{
+    .reservationModal{
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        background-color: #000000cf; 
+        width: 80%; 
+        max-width: 90vw;
+        padding: 20px;
+        border-radius: 5px;
+    }
+}
 .closeTrailerBtn{
     align-self: flex-end;
     font-family: Allura;
@@ -31,19 +43,7 @@
     max-width: 780px;
 }
     
-.reservationModal{
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    background-color: #000000cf; 
-    width: 80%; 
-    max-width: 90vw;
-    padding: 20px;
-    border-radius: 5px;
-    z-index: 6;
-    overflow: scroll;
-}
+
 #movieDescription {
     grid-row: 1/2;
     display: flex;
