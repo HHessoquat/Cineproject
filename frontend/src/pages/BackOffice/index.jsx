@@ -10,7 +10,7 @@ import { getUserById } from '../../features/user/api.js';
 function BackOfficeLanding() {
     const [loadedPage, setLoadedPage] = useState(0);
     const [user, setUser] = useState(null);
-    const {isLogged, connectedUser} = useContext(AuthentificationContext);
+    const {isLogged, connectedUser, role} = useContext(AuthentificationContext);
     
     async function fetchUser() {
         const userFetched = await getUserById(connectedUser);
@@ -39,8 +39,8 @@ function BackOfficeLanding() {
                   )}
                 </nav>
                 {loadedPage === 0 && <MoviesManagement />}
-                {loadedPage === 1 && <RoomsManagement />}
-                {loadedPage === 2 && <UserManagement />}
+                {loadedPage === 1 && role === 'admin' && <RoomsManagement />}
+                {loadedPage === 2 && role === 'admin' &&  <UserManagement />}
             </div>
             )}
           </>

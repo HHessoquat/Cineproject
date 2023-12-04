@@ -7,22 +7,31 @@ import ModalContainer from '../../components/Modals/ModalContainer';
 import Unauthorized from '../Errors/Unauthorized';
 import Forbidden from '../Errors/Forbidden';
 import { deleteMovie } from '../../features/moviesManagement/api';
-import fetchData from '../../features/moviesManagement/fetchAndFormat.js';
+import { fetchOriginalAndFormatedData } from '../../features/moviesManagement/fetchAndFormat.js';
+
 
 function MovieDetail() {
     const movieId= useParams().id;
     const {isLogged, role} = useContext(AuthentificationContext);
     const [movie, setMovie] = useState({});
     const [movieSessions, setMovieSessions] = useState([]);
+    const [originalMovieData, setOriginalMovieData] = useState({});
+    const [originalSessionsData, setOriginalSessionsData] = useState([]);
     const [update, setUpdate] = useState(false);
     const [errorMsg, setErrorMsg] = useState([]);
     const navigate = useNavigate();
     
     useEffect(() => {
-        fetchData(movieId, setMovie, setMovieSessions, setErrorMsg);
-    }, [])
+        setData();
+    }, []);
 
-
+    async function setData() {
+        const data = await fetchOriginalAndFormatedData(movieId, setErrorMsg);
+        setMovie(data.movie);
+        setMovieSessions(data.sessions);
+        setOriginalMovieData(data.originalMovie);
+        setOriginalSessionsData(data.originalSessions);
+    }
     async function handleDelete() {
         const hasError = await deleteMovie(movieId);
         if (hasError) {
@@ -31,8 +40,7 @@ function MovieDetail() {
         }
         navigate("/admin/home")
     }
-    
-    
+    console.log(originalSessionsData);
     return(
         <>
             {!isLogged && <Unauthorized />}
@@ -61,9 +69,9 @@ function MovieDetail() {
                                 <MovieForm 
                                     update={update}
                                     setUpdate= {setUpdate}
-                                    previousMovieData={movie}
+                                    previousMovieData={originalMovieData}
                                     idMovie={movieId}
-                                    previousSessionsData={movieSessions} />
+                                    previousSessionsData={originalSessionsData} />
                         </ModalContainer>)}
                 </main>
             )}

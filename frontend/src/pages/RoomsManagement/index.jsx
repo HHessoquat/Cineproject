@@ -11,7 +11,6 @@ function RoomsManagement () {
     async function fetchData() {
             try {
                 const response = await fetchAllRooms()
-                console.log(response)
                 setRooms(response);
             }catch (err) {
                 console.log(err)

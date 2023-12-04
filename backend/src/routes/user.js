@@ -9,7 +9,7 @@ const deleteUser = require('../controllers/user/deleteUser.js');
 const { login, logout } = require("../controllers/user/logUser.js");
 const {checkAdmin} = require('../middlewares/checkAuth');
 
-router.get('/', getUsers.getAllUsers);
+router.get('/', checkAdmin, getUsers.getAllUsers);
 router.get('/byName/:pseudo', getUsers.getUserByPseudo);
 router.get('/byId/:id', getUsers.getUserById)
 router.post('/', escapeData, validateAndFormatData, addUser);

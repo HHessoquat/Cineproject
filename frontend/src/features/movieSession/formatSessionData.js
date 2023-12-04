@@ -10,5 +10,6 @@ function formatSessionData(allSessions){
         });
         return formatedData;
     }
+
     
 export default formatSessionData;

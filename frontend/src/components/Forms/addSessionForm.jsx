@@ -54,7 +54,7 @@ function AddSessionForm({update, movieSessions, setErrorMsg, setMovieSessions, i
     }
 
     return (
-            <fieldset>
+            <fieldset className="sessionFieldSet">
             <div className='inputContainer'>
                 <label>
                 Date : 
@@ -83,11 +83,12 @@ function AddSessionForm({update, movieSessions, setErrorMsg, setMovieSessions, i
                     <select 
                         name="event" id="eventInput" 
                         onChange={updateSession}
+                        value={session.event}
                     >
-                    <option value='' selected={session.idRoom === ''} >---</option>
-                    <option value='premiere' selected={session.event === 'premiere'} >Avant-première</option>
-                    <option value='wednesday' selected={session.event === 'wednesday'} >Le Mercredi des enfants</option>
-                    <option value='friday' selected={session.event === 'friday'} >Les Vendredis cultes</option>
+                    <option value=''>---</option>
+                    <option value='premiere'>Avant-première</option>
+                    <option value='wednesday'>Le Mercredi des enfants</option>
+                    <option value='friday'>Les Vendredis cultes</option>
 
                     </select>
                 </label>
@@ -98,16 +99,17 @@ function AddSessionForm({update, movieSessions, setErrorMsg, setMovieSessions, i
                     <select 
                         name="idRoom" id="idRoom" 
                         onChange={updateSession}
+                        value={session.idRoom}
                     >
                     {rooms.map((c, i) => {
-                        return (<option key={i + Number(c.name)} value={c.name} selected={session.idRoom === c.name} >{c.name}</option>)
+                        return (<option key={i + Number(c.name)} value={c.name}>{c.name}</option>)
                         
                     })}
                 
                     </select>
                 </label>
             </div>
-            <button type="button" onClick={removeSession}>supprimer</button>
+            <button className="backofficeBtn backofficeFormBtn" type="button" onClick={removeSession}>supprimer</button>
         </fieldset>
     
         )
