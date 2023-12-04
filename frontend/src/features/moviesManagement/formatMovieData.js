@@ -4,7 +4,6 @@ function formatMovieData(data) {
     const dataCopy = {...data}
     const releaseDate = dateToStringDMY(data.releaseDate);
     dataCopy.releaseDate= releaseDate;
-    
     return dataCopy;
 }
 export default formatMovieData;

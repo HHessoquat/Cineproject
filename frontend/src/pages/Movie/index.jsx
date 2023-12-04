@@ -10,13 +10,22 @@ function Movie() {
     const [sessions, setSessions] = useState([]);
     const [errorMsg, setErrorMsg] = useState([]);
     
-    useEffect(() => {
-            fetchData(idMovie, setMovie, setSessions, setErrorMsg);
-    }, []);
+    async function setData() {
+        const data = await fetchData(idMovie, setErrorMsg);
+        setMovie(data.movie);
+        setSessions(data.sessions);
+    }
     
+    useEffect(() => {
+            setData()
+    }, []);
+
     return (
         <main>
-            {errorMsg.length === 0 ? <DisplayMovie movie={movie} sessions={sessions} /> : (<p>{errorMsg[0]}</p>)}
+            {errorMsg.length === 0 ? 
+            <DisplayMovie movie={movie} sessions={sessions} /> 
+            : 
+            (<p>{errorMsg[0]}</p>)}
             
         </main>
     );

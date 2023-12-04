@@ -40,7 +40,7 @@ function MovieDetail() {
         }
         navigate("/admin/home")
     }
-    console.log(originalSessionsData);
+
     return(
         <>
             {!isLogged && <Unauthorized />}

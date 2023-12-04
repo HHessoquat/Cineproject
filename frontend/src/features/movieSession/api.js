@@ -42,6 +42,7 @@ export async function fetchSession(movieId) {
         });
         const retrievedSessions = await fetchResult.json();
         console.log(`Réponse de l'api :`, retrievedSessions.message);
+        
         return retrievedSessions.content;
     }catch (err) {
         console.log(err)
