@@ -2,24 +2,18 @@ import {useState, useRef, useEffect} from 'react';
 import MovieCard from '../Movies/MovieCard';
 function MovieSlider({movieRow, header}) {
     const [currentImage, setCurrentImage] = useState(0);
-    const [movableContainerWidth, setMovableContainerWidth] = useState(null);
     const [movieCardWidth, setMovieCardWidth] = useState(null);
     const movableContainerRef = useRef();
     const movieCardRef = useRef();
     const [isLastMovieOnScreen, setIsLastMovieOnScreen] = useState();
     
     useEffect(() => {
-        if (movableContainerRef.current) {
-            const movableContainerWidth = movableContainerRef.current.offsetWidth;
-            setMovableContainerWidth(movableContainerWidth);
-        }
-       
         if (movieCardRef.current){
             const movieCardWidth = movieCardRef.current.offsetWidth;
             setMovieCardWidth(movieCardWidth);
             checkLastMovieOnScreen(false)
         }
-    }, []);
+    }, [movieCardRef.current]);
     
     function checkLastMovieOnScreen(willMoveLeft) {
         if (movableContainerRef.current) {
@@ -45,7 +39,7 @@ function MovieSlider({movieRow, header}) {
       
     }
   };
-    
+
     return(
         <section aria-label={header}>
             <h2>{header}</h2>

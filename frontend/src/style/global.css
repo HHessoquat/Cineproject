@@ -361,7 +361,7 @@ main .reservationModal {
                                                     NavBar
 ******************************************************************************************************************/
 .navBarContainer {
-  z-index: 99;
+  z-index: 100;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -652,6 +652,7 @@ main .reservationModal {
 
 .activeSlide {
   opacity: 1;
+  z-index: 99;
 }
 
 .sliderBtn {

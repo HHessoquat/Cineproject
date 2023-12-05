@@ -50,7 +50,7 @@ function Events() {
     useEffect(()=>{
         getMovie()
     }, [event]);
-
+console.log(allSessions);
     return(
         <main id="eventPageMain">
             <div id="eventContent">

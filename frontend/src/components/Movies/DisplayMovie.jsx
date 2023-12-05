@@ -19,7 +19,7 @@ function DisplayMovie({movie, sessions}) {
     
     const datesToPrint = sessions.reduce((acc, session) => {
               if (!acc.includes(session.date)) {
-                acc.push(session.date);
+                acc.push(`${session.title ? `${session.title.replace(/\s/g, '<-sp->')}  ` : ''}${session.date}`);
               }
               return acc;
             }, []);
@@ -115,11 +115,15 @@ function DisplayMovie({movie, sessions}) {
                                 return (
                                     <div className='movieSessionInfo' key={i}>
                                     
-                                        <button type="button" className={`movieSessionBtn ${c === showSessionTime ? "selected" : ''}` } onClick={(e) => printTime(e, c)}>
+                                        <button 
+                                            type="button" 
+                                            className={`movieSessionBtn ${c === showSessionTime ? "selected" : ''}` } 
+                                            onClick={(e) => printTime(e, c)}
+                                        >
                                             {c.split(' ').map((word, index) => (
                                                 <React.Fragment key={index}>
                                                     <span >
-                                                        {word}
+                                                        {word.replace(/<-sp->/g, ' ')}
                                                     </span> 
                                                     <br />
                                                 </React.Fragment>
