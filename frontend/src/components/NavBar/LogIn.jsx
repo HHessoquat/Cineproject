@@ -34,8 +34,10 @@ function LogIn() {
     
     return (
         <>
-            <div className="navDropdown" role="button" aria-haspopup="true" aria-expanded={isLoginOpen ? 'true' : 'false'}>
+            <div className="navDropdown" >
                 <button
+                    aria-haspopup="true" 
+                    aria-expanded={isLoginOpen ? 'true' : 'false'}
                     className="NavBarLoginButton"
                     onClick={openDropdown}
                     aria-label="Connexion"

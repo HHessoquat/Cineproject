@@ -50,7 +50,7 @@ function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
         
         setUser(retrievedUser[0]);
     }
-
+    
     return (
         <>
             {errorMsg && errorMsg.map((c, i) => {
@@ -65,7 +65,7 @@ function FetchUser({setAllUsers, setUser, allUsers, user, setUpdate}) {
                 </div>
 
                 <input className="backofficeBtn backofficeFormBtn" type="submit" value="chercher" />
-                <button className="backofficeBtn backofficeFormBtn" type="button" onClick={getAll}> afficher tout les utilisateurs </button>
+                <button className="backofficeBtn backofficeFormBtn" type="button" onClick={getAll}> afficher tous les utilisateurs </button>
             </form>
             
             

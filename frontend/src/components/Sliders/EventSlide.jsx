@@ -18,10 +18,10 @@ function EventSlide({events, isActive, movie, activeSlide, setActiveSlide}) {
 
                 <figure>
                     
-                    <img id="eventSliderCover" src={movie.coverImgUrl} alt={movie.coverImgAlt} />
+                    <img className="eventSliderCover" src={movie.coverImgUrl} alt={movie.coverImgAlt} />
                     <figcaption >
                         <h2>{eventName}</h2>
-                        <h3 id="eventSliderTitle">
+                        <h3 className="eventSliderTitle">
                             {movie.title}
                         </h3>
                         <p>

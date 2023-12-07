@@ -8,12 +8,13 @@ const updateUser = require('../controllers/user/updateUser');
 const deleteUser = require('../controllers/user/deleteUser.js');
 const { login, logout } = require("../controllers/user/logUser.js");
 const {checkAdmin} = require('../middlewares/checkAuth');
+const checkUniqueUser = require('../middlewares/checkUniqueUsers.js');
 
 router.get('/', checkAdmin, getUsers.getAllUsers);
 router.get('/byName/:pseudo', getUsers.getUserByPseudo);
 router.get('/byId/:id', getUsers.getUserById)
-router.post('/', escapeData, validateAndFormatData, addUser);
-router.put('/:id', escapeData, validateAndFormatData, updateUser);
+router.post('/', checkUniqueUser.atCreation, escapeData, validateAndFormatData, addUser);
+router.put('/:id', checkUniqueUser.atUpdate, escapeData, validateAndFormatData, updateUser);
 router.delete('/:id', checkAdmin, deleteUser);
 router.post('/login', escapeData, login);
 router.get('/logout', logout);

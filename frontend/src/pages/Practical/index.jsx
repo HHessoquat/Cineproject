@@ -10,7 +10,7 @@ function Practical() {
                 
                 <p>Numéro de téléphone : 02 23 45 xx xx</p>
                 
-                <a class="mailToBtn" href="mailto:contact@xx-cineprojet-xx.fr">
+                <a className="mailToBtn backofficeBtn" href="mailto:contact@xx-cineprojet-xx.fr">
                     Contactez-nous par e-mail
                 </a>
         </main>

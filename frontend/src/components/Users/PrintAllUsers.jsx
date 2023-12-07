@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import UserForm from './UserManagementForm.jsx';
 import ModalContainer from '../Modals/ModalContainer.jsx';
@@ -16,8 +17,8 @@ function PrintAllUser({allUsers, setAllUsers, getAll, handleDelete}) {
         <>
             {allUsers && allUsers.map((user, i) => {
                 return (
-                    <>
-                        <div className="userContainer" key={i}>
+                    <React.Fragment key={i}>
+                        <div className="userContainer" >
                             <p className="userNameText">
                                 {user.firstName} {user.name}
                             </p>
@@ -32,12 +33,13 @@ function PrintAllUser({allUsers, setAllUsers, getAll, handleDelete}) {
                                 <UserForm 
                                     update={true} 
                                     id={user.id} 
-                                    currentUser={user} 
+                                    currentUser={user}
+                                    closeModal={() => setUserUpdate('')}
                                 />
                             </ModalContainer>
                                 
                         }
-                    </>
+                    </React.Fragment>
                     
                     )
             })}

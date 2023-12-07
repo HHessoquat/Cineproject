@@ -1,7 +1,8 @@
-function formatData(req, res, next) {
+async function formatData(req, res, next) {
     try {
-        console.log(req.body)
+        
         const mailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        
         if (!req.body.name) {
             throw new Error("l'utiliteur doit avoir un nom");
         }

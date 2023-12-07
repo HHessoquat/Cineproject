@@ -5,7 +5,7 @@ import Accessibility from './Accessibility';
 
 function NavBar() {
     return (
-        <nav className="navBarContainer" role="navigation" aria-label="Menu principal">
+        <nav className="navBarContainer" aria-label="Menu principal">
             <ul className="navBar">
                 <li>
                     <Link to="/" id="homeLink" aria-label="Accueil">

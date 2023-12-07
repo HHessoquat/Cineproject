@@ -19,7 +19,7 @@
         margin: 0;
     }
     
-    #eventSliderCover{
+    .eventSliderCover{
         grid-area:  1/1/3/2;
         width: 100%;
         height: 100%;
@@ -41,7 +41,7 @@
             );
         color: white;
         
-        #eventSliderTitle{
+        .eventSliderTitle{
             margin: 0;
             
         }
@@ -84,7 +84,6 @@
 @media screen AND (min-width: 1199px) {
     .eventsSlider{
         max-height: 80vh;
-        
         figcaption{
             grid-area: 1/1/3/2;
             justify-content: flex-start;

@@ -16,8 +16,10 @@ function Events() {
     }
     
     return (
-        <div className="navDropdown" role="button" aria-haspopup="true" aria-expanded={isDropdownOpen ? 'true' : 'false'}>
+        <div className="navDropdown" >
             <button
+                aria-haspopup="true"
+                aria-expanded={isDropdownOpen ? 'true' : 'false'}
                 className="NavBarDropDownButton"
                 onClick={openDropdown}
                 aria-label="Evénements"
