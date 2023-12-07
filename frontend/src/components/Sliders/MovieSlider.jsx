@@ -11,15 +11,20 @@ function MovieSlider({movieRow, header}) {
         if (movieCardRef.current){
             const movieCardWidth = movieCardRef.current.offsetWidth;
             setMovieCardWidth(movieCardWidth);
-            checkLastMovieOnScreen(false)
         }
     }, [movieCardRef.current]);
     
+    useEffect(()=> {
+        checkLastMovieOnScreen(false);
+    }, [])
+    
     function checkLastMovieOnScreen(willMoveLeft) {
         if (movableContainerRef.current) {
+            
             const containerRect = movieCardRef.current.getBoundingClientRect();
             const rightBorderPosition = containerRect.right;
             const nextRightBorderPosition = willMoveLeft ? rightBorderPosition + movieCardWidth : rightBorderPosition - movieCardWidth;
+
             setIsLastMovieOnScreen(nextRightBorderPosition <= window.innerWidth);
         }
     }
@@ -39,7 +44,7 @@ function MovieSlider({movieRow, header}) {
       
     }
   };
-
+console.log(isLastMovieOnScreen);
     return(
         <section aria-label={header}>
             <h2>{header}</h2>
