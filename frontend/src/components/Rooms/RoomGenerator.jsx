@@ -6,9 +6,9 @@ import { sendRoom } from '../../features/room/api.js';
 function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, fetchData, isInFrontOffice}) {
     const [room, setRoom] = useState(
                                 createRoom([
-                                    [2, 2, 2],
-                                    [2, 2, 2],
-                                    [0,0,0,0]
+                                    [2, 2, 2], //horizontal seat display, [2, 3] create rows as follows : two seats, a corridor, three seats
+                                    [2, 2, 2], //vertical seat display, [3, 4] create 3 seats rows, a corridor, 4 seat rows
+                                    [0,0,0,0] //coordinate of the entrance : [1,2,1,2] remove the two first seats of the two first rows
                                 ]));
     const [roomName, setRoomName] = useState('');
     const [errorMsg, setErrorMsg] = useState([]);
@@ -211,9 +211,6 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                             );
                         }
                         
-                        let seatAndCorridor;
-   
-                        
                                 //if the seat is the last, horizontally of the block, we add a button to add a seat
                         if (index === room.hCorridorIndex[blockSeatIterator] - 1){
                             
@@ -252,7 +249,7 @@ function RoomGenerator({update, name, roomSettings, setAction, setRoomToUpdate, 
                         </div>
                     );
 
-                            //if this is the last row of a block, we add button to add a row
+                            // if this is the last row of a block, we add button to add a row
                     if (i === room.vCorridorIndex[verticalBlockIterator] -1 ) {
 
                         const currentvBlockIndex = verticalBlockIterator;

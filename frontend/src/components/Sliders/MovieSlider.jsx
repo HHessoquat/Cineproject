@@ -3,7 +3,6 @@ import MovieCard from '../Movies/MovieCard';
 function MovieSlider({movieRow, header}) {
     const [currentImage, setCurrentImage] = useState(0);
     const [movieCardWidth, setMovieCardWidth] = useState(null);
-    const movableContainerRef = useRef();
     const movieCardRef = useRef();
     const [isLastMovieOnScreen, setIsLastMovieOnScreen] = useState();
     
@@ -19,8 +18,7 @@ function MovieSlider({movieRow, header}) {
     }, [])
     
     function checkLastMovieOnScreen(willMoveLeft) {
-        if (movableContainerRef.current) {
-            
+        if (movieCardRef.current) {
             const containerRect = movieCardRef.current.getBoundingClientRect();
             const rightBorderPosition = containerRect.right;
             const nextRightBorderPosition = willMoveLeft ? rightBorderPosition + movieCardWidth : rightBorderPosition - movieCardWidth;
@@ -73,8 +71,7 @@ console.log(isLastMovieOnScreen);
                             
                     </div>
                     
-                    <div 
-                        ref={movableContainerRef} 
+                    <div
                         className="movableContainer" 
                         style={{ transform: `translateX(-${currentImage * movieCardWidth}px)` }}
                         role="list"
