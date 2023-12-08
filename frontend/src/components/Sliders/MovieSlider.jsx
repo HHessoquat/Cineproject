@@ -32,7 +32,7 @@ function MovieSlider({movieRow, header}) {
         checkLastMovieOnScreen(true);
       setCurrentImage(currentImage - 1);
       
-    }
+    } 
   };
 
   function scrollRight() {
@@ -42,7 +42,7 @@ function MovieSlider({movieRow, header}) {
       
     }
   };
-console.log(isLastMovieOnScreen);
+
     return(
         <section aria-label={header}>
             <h2>{header}</h2>
