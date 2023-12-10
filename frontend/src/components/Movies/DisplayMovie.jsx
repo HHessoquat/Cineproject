@@ -27,11 +27,13 @@ function DisplayMovie({movie, sessions}) {
     
     function printTime(e, date){
         e.preventDefault()
-        if(showSessionTime === date){
+        const sessionsDate = date.split(' ').slice(-3).join(' ');
+
+        if(showSessionTime === sessionsDate){
             setShowSessionTime(null);
             return
         }
-        setShowSessionTime(date);
+        setShowSessionTime(sessionsDate);
     }
     
     async function handleReservationClick(id, seatsMap) {

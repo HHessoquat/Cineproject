@@ -16,6 +16,6 @@ router.get('/event/:event', getEventMovie);
 router.post('/', checkModerator, multer, escapeData, validateAndFormatMovie, addMovie);
 router.get('/:id', getOneMovie);
 router.put('/:id', checkModerator, multer, escapeData, validateAndFormatMovie,  updateMovie);
-router.delete('/:id', checkModerator, multer, deleteOneMovie);
+router.delete('/:id', checkModerator, deleteOneMovie);
 
 module.exports = router;

@@ -8,6 +8,11 @@ exports.deleteOneMovie = async (req, res, next) => {
         const { id } = req.params
         const movie = await retrieveOneMovie(id);
         
+        if (movie.length === 0) {
+            res.status(404).json({message: `No movie with ID : ${id}`});
+            return;
+        }
+        
         const fileToDelete = [movie[0].poster, movie[0].coverImgUrl, movie[0].trailer];
         
         fileToDelete.forEach((c) => {

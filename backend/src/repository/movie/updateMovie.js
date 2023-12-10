@@ -15,7 +15,7 @@ exports.updateMovie = (movie, id) => {
                 trailer = ?,
                 warning = ?,
                 category = ?
-                WHERE id = ?`,
+            WHERE id = ?`,
             [
                 movie.title,
                 movie.poster,
