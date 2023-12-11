@@ -19,7 +19,7 @@ function Movie() {
     useEffect(() => {
             setData()
     }, []);
-
+    
     return (
         <main>
             {errorMsg.length === 0 ? 

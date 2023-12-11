@@ -20,7 +20,6 @@ function Home() {
                     return movie;
                 }
                 return c;
-                
             });
         }
         

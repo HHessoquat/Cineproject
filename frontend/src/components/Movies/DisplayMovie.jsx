@@ -1,5 +1,5 @@
 import React from 'react';
-import {useState, useEffect} from 'react';
+import { useState } from 'react';
 import createRoom from '../../features/room/createRoom.js';
 import { fetchOneRoom } from '../../features/room/api.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

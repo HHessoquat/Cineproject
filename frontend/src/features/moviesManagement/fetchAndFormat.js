@@ -13,7 +13,7 @@ async function formatMovieAndSession(movie, sessions) {
 
 async function fetchAndFormat(idMovie, setErrorMsg) {
         const movieResult = await fetchMovieData(idMovie);
-        console.log(movieResult);
+        
             if ('ok' in movieResult && movieResult.ok === false) {
                 setErrorMsg(["Aucun film ne correspond à la recherche"]);
                 console.error("404 :","no movie")
