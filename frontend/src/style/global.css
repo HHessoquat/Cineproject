@@ -619,12 +619,13 @@ main .reservationModal {
   grid-area: 1/1/2/2;
   opacity: 0;
   overflow: hidden;
-  max-width: 100%;
+  height: 50vh;
   margin-bottom: 1rem;
   transition: opacity 1.5s ease-in-out;
 }
 .eventSlide figure {
   width: 100%;
+  height: 90%;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1.5fr 1fr;
@@ -637,7 +638,7 @@ main .reservationModal {
   object-fit: cover;
 }
 .eventSlide figcaption {
-  grid-area: 2/1/3/2;
+  grid-area: 1/1/3/2;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -662,7 +663,7 @@ main .reservationModal {
 .sliderBtn {
   display: flex;
   justify-content: center;
-  right: 16px;
+  right: 6em;
   z-index: 100;
 }
 
@@ -682,8 +683,11 @@ main .reservationModal {
 }
 
 @media screen and (min-width: 1199px) {
-  .eventsSlider {
-    max-height: 80vh;
+  .eventsSlider .eventSlide {
+    height: 80vh;
+  }
+  .eventsSlider figure {
+    height: 100%;
   }
   .eventsSlider figcaption {
     grid-area: 1/1/3/2;
@@ -714,7 +718,7 @@ main .reservationModal {
   z-index: 10;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 95%;
+  width: 90%;
   margin: 0 10px;
   height: 0;
 }
@@ -763,6 +767,11 @@ main .reservationModal {
   100% {
     opacity: 0;
     z-index: -10;
+  }
+}
+@media screen and (min-width: 1199px) {
+  .movieRow .movieSliderBtnContainer {
+    width: 95%;
   }
 }
 #mainFooter {

@@ -18,7 +18,7 @@
     z-index: 10;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 95%;
+    width: 90%;
     margin: 0 10px;
     height: 0;
   }
@@ -75,5 +75,13 @@
   100% {
     opacity: 0;
     z-index: -10;
+  }
+}
+
+@media screen AND (min-width: 1199px) {
+  .movieRow {
+    .movieSliderBtnContainer{
+      width: 95%;
+    }
   }
 }

@@ -2,17 +2,19 @@
     display: grid;
     grid-template-columns: 1fr; 
     grid-template-rows: 1fr;
+    
 }
 .eventSlide{
     grid-area: 1/1/2/2;
     opacity: 0;
     overflow: hidden;
-    max-width: 100%;
+    height: 50vh;
     margin-bottom: 1rem;
     transition: opacity 1.5s ease-in-out;
     
     figure{
         width: 100%;
+        height: 90%;
         display: grid;
         grid-template-columns: 1fr;
         grid-template-rows: 1.5fr 1fr;
@@ -26,7 +28,7 @@
         object-fit: cover;
     }
     figcaption{
-        grid-area: 2/1/3/2;
+        grid-area: 1/1/3/2;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -59,7 +61,7 @@
 .sliderBtn{
     display:flex;
     justify-content: center;
-    right: 16px;
+    right: 6em;
     z-index: 100;
 }
 
@@ -82,8 +84,14 @@
 
 
 @media screen AND (min-width: 1199px) {
+    
     .eventsSlider{
-        max-height: 80vh;
+        .eventSlide{
+            height: 80vh;
+        }
+        figure {
+            height: 100%;
+        }
         figcaption{
             grid-area: 1/1/3/2;
             justify-content: flex-start;
